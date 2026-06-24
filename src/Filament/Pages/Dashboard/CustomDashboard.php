@@ -2,17 +2,43 @@
 
 namespace Nexus\Filament\Pages\Dashboard;
 
+use BackedEnum;
+use Filament\Forms\Components\DatePicker;
 use Nexus\Filament\Components\Actions\ActionButton;
 use Filament\Pages\Dashboard as BaseDashboard;
 use Filament\Pages\Dashboard\Actions\FilterAction;
 use Filament\Pages\Dashboard\Concerns\HasFiltersAction;
 use Filament\Support\Icons\Heroicon;
-use Filament\Forms\Components\DatePicker;
 use Filament\Support\Enums\Size;
+use Illuminate\Contracts\Support\Htmlable;
+use Override;
 
 class CustomDashboard extends BaseDashboard
 {
     use HasFiltersAction;
+
+    /*
+    |--------------------------------------------------------------------------
+    | Core Configuration
+    |--------------------------------------------------------------------------
+    */
+
+    protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedSquares2x2;
+
+    protected static ?int $navigationSort = 0;
+
+    protected static ?string $slug = 'dashboard';
+
+    /*
+    |--------------------------------------------------------------------------
+    | Navigation
+    |--------------------------------------------------------------------------
+    */
+
+    public function getTitle(): string|Htmlable
+    {
+        return __('Dashboard');
+    }
 
     /*
     |--------------------------------------------------------------------------
