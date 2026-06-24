@@ -670,7 +670,7 @@ class ResultSet implements TabularDataReader, JsonSerializable
      *
      * @throws Exception
      *
-     * @deprecated since version 9.23.0, use League\Csv\Resultset::fetchColumn() instead
+     * @deprecated since version 9.23.0
      * @codeCoverageIgnore
      *
      * @see ResultSet::fetchColumn()
@@ -688,7 +688,7 @@ class ResultSet implements TabularDataReader, JsonSerializable
      *
      * @throws Exception
      *
-     * @deprecated since version 9.23.0, use League\Csv\Resultset::fetchColumn() instead
+     * @deprecated since version 9.23.0
      * @codeCoverageIgnore
      *
      * @see ResultSet::fetchColumn()
@@ -705,7 +705,7 @@ class ResultSet implements TabularDataReader, JsonSerializable
      * DEPRECATION WARNING! This method will be removed in the next major point release.
      *
      * @see ResultSet::nth()
-     * @deprecated since version 9.9.0, use League\Csv\Resultset::nth() instead
+     * @deprecated since version 9.9.0
      * @codeCoverageIgnore
      */
     #[Deprecated(message:'use League\Csv\Resultset::nth() instead', since:'league/csv:9.9.0')]
@@ -718,7 +718,7 @@ class ResultSet implements TabularDataReader, JsonSerializable
      * DEPRECATION WARNING! This method will be removed in the next major point release.
      *
      * @see ResultSet::getRecordsAsObject()
-     * @deprecated Since version 9.15.0, use League\Csv\ResultSet::getRecordsAsObject() instead
+     * @deprecated Since version 9.15.0
      * @codeCoverageIgnore
      *
      * @param class-string $className
@@ -735,12 +735,9 @@ class ResultSet implements TabularDataReader, JsonSerializable
     }
 
     /**
-     * DEPRECATION WARNING! This method will be removed in the next major point release.
-     *
-     * @throws SyntaxError
-     * @deprecated since league/csv 9.22.0, use League\Csv\ResultSet::from() instead
      * Returns a new instance from an object implementing the TabularDataReader interface.
      *
+     * @throws SyntaxError
      */
     #[Deprecated(message:'use League\Csv\ResultSet::from() instead', since:'league/csv:9.22.0')]
     public static function createFromTabularDataReader(TabularDataReader $reader): self
@@ -749,7 +746,6 @@ class ResultSet implements TabularDataReader, JsonSerializable
     }
 
     /**
-     * @deprecated since league/csv 9.22.0, use League\Csv\ResultSet::from() instead
      * Returns a new instance from a collection without header.
      */
     #[Deprecated(message:'use League\Csv\ResultSet::from() instead', since:'league/csv:9.22.0')]

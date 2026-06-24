@@ -10,7 +10,7 @@
     ],
     "require": {
         "php": "^8.0",
-        "brick/math": ">=0.8.16 <=0.17",
+        "brick/math": ">=0.8.16 <=0.18",
         "ramsey/collection": "^1.2 || ^2.0"
     },
     "require-dev": {

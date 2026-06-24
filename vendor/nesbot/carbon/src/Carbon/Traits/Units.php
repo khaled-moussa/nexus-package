@@ -266,7 +266,14 @@ trait Units
         }
 
         if ($unit instanceof Closure) {
-            $result = $this->resolveCarbon($unit($this, false));
+            $inverted = ($value < 0);
+            $result = $this;
+
+            self::disallowDecimalPart($value);
+
+            for ($i = abs($value); $i > 0; $i--) {
+                $result = $result->resolveCarbon($unit($result, $inverted));
+            }
 
             if ($this !== $result && $this->isMutable()) {
                 return $this->modify($result->rawFormat('Y-m-d H:i:s.u e O'));
@@ -297,15 +304,7 @@ trait Units
     ): static {
         $unit = Unit::toName($unit);
 
-        if ($anchorDay !== null) {
-            $overflow ??= OverflowMode::AnchorDay;
-
-            if ($overflow !== OverflowMode::AnchorDay) {
-                throw new InvalidArgumentException(
-                    '$anchorDay can be set only $overflow = OverflowMode::AnchorDay',
-                );
-            }
-        }
+        $overflow = $this->getOverflowMode($overflow, $anchorDay);
 
         $originalArgs = \func_get_args();
 
@@ -330,11 +329,11 @@ trait Units
 
         if ($overflow === OverflowMode::AnchorDay) {
             $anchorDay ??= $date->day;
-            $overflow = false;
+            $overflow = OverflowMode::NoOverflow;
         }
 
         if ($unit === 'weekday') {
-            $weekendDays = $this->transmitFactory(static fn () => static::getWeekendDays());
+            $weekendDays = $this->transmitFactory(static::getWeekendDays(...));
 
             if ($weekendDays !== [static::SATURDAY, static::SUNDAY]) {
                 $absoluteValue = abs($value);
@@ -359,10 +358,9 @@ trait Units
         } elseif ($canOverflow = (\in_array($unit, [
                 'month',
                 'year',
-            ]) && ($overflow === false || $overflow === OverflowMode::NoOverflow || (
+            ]) && ($overflow === OverflowMode::NoOverflow || (
                 $overflow === null &&
-                ($ucUnit = ucfirst($unit).'s') &&
-                !($this->{'local'.$ucUnit.'Overflow'} ?? static::{'shouldOverflow'.$ucUnit}())
+                !$this->shouldUnitOverflow($unit)
             )))) {
             $day = $date->day;
         }
@@ -448,7 +446,14 @@ trait Units
         }
 
         if ($unit instanceof Closure) {
-            $result = $this->resolveCarbon($unit($this, true));
+            $inverted = ($value < 0);
+            $result = $this;
+
+            self::disallowDecimalPart($value);
+
+            for ($i = abs($value); $i > 0; $i--) {
+                $result = $result->resolveCarbon($unit($result, !$inverted));
+            }
 
             if ($this !== $result && $this->isMutable()) {
                 return $this->modify($result->rawFormat('Y-m-d H:i:s.u e O'));
@@ -487,6 +492,65 @@ trait Units
         }
 
         return $this->sub($unit, $value, $overflow, $anchorDay);
+    }
+
+    /**
+     * Add given amount of time to the current date.
+     *
+     * @SuppressWarnings(ExcessiveParameterList)
+     */
+    private function doPlus(
+        int $years = 0,
+        int $months = 0,
+        int|float $weeks = 0,
+        int|float $days = 0,
+        int|float $hours = 0,
+        int|float $minutes = 0,
+        int|float $seconds = 0,
+        int|float $microseconds = 0,
+        OverflowMode|bool|null $overflow = null,
+        ?int $anchorDay = null,
+    ): static {
+        return $this->addUnit(Unit::Year, $years, $overflow, $anchorDay)
+            ->addUnit(Unit::Month, $months, $overflow, $anchorDay)
+            ->add("
+                $weeks weeks $days days
+                $hours hours $minutes minutes $seconds seconds $microseconds microseconds
+            ");
+    }
+
+    /**
+     * Subtract given amount of time to the current date.
+     *
+     * @SuppressWarnings(ExcessiveParameterList)
+     */
+    private function doMinus(
+        int $years = 0,
+        int $months = 0,
+        int|float $weeks = 0,
+        int|float $days = 0,
+        int|float $hours = 0,
+        int|float $minutes = 0,
+        int|float $seconds = 0,
+        int|float $microseconds = 0,
+        OverflowMode|bool|null $overflow = null,
+        ?int $anchorDay = null,
+    ): static {
+        return $this->subUnit(Unit::Year, $years, $overflow, $anchorDay)
+            ->subUnit(Unit::Month, $months, $overflow, $anchorDay)
+            ->sub("
+                $weeks weeks $days days
+                $hours hours $minutes minutes $seconds seconds $microseconds microseconds
+            ");
+    }
+
+    private function callPlusOrMinus(string $method, array $parameters): ?static
+    {
+        return match ($method) {
+            'plus' => $this->doPlus(...$parameters),
+            'minus' => $this->doMinus(...$parameters),
+            default => null,
+        };
     }
 
     private static function rawAddUnit(self $date, string $unit, int|float $value): ?static
@@ -537,5 +601,42 @@ trait Units
         }
 
         return $this->day(min($anchorDay, $this->daysInMonth));
+    }
+
+    private static function disallowDecimalPart(mixed $value): void
+    {
+        if (((float) $value) !== ((float) (int) $value)) {
+            throw new InvalidArgumentException(
+                'Interval objects cannot be multiplied by a non-integer value.',
+            );
+        }
+    }
+
+    private function getOverflowMode(
+        OverflowMode|bool|null $overflow = null,
+        ?int $anchorDay = null,
+    ): ?OverflowMode {
+        if ($anchorDay !== null) {
+            $overflow ??= OverflowMode::AnchorDay;
+
+            if ($overflow !== OverflowMode::AnchorDay) {
+                throw new InvalidArgumentException(
+                    '$anchorDay can be set only $overflow = OverflowMode::AnchorDay',
+                );
+            }
+        }
+
+        return match ($overflow) {
+            true => OverflowMode::Overflow,
+            false => OverflowMode::NoOverflow,
+            default => $overflow,
+        };
+    }
+
+    private function shouldUnitOverflow(string $unit): bool
+    {
+        $ucUnit = ucfirst($unit).'s';
+
+        return $this->{'local'.$ucUnit.'Overflow'} ?? static::{'shouldOverflow'.$ucUnit}();
     }
 }

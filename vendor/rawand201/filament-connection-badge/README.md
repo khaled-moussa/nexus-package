@@ -1,6 +1,6 @@
 # Filament Connection Badge
 
-<img src="docs/art/banner.jpeg" alt="Filament Connection Badge" class="filament-hidden">
+![Filament Connection Badge](docs/art/banner.jpeg)
 
 [![Latest Version on Packagist](https://img.shields.io/packagist/v/rawand201/filament-connection-badge.svg?style=flat-square)](https://packagist.org/packages/rawand201/filament-connection-badge)
 [![Total Downloads](https://img.shields.io/packagist/dt/rawand201/filament-connection-badge.svg?style=flat-square)](https://packagist.org/packages/rawand201/filament-connection-badge)

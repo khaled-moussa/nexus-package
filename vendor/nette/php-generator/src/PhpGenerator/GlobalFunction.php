@@ -20,11 +20,7 @@ final class GlobalFunction
 	use Traits\CommentAware;
 	use Traits\AttributeAware;
 
-	/**
-	 * Creates an instance from a function name or closure reflection.
-	 * @param  string|(\Closure(): mixed)  $function
-	 * @param  bool  $withBody  load function body (requires nikic/php-parser)
-	 */
+	/** @param string|(\Closure(): mixed)  $function */
 	public static function from(string|\Closure $function, bool $withBody = false): self
 	{
 		return (new Factory)->fromFunctionReflection(Nette\Utils\Callback::toReflection($function), $withBody);

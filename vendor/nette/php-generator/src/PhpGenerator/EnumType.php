@@ -27,9 +27,6 @@ final class EnumType extends ClassLike
 	private ?string $type = null;
 
 
-	/**
-	 * Sets the backing type of a backed enum ('int' or 'string').
-	 */
 	public function setType(?string $type): static
 	{
 		$this->type = $type;
@@ -37,9 +34,6 @@ final class EnumType extends ClassLike
 	}
 
 
-	/**
-	 * Returns the backing type ('int' or 'string'), or null for a pure enum.
-	 */
 	public function getType(): ?string
 	{
 		return $this->type;
@@ -78,7 +72,7 @@ final class EnumType extends ClassLike
 
 
 	/**
-	 * Replaces all cases.
+	 * Sets cases to enum
 	 * @param  list<EnumCase>  $cases
 	 */
 	public function setCases(array $cases): static
@@ -100,10 +94,7 @@ final class EnumType extends ClassLike
 	}
 
 
-	/**
-	 * Adds a case to the enum.
-	 * @throws Nette\InvalidStateException if the case already exists and $overwrite is false
-	 */
+	/** Adds case to enum */
 	public function addCase(string $name, string|int|Literal|null $value = null, bool $overwrite = false): EnumCase
 	{
 		if (!$overwrite && isset($this->cases[$name])) {
@@ -122,8 +113,7 @@ final class EnumType extends ClassLike
 
 
 	/**
-	 * Adds a member to the enum.
-	 * @throws Nette\InvalidStateException if the member already exists and $overwrite is false
+	 * Adds a member. If it already exists, throws an exception or overwrites it if $overwrite is true.
 	 */
 	public function addMember(Method|Constant|EnumCase|TraitUse $member, bool $overwrite = false): static
 	{

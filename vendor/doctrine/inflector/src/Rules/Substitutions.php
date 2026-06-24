@@ -10,7 +10,6 @@ use function strtolower;
 use function strtoupper;
 use function substr;
 
-/** @final */
 class Substitutions implements WordInflector
 {
     /** @var Substitution[] */

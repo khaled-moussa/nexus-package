@@ -9,7 +9,7 @@ namespace Nette\PhpGenerator;
 
 
 /**
- * Generates PHP code following PSR-2/PSR-12/PER coding style (4-space indentation, braces on same line).
+ * Generates PHP code compatible with PSR-2 and PSR-12.
  */
 class PsrPrinter extends Printer
 {

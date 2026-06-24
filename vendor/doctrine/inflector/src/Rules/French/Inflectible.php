@@ -9,7 +9,6 @@ use Doctrine\Inflector\Rules\Substitution;
 use Doctrine\Inflector\Rules\Transformation;
 use Doctrine\Inflector\Rules\Word;
 
-/** @final */
 class Inflectible
 {
     /** @return Transformation[] */

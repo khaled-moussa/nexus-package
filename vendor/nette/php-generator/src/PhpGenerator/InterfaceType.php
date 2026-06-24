@@ -40,9 +40,6 @@ final class InterfaceType extends ClassLike
 	}
 
 
-	/**
-	 * Adds a parent interface.
-	 */
 	public function addExtend(string $name): static
 	{
 		$this->validateNames([$name]);
@@ -52,8 +49,7 @@ final class InterfaceType extends ClassLike
 
 
 	/**
-	 * Adds a member to the interface.
-	 * @throws Nette\InvalidStateException if the member already exists and $overwrite is false
+	 * Adds a member. If it already exists, throws an exception or overwrites it if $overwrite is true.
 	 */
 	public function addMember(Method|Constant|Property $member, bool $overwrite = false): static
 	{

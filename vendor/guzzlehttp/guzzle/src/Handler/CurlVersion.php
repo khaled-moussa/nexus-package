@@ -13,11 +13,15 @@ final class CurlVersion
 
     private const TLS_13_VERSION = '7.52.0';
 
+    // curl 7.52.0 introduced HTTPS proxy support, advertised by a feature bit
+    // (a build can meet the version yet lack the feature). Earlier libcurl
+    // mishandles an https:// proxy: before 7.50.2 it silently downgrades to a
+    // plaintext HTTP proxy, and 7.50.2 through 7.51 reject it at connect time.
+    private const HTTPS_PROXY_VERSION = '7.52.0';
+
     private const HANDLER_SHARING_VERSION = '7.35.0';
 
     private const SSL_SESSION_SHARING_VERSION = '8.6.0';
-
-    private const PROXY_CREDENTIAL_REUSE_VERSION = '8.20.0';
 
     /**
      * @var array{version: string, features: int}|false|null
@@ -65,6 +69,19 @@ final class CurlVersion
             && 0 !== (\CURL_VERSION_HTTP2 & $versionInfo['features']);
     }
 
+    public static function supportsHttpsProxy(): bool
+    {
+        $versionInfo = self::getVersionInfo();
+
+        // CURL_VERSION_HTTPS_PROXY is not defined on every supported PHP
+        // version; fall back to the curl.h bit value.
+        $httpsProxyFeature = \defined('CURL_VERSION_HTTPS_PROXY') ? \CURL_VERSION_HTTPS_PROXY : (1 << 21);
+
+        return $versionInfo !== null
+            && \version_compare($versionInfo['version'], self::HTTPS_PROXY_VERSION, '>=')
+            && 0 !== ($httpsProxyFeature & $versionInfo['features']);
+    }
+
     public static function supportsHandlerSharing(): bool
     {
         $version = self::getVersion();
@@ -99,14 +116,6 @@ final class CurlVersion
                 self::SSL_SESSION_SHARING_VERSION
             ));
         }
-    }
-
-    public static function supportsProxyCredentialAwareConnectionReuse(): bool
-    {
-        $version = self::getVersion();
-
-        return $version !== null
-            && \version_compare($version, self::PROXY_CREDENTIAL_REUSE_VERSION, '>=');
     }
 
     private static function supportsSsl(): bool

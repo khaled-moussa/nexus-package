@@ -10,10 +10,16 @@ namespace Nette\PhpGenerator;
 use Nette;
 use Nette\InvalidStateException;
 use function strlen;
+use const ARRAY_FILTER_USE_BOTH;
 
 
 /**
- * Represents a PHP namespace with use statements and contained class-like types and functions.
+ * Definition of a PHP namespace.
+ *
+ * Generates:
+ * - namespace statement
+ * - variable amount of use statements
+ * - one or more class declarations
  */
 final class PhpNamespace
 {
@@ -82,10 +88,9 @@ final class PhpNamespace
 
 
 	/**
-	 * Adds a use statement for a class, function, or constant.
-	 * Auto-generates an alias if the short name conflicts with existing names.
+	 * Adds a use statement to the namespace for class, function or constant.
 	 * @param  self::Name*  $of
-	 * @throws InvalidStateException  if the alias is already used for a different name
+	 * @throws InvalidStateException
 	 */
 	public function addUse(string $name, ?string $alias = null, string $of = self::NameNormal): static
 	{
@@ -127,10 +132,7 @@ final class PhpNamespace
 	}
 
 
-	/**
-	 * Removes a use statement.
-	 * @param  self::Name*  $of
-	 */
+	/** @param  self::Name*  $of */
 	public function removeUse(string $name, string $of = self::NameNormal): void
 	{
 		foreach ($this->aliases[$of] as $alias => $item) {
@@ -142,7 +144,7 @@ final class PhpNamespace
 
 
 	/**
-	 * Adds a use statement for a function.
+	 * Adds a use statement to the namespace for function.
 	 */
 	public function addUseFunction(string $name, ?string $alias = null): static
 	{
@@ -151,7 +153,7 @@ final class PhpNamespace
 
 
 	/**
-	 * Adds a use statement for a constant.
+	 * Adds a use statement to the namespace for constant.
 	 */
 	public function addUseConstant(string $name, ?string $alias = null): static
 	{
@@ -160,9 +162,8 @@ final class PhpNamespace
 
 
 	/**
-	 * Returns use statements, sorted alphabetically and excluding redundant aliases within the same namespace.
 	 * @param  self::Name*  $of
-	 * @return array<string, string>  alias => fully qualified name
+	 * @return array<string, string>
 	 */
 	public function getUses(string $of = self::NameNormal): array
 	{
@@ -176,7 +177,7 @@ final class PhpNamespace
 
 
 	/**
-	 * Resolves a relative or aliased name to its fully qualified form.
+	 * Resolves relative name to full name.
 	 * @param  self::Name*  $of
 	 */
 	public function resolveName(string $name, string $of = self::NameNormal): string
@@ -201,7 +202,7 @@ final class PhpNamespace
 
 
 	/**
-	 * Simplifies all class/function/constant names in a type string using current use statements.
+	 * Simplifies type hint with relative names.
 	 * @param  self::Name*  $of
 	 */
 	public function simplifyType(string $type, string $of = self::NameNormal): string
@@ -211,7 +212,7 @@ final class PhpNamespace
 
 
 	/**
-	 * Simplifies a fully qualified name to the shortest possible form using current use statements.
+	 * Simplifies the full name of a class, function, or constant to a relative name.
 	 * @param  self::Name*  $of
 	 */
 	public function simplifyName(string $name, string $of = self::NameNormal): string
@@ -259,8 +260,7 @@ final class PhpNamespace
 
 
 	/**
-	 * Adds a class-like type or function to the namespace.
-	 * @throws Nette\InvalidStateException if an item with the same name already exists
+	 * Adds a class-like type or function to the namespace. If it already exists, throws an exception.
 	 */
 	public function add(ClassType|InterfaceType|TraitType|EnumType|GlobalFunction $item): static
 	{
@@ -285,8 +285,7 @@ final class PhpNamespace
 
 
 	/**
-	 * Adds a class to the namespace.
-	 * @throws Nette\InvalidStateException if the class already exists
+	 * Adds a class to the namespace. If it already exists, throws an exception.
 	 */
 	public function addClass(string $name): ClassType
 	{
@@ -296,8 +295,7 @@ final class PhpNamespace
 
 
 	/**
-	 * Adds an interface to the namespace.
-	 * @throws Nette\InvalidStateException if the interface already exists
+	 * Adds an interface to the namespace. If it already exists, throws an exception.
 	 */
 	public function addInterface(string $name): InterfaceType
 	{
@@ -307,8 +305,7 @@ final class PhpNamespace
 
 
 	/**
-	 * Adds a trait to the namespace.
-	 * @throws Nette\InvalidStateException if the trait already exists
+	 * Adds a trait to the namespace. If it already exists, throws an exception.
 	 */
 	public function addTrait(string $name): TraitType
 	{
@@ -318,8 +315,7 @@ final class PhpNamespace
 
 
 	/**
-	 * Adds an enum to the namespace.
-	 * @throws Nette\InvalidStateException if the enum already exists
+	 * Adds an enum to the namespace. If it already exists, throws an exception.
 	 */
 	public function addEnum(string $name): EnumType
 	{
@@ -329,8 +325,7 @@ final class PhpNamespace
 
 
 	/**
-	 * Returns a class-like type by name.
-	 * @throws Nette\InvalidArgumentException if the class is not found
+	 * Returns a class-like type from the namespace.
 	 */
 	public function getClass(string $name): ClassType|InterfaceType|TraitType|EnumType
 	{
@@ -338,7 +333,10 @@ final class PhpNamespace
 	}
 
 
-	/** @return array<string, ClassType|InterfaceType|TraitType|EnumType> */
+	/**
+	 * Returns all class-like types in the namespace.
+	 * @return array<string, ClassType|InterfaceType|TraitType|EnumType>
+	 */
 	public function getClasses(): array
 	{
 		$res = [];
@@ -353,7 +351,7 @@ final class PhpNamespace
 
 
 	/**
-	 * Removes a class-like type from the namespace.
+	 * Removes a class-like type from namespace.
 	 */
 	public function removeClass(string $name): static
 	{
@@ -363,8 +361,7 @@ final class PhpNamespace
 
 
 	/**
-	 * Adds a function to the namespace.
-	 * @throws Nette\InvalidStateException if the function already exists
+	 * Adds a function to the namespace. If it already exists, throws an exception.
 	 */
 	public function addFunction(string $name): GlobalFunction
 	{
@@ -374,8 +371,7 @@ final class PhpNamespace
 
 
 	/**
-	 * Returns a function by name.
-	 * @throws Nette\InvalidArgumentException if the function is not found
+	 * Returns a function from the namespace.
 	 */
 	public function getFunction(string $name): GlobalFunction
 	{
@@ -383,7 +379,10 @@ final class PhpNamespace
 	}
 
 
-	/** @return array<string, GlobalFunction> */
+	/**
+	 * Returns all functions in the namespace.
+	 * @return array<string, GlobalFunction>
+	 */
 	public function getFunctions(): array
 	{
 		$res = [];
@@ -396,7 +395,7 @@ final class PhpNamespace
 
 
 	/**
-	 * Removes a function from the namespace.
+	 * Removes a function type from namespace.
 	 */
 	public function removeFunction(string $name): static
 	{

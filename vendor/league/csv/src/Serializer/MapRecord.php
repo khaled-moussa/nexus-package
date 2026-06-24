@@ -21,13 +21,13 @@ use ReflectionMethod;
 use ValueError;
 
 #[Attribute(Attribute::TARGET_CLASS)]
-final readonly class MapRecord
+final class MapRecord
 {
     public function __construct(
         /** @var array<string> $afterMapping */
-        public array $afterMapping = [],
-        public ?bool $convertEmptyStringToNull = null,
-        public bool $trimFieldValueBeforeCasting = false,
+        public readonly array $afterMapping = [],
+        public readonly ?bool $convertEmptyStringToNull = null,
+        public readonly bool $trimFieldValueBeforeCasting = false,
     ) {
         foreach ($this->afterMapping as $method) {
             is_string($method) || throw new ValueError('The method names must be string.');

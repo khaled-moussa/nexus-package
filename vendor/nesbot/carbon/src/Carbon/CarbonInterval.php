@@ -800,6 +800,24 @@ class CarbonInterval extends DateInterval implements CarbonConverterInterface, U
         });
     }
 
+    public static function yearWithAnchorDay(int $day): static
+    {
+        return new static(function (CarbonInterface $date, bool $negated) use ($day) {
+            $next = $date->day(1)->addYears($negated ? -1 : 1);
+
+            return $next->day(min($day, $next->daysInMonth));
+        });
+    }
+
+    public static function yearNoOverflow(): static
+    {
+        return new static(static function (CarbonInterface $date, bool $negated) {
+            return $negated
+                ? $date->subYearNoOverflow()
+                : $date->addYearNoOverflow();
+        });
+    }
+
     /**
      * Return the original source used to create the current interval.
      *
@@ -1154,8 +1172,8 @@ class CarbonInterval extends DateInterval implements CarbonConverterInterface, U
      */
     public static function diff($start, $end = null, bool $absolute = false, array $skip = []): static
     {
-        $start = $start instanceof CarbonInterface ? $start : Carbon::make($start);
-        $end = $end instanceof CarbonInterface ? $end : Carbon::make($end);
+        $start = self::carbonOrMake($start);
+        $end = self::carbonOrMake($end);
         $rawInterval = $start->diffAsDateInterval($end, $absolute);
         $interval = static::instance($rawInterval, $skip);
 
@@ -2196,6 +2214,14 @@ class CarbonInterval extends DateInterval implements CarbonConverterInterface, U
 
         $class = ($params[0] ?? null) instanceof DateTime ? CarbonPeriod::class : CarbonPeriodImmutable::class;
 
+        if ($this->step) {
+            $dates = array_filter($params, static fn (mixed $param) => $param instanceof DateTimeInterface);
+
+            if (\count($dates) >= 2 && $dates[0] > $dates[1]) {
+                $this->invert();
+            }
+        }
+
         return $class::create($this, ...$params);
     }
 
@@ -2367,7 +2393,7 @@ class CarbonInterval extends DateInterval implements CarbonConverterInterface, U
     }
 
     /**
-     * Add given parameters to the current interval.
+     * Subtract given parameters to the current interval.
      *
      * @param int       $years
      * @param int       $months
@@ -3035,6 +3061,12 @@ class CarbonInterval extends DateInterval implements CarbonConverterInterface, U
             )->invert($inverted)->cascade());
         }
 
+        $initiallyInverted = (bool) $this->invert;
+
+        if ($initiallyInverted) {
+            $this->invert();
+        }
+
         $base = CarbonImmutable::parse('2000-01-01 00:00:00', 'UTC')
             ->roundUnit($unit, $precision, $function);
         $next = $base->add($this);
@@ -3050,7 +3082,7 @@ class CarbonInterval extends DateInterval implements CarbonConverterInterface, U
                 ->diff($base),
         );
 
-        return $this->invert($inverted);
+        return $this->invert($initiallyInverted xor $inverted);
     }
 
     /**
@@ -3566,6 +3598,13 @@ class CarbonInterval extends DateInterval implements CarbonConverterInterface, U
                 // Drop unknown settings
                 return $this;
         }
+    }
+
+    private static function carbonOrMake(mixed $dateTime): CarbonInterface
+    {
+        return $dateTime instanceof CarbonInterface
+            ? $dateTime
+            : Carbon::make($dateTime);
     }
 
     private static function incrementUnit(DateInterval $instance, string $unit, int $value): void

@@ -12,7 +12,7 @@ use function implode, preg_match, preg_replace, str_contains;
 
 
 /**
- * Constants and helpers for PHP type declarations.
+ * PHP return, property and parameter types.
  */
 class Type
 {
@@ -84,9 +84,6 @@ class Type
 	public const STATIC = self::Static;
 
 
-	/**
-	 * Adds or removes the nullable modifier from a type. For union types, appends or removes |null.
-	 */
 	public static function nullable(string $type, bool $nullable = true): string
 	{
 		if (str_contains($type, '&')) {

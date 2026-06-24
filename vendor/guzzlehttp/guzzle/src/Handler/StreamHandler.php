@@ -242,7 +242,7 @@ class StreamHandler
     private function checkDecode(array $options, array $headers, $stream): array
     {
         // Automatically decode responses when instructed.
-        if (!empty($options['decode_content'])) {
+        if (isset($options['decode_content']) && $options['decode_content'] !== false) {
             $normalizedKeys = Utils::normalizeHeaderKeys($headers);
             if (isset($normalizedKeys['content-encoding'])) {
                 $encoding = $headers[$normalizedKeys['content-encoding']];
@@ -436,7 +436,11 @@ class StreamHandler
     {
         $uri = $request->getUri();
 
-        if (isset($options['force_ip_resolve']) && !\filter_var($uri->getHost(), \FILTER_VALIDATE_IP)) {
+        $host = $uri->getHost();
+        $hostForIpCheck = $host !== '' && $host[0] === '[' && \substr($host, -1) === ']'
+            ? \substr($host, 1, -1)
+            : $host;
+        if (isset($options['force_ip_resolve']) && !\filter_var($hostForIpCheck, \FILTER_VALIDATE_IP)) {
             if ('v4' === $options['force_ip_resolve']) {
                 $records = \dns_get_record($uri->getHost(), \DNS_A);
                 if (false === $records || !isset($records[0]['ip'])) {
@@ -780,7 +784,7 @@ class StreamHandler
 
         if ($parsed['auth']) {
             if (!isset($options['http']['header'])) {
-                $options['http']['header'] = [];
+                $options['http']['header'] = '';
             }
             $options['http']['header'] .= "\r\nProxy-Authorization: {$parsed['auth']}";
         }
@@ -793,16 +797,29 @@ class StreamHandler
     {
         $parsed = \parse_url($url);
 
-        if ($parsed !== false && isset($parsed['scheme']) && $parsed['scheme'] === 'http') {
-            if (isset($parsed['host']) && isset($parsed['port'])) {
-                $auth = null;
-                if (isset($parsed['user']) && isset($parsed['pass'])) {
-                    $auth = \base64_encode("{$parsed['user']}:{$parsed['pass']}");
-                }
+        // parse_url() misreads scheme-less proxy authorities like
+        // "user:pass@host"; re-parse only those forms as HTTP.
+        $schemeLessAuthority = \strpos($url, '://') === false && \strncmp($url, '//', 2) !== 0;
+        if ($schemeLessAuthority) {
+            if (\is_array($parsed) && !isset($parsed['scheme']) && isset($parsed['host'], $parsed['port'])) {
+                $parsed['scheme'] = 'http';
+            } elseif (
+                (!\is_array($parsed) || !isset($parsed['host']))
+                && (\strpos($url, '@') !== false || \strncmp($url, '[', 1) === 0)
+            ) {
+                $parsed = \parse_url('http://'.$url);
+            }
+        }
+
+        if (\is_array($parsed) && isset($parsed['scheme']) && \strcasecmp($parsed['scheme'], 'http') === 0) {
+            if (isset($parsed['host'], $parsed['port'])) {
+                $user = $parsed['user'] ?? '';
+                $pass = $parsed['pass'] ?? '';
+                $auth = ($user !== '' || $pass !== '') ? 'Basic '.\base64_encode("{$user}:{$pass}") : null;
 
                 return [
                     'proxy' => "tcp://{$parsed['host']}:{$parsed['port']}",
-                    'auth' => $auth ? "Basic {$auth}" : null,
+                    'auth' => $auth,
                 ];
             }
         }

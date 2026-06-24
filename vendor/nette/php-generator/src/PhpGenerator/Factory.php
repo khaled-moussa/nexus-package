@@ -14,7 +14,7 @@ use const PHP_VERSION_ID;
 
 
 /**
- * Creates PhpGenerator representations from reflection objects or PHP source code.
+ * Creates a representations based on reflection or source code.
  */
 final class Factory
 {
@@ -25,11 +25,7 @@ final class Factory
 	private array $extractorCache = [];
 
 
-	/**
-	 * Creates a ClassLike instance from a reflection object.
-	 * @param  \ReflectionClass<object>  $from
-	 * @param  bool  $withBodies  load method bodies (requires nikic/php-parser, not available for anonymous/internal classes or interfaces)
-	 */
+	/** @param  \ReflectionClass<object>  $from */
 	public function fromClassReflection(
 		\ReflectionClass $from,
 		bool $withBodies = false,
@@ -210,10 +206,6 @@ final class Factory
 	}
 
 
-	/**
-	 * Creates a GlobalFunction or Closure instance from a reflection object.
-	 * @param  bool  $withBody  load function body (requires nikic/php-parser, not available for closures or internal functions)
-	 */
 	public function fromFunctionReflection(\ReflectionFunction $from, bool $withBody = false): GlobalFunction|Closure
 	{
 		$function = $from->isClosure() ? new Closure : new GlobalFunction($from->name);
@@ -240,10 +232,7 @@ final class Factory
 	}
 
 
-	/**
-	 * Creates a Method, GlobalFunction, or Closure instance from a callable.
-	 * @param  callable(): mixed  $from
-	 */
+	/** @param callable(): mixed  $from */
 	public function fromCallable(callable $from): Method|GlobalFunction|Closure
 	{
 		$ref = Nette\Utils\Callback::toReflection($from);
@@ -378,10 +367,6 @@ final class Factory
 	}
 
 
-	/**
-	 * Parses PHP source code and returns the first class-like type found.
-	 * @throws Nette\InvalidStateException if the code contains no class
-	 */
 	public function fromClassCode(string $code): ClassLike
 	{
 		$classes = $this->fromCode($code)->getClasses();
@@ -389,9 +374,6 @@ final class Factory
 	}
 
 
-	/**
-	 * Parses PHP source code and returns the resulting PhpFile representation.
-	 */
 	public function fromCode(string $code): PhpFile
 	{
 		$reader = new Extractor($code);

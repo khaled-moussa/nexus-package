@@ -170,7 +170,7 @@ class Printer
 				$cases[] = $this->printDocComment($case)
 					. $this->printAttributes($case->getAttributes())
 					. 'case ' . $case->getName()
-					. ($case->getValue() === null ? '' : ' = ' . $this->dump($case->getValue(), context: DumpContext::Constant))
+					. ($case->getValue() === null ? '' : ' = ' . $this->dump($case->getValue()))
 					. ";\n";
 			}
 		}
@@ -290,10 +290,7 @@ class Printer
 	}
 
 
-	/**
-	 * Generates use statements for the given namespace.
-	 * @param  PhpNamespace::Name*  $of
-	 */
+	/** @param  PhpNamespace::Name*  $of */
 	protected function printUses(PhpNamespace $namespace, string $of = PhpNamespace::NameNormal): string
 	{
 		$prefix = [
@@ -352,7 +349,7 @@ class Printer
 				. ($param->isReference() ? '&' : '')
 				. ($variadic ? '...' : '')
 				. '$' . $param->getName()
-				. ($param->hasDefaultValue() && !$variadic ? ' = ' . $this->dump($param->getDefaultValue(), context: DumpContext::Parameter) : '')
+				. ($param->hasDefaultValue() && !$variadic ? ' = ' . $this->dump($param->getDefaultValue()) : '')
 				. ($param instanceof PromotedParameter ? $this->printHooks($param) : '')
 				. ($multiline ? ",\n" : ', ');
 		}
@@ -374,7 +371,7 @@ class Printer
 		return $this->printDocComment($const)
 			. $this->printAttributes($const->getAttributes())
 			. $def
-			. $this->dump($const->getValue(), strlen($def), DumpContext::Constant) . ";\n";
+			. $this->dump($const->getValue(), strlen($def)) . ";\n";
 	}
 
 
@@ -393,7 +390,7 @@ class Printer
 
 		$defaultValue = $property->getValue() === null && !$property->isInitialized()
 			? ''
-			: ' = ' . $this->dump($property->getValue(), strlen($def) + 3, DumpContext::Property); // 3 = ' = '
+			: ' = ' . $this->dump($property->getValue(), strlen($def) + 3); // 3 = ' = '
 
 		return $this->printDocComment($property)
 			. $this->printAttributes($property->getAttributes())
@@ -406,7 +403,7 @@ class Printer
 
 	private function printPropertyVisibility(Property|PromotedParameter $param): string
 	{
-		$get = $param->getVisibility();
+		$get = $param->getVisibility(PropertyAccessMode::Get);
 		$set = $param->getVisibility(PropertyAccessMode::Set);
 		return $set
 			? ($get ? "$get $set(set)" : "$set(set)")
@@ -457,7 +454,6 @@ class Printer
 		}
 
 		$this->dumper->indentation = $this->indentation;
-		$this->dumper->context = DumpContext::Attribute;
 		$items = [];
 		foreach ($attrs as $attr) {
 			$args = $this->dumper->format('...?:', $attr->getArguments());
@@ -503,9 +499,6 @@ class Printer
 	}
 
 
-	/**
-	 * Enables or disables automatic simplification of fully qualified type names using namespace use statements.
-	 */
 	public function setTypeResolving(bool $state = true): static
 	{
 		$this->resolveTypes = $state;
@@ -520,11 +513,10 @@ class Printer
 	}
 
 
-	protected function dump(mixed $var, int $column = 0, DumpContext $context = DumpContext::Expression): string
+	protected function dump(mixed $var, int $column = 0): string
 	{
 		$this->dumper->indentation = $this->indentation;
 		$this->dumper->wrapLength = $this->wrapLength;
-		$this->dumper->context = $context;
 		$s = $this->dumper->dump($var, $column);
 		$s = Helpers::simplifyTaggedNames($s, $this->namespace);
 		return $s;

@@ -51,9 +51,8 @@ trait PropertiesAware
 
 
 	/**
-	 * Adds a property.
+	 * Adds a property. If it already exists, throws an exception or overwrites it if $overwrite is true.
 	 * @param  string  $name  without $
-	 * @throws Nette\InvalidStateException if the property already exists and $overwrite is false
 	 */
 	public function addProperty(string $name, mixed $value = null, bool $overwrite = false): Property
 	{

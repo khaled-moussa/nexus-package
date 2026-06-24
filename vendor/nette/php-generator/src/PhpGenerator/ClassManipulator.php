@@ -11,9 +11,6 @@ use Nette;
 use const PHP_VERSION_ID;
 
 
-/**
- * Provides advanced manipulation of a ClassType, such as inheriting members from parent classes or implementing interfaces.
- */
 final class ClassManipulator
 {
 	public function __construct(
@@ -23,8 +20,7 @@ final class ClassManipulator
 
 
 	/**
-	 * Copies a property from a parent class into this class for overriding.
-	 * @throws Nette\InvalidStateException if the property already exists or the parent is not set
+	 * Inherits property from parent class.
 	 */
 	public function inheritProperty(string $name, bool $returnIfExists = false): Property
 	{
@@ -52,8 +48,7 @@ final class ClassManipulator
 
 
 	/**
-	 * Copies a method from a parent class or interface into this class for overriding.
-	 * @throws Nette\InvalidStateException if the method already exists or the parent is not set
+	 * Inherits method from parent class or interface.
 	 */
 	public function inheritMethod(string $name, bool $returnIfExists = false): Method
 	{
@@ -80,8 +75,8 @@ final class ClassManipulator
 
 
 	/**
-	 * Adds stub implementations for all abstract methods and properties from the given interface or abstract class.
-	 * @param  class-string  $name
+	 * Implements all methods from the given interface or abstract class.
+	 * @param class-string  $name
 	 */
 	public function implement(string $name): void
 	{

@@ -250,7 +250,7 @@ final class Extractor
 			&& !$firstStmt instanceof Node\Stmt\Function_
 		) {
 			$comments = $firstStmt->getComments();
-			foreach ($comments as $comment) {
+			foreach ($comments as $i => $comment) {
 				if ($comment instanceof PhpParser\Comment\Doc) {
 					$phpFile->setComment(Helpers::unformatDocComment($comment->getReformattedText()));
 					break;

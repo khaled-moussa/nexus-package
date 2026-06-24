@@ -43,10 +43,7 @@ trait Base
 	}
 
 
-	/**
-	 * Sets a pre-normalization callback applied to the raw input value before any validation.
-	 * @param  callable(mixed): mixed  $handler
-	 */
+	/** @param  callable(mixed): mixed  $handler */
 	public function before(callable $handler): self
 	{
 		$this->before = $handler(...);
@@ -54,19 +51,13 @@ trait Base
 	}
 
 
-	/**
-	 * Casts the validated value to a built-in type or instantiates the given class.
-	 */
 	public function castTo(string $type): self
 	{
 		return $this->transform(Helpers::getCastStrategy($type));
 	}
 
 
-	/**
-	 * Adds a post-validation transformation callback. The handler may also report errors via Context.
-	 * @param  callable(mixed, Context): mixed  $handler
-	 */
+	/** @param  callable(mixed, Context): mixed  $handler */
 	public function transform(callable $handler): self
 	{
 		$this->transforms[] = $handler(...);
@@ -74,10 +65,7 @@ trait Base
 	}
 
 
-	/**
-	 * Adds a custom validation assertion; optionally describe it for error messages.
-	 * @param  callable(mixed): bool  $handler
-	 */
+	/** @param  callable(mixed): bool  $handler */
 	public function assert(callable $handler, ?string $description = null): self
 	{
 		$expected = $description ?? (is_string($handler) ? "$handler()" : '#' . count($this->transforms));
@@ -94,9 +82,7 @@ trait Base
 	}
 
 
-	/**
-	 * Marks the item as deprecated; emits a warning with the given message when the item is used.
-	 */
+	/** Marks as deprecated */
 	public function deprecated(string $message = 'The item %path% is deprecated.'): self
 	{
 		$this->deprecated = $message;

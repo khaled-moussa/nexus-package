@@ -29,7 +29,6 @@ trait PropertyLike
 
 
 	/**
-	 * Sets asymmetric visibility for get and set access modes.
 	 * @param  Visibility|'public'|'protected'|'private'|null  $get
 	 * @param  Visibility|'public'|'protected'|'private'|null  $set
 	 */
@@ -147,10 +146,7 @@ trait PropertyLike
 	}
 
 
-	/**
-	 * Adds a get or set hook. When $shortBody is provided, it is used as an arrow-function-style body.
-	 * @param  PropertyHookType|'set'|'get'  $type
-	 */
+	/** @param  PropertyHookType|'set'|'get'  $type */
 	public function addHook(PropertyHookType|string $type, string $shortBody = ''): PropertyHook
 	{
 		$type = is_string($type) ? PropertyHookType::from($type) : $type;

@@ -45,8 +45,7 @@ trait TraitsAware
 
 
 	/**
-	 * Adds a trait use statement.
-	 * @throws Nette\InvalidStateException if the trait already exists
+	 * Adds a method. If it already exists, throws an exception.
 	 */
 	public function addTrait(string $name): TraitUse
 	{

@@ -15,7 +15,6 @@ namespace League\Csv;
 
 use Closure;
 use Deprecated;
-use SplFileInfo;
 
 use function array_map;
 use function array_reduce;
@@ -42,18 +41,6 @@ class Writer extends AbstractCsv implements TabularDataWriter
     protected int $enclose_all = self::ENCLOSE_NECESSARY;
     /** @var array{0:array<string>,1:array<string>} */
     protected array $enclosure_replace = [[], []];
-
-    /**
-     * @param SplFileInfo|string $path an SPL file object, a file path or a stream URI
-     * @param non-empty-string $mode the file path open mode
-     * @param resource|null $context the resource context used with a file path or a SplFileInfo object
-     *
-     * @throws UnavailableStream
-     */
-    public static function fromPath(SplFileInfo|string $path, string $mode = 'r+', $context = null): static
-    {
-        return parent::fromPath($path, $mode, $context);
-    }
 
     protected function resetProperties(): void
     {
@@ -130,12 +117,16 @@ class Writer extends AbstractCsv implements TabularDataWriter
      */
     public function insertAll(TabularDataProvider|TabularData|iterable $records): int
     {
+        if ($records instanceof TabularDataProvider) {
+            $records = $records->getTabularData();
+        }
+
+        if ($records instanceof TabularData) {
+            $records = $records->getRecords();
+        }
+
         $bytes = 0;
-        foreach (match (true) {
-            $records instanceof TabularDataProvider => $records->getTabularData()->getRecords(),
-            $records instanceof TabularData => $records->getRecords(),
-            default => $records,
-        } as $record) {
+        foreach ($records as $record) {
             $bytes += $this->insertOne($record);
         }
 
@@ -258,7 +249,7 @@ class Writer extends AbstractCsv implements TabularDataWriter
     /**
      * DEPRECATION WARNING! This method will be removed in the next major point release.
      *
-     * @deprecated since version 9.8.0, no longer affecting the class behaviour
+     * @deprecated since version 9.8.0
      * @codeCoverageIgnore
      *
      * Format a record.
@@ -277,7 +268,7 @@ class Writer extends AbstractCsv implements TabularDataWriter
     /**
      * DEPRECATION WARNING! This method will be removed in the next major point release.
      *
-     * @deprecated Since version 9.9.0, no longer affecting the class behaviour
+     * @deprecated Since version 9.9.0
      * @codeCoverageIgnore
      *
      * Adds a single record to a CSV Document using PHP algorithm.
@@ -293,7 +284,7 @@ class Writer extends AbstractCsv implements TabularDataWriter
     /**
      * DEPRECATION WARNING! This method will be removed in the next major point release.
      *
-     * @deprecated Since version 9.9.0, no longer affecting the class behaviour
+     * @deprecated Since version 9.9.0
      * @codeCoverageIgnore
      *
      * Applies post insertion actions.
@@ -318,7 +309,7 @@ class Writer extends AbstractCsv implements TabularDataWriter
      * DEPRECATION WARNING! This method will be removed in the next major point release.
      *
      * @see Writer::getEndOfLine()
-     * @deprecated Since version 9.10.0, use League\Csv\Writer::getEndOfLine()
+     * @deprecated Since version 9.10.0
      * @codeCoverageIgnore
      *
      * Returns the current newline sequence characters.
@@ -333,7 +324,7 @@ class Writer extends AbstractCsv implements TabularDataWriter
      * DEPRECATION WARNING! This method will be removed in the next major point release.
      *
      * @see Writer::setEndOfLine()
-     * @deprecated Since version 9.10.0, use League\Csv\Writer::setEndOfLine()
+     * @deprecated Since version 9.10.0
      * @codeCoverageIgnore
      *
      * Sets the newline sequence.
@@ -348,7 +339,7 @@ class Writer extends AbstractCsv implements TabularDataWriter
      * DEPRECATION WARNING! This method will be removed in the next major point release.
      *
      * @see Writer::necessaryEnclosure()
-     * @deprecated Since version 9.22.0, use League\Csv\Writer::necessaryEnclosure()
+     * @deprecated Since version 9.22.0
      * @codeCoverageIgnore
      *
      * Sets the enclosure threshold to only enclose necessary fields.

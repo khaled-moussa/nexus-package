@@ -21,8 +21,7 @@ use function strtr;
 use function trim;
 use function ucwords;
 
-/** @final */
-class Inflector implements CaseConverter, Unaccenter, Slugifier, Pluralization
+class Inflector
 {
     private const ACCENTED_CHARACTERS = [
         'À' => 'A',
@@ -227,7 +226,9 @@ class Inflector implements CaseConverter, Unaccenter, Slugifier, Pluralization
         $this->pluralizer   = $pluralizer;
     }
 
-    /** {@inheritDoc} */
+    /**
+     * Converts a word into the format for a Doctrine table name. Converts 'ModelName' to 'model_name'.
+     */
     public function tableize(string $word): string
     {
         $tableized = preg_replace('~(?<=\\w)([A-Z])~u', '_$1', $word);
@@ -242,25 +243,57 @@ class Inflector implements CaseConverter, Unaccenter, Slugifier, Pluralization
         return mb_strtolower($tableized);
     }
 
-    /** {@inheritDoc} */
+    /**
+     * Converts a word into the format for a Doctrine class name. Converts 'table_name' to 'TableName'.
+     */
     public function classify(string $word): string
     {
         return str_replace([' ', '_', '-'], '', ucwords($word, ' _-'));
     }
 
-    /** {@inheritDoc} */
+    /**
+     * Camelizes a word. This uses the classify() method and turns the first character to lowercase.
+     */
     public function camelize(string $word): string
     {
         return lcfirst($this->classify($word));
     }
 
-    /** {@inheritDoc} */
+    /**
+     * Uppercases words with configurable delimiters between words.
+     *
+     * Takes a string and capitalizes all of the words, like PHP's built-in
+     * ucwords function. This extends that behavior, however, by allowing the
+     * word delimiters to be configured, rather than only separating on
+     * whitespace.
+     *
+     * Here is an example:
+     * <code>
+     * <?php
+     * $string = 'top-o-the-morning to all_of_you!';
+     * echo $inflector->capitalize($string);
+     * // Top-O-The-Morning To All_of_you!
+     *
+     * echo $inflector->capitalize($string, '-_ ');
+     * // Top-O-The-Morning To All_Of_You!
+     * ?>
+     * </code>
+     *
+     * @param string $string     The string to operate on.
+     * @param string $delimiters A list of word separators.
+     *
+     * @return string The string with all delimiter-separated words capitalized.
+     */
     public function capitalize(string $string, string $delimiters = " \n\t\r\0\x0B-"): string
     {
         return ucwords($string, $delimiters);
     }
 
-    /** {@inheritDoc} */
+    /**
+     * Checks if the given string seems like it has utf8 characters in it.
+     *
+     * @param string $string The string to check for utf8 characters in.
+     */
     public function seemsUtf8(string $string): bool
     {
         for ($i = 0; $i < strlen($string); $i++) {
@@ -292,7 +325,13 @@ class Inflector implements CaseConverter, Unaccenter, Slugifier, Pluralization
         return true;
     }
 
-    /** {@inheritDoc} */
+    /**
+     * Remove any illegal characters, accents, etc.
+     *
+     * @param  string $string String to unaccent
+     *
+     * @return string Unaccented string
+     */
     public function unaccent(string $string): string
     {
         if (preg_match('/[\x80-\xff]/', $string) === false) {
@@ -398,7 +437,14 @@ class Inflector implements CaseConverter, Unaccenter, Slugifier, Pluralization
         return $string;
     }
 
-    /** {@inheritDoc} */
+    /**
+     * Convert any passed string to a url friendly string.
+     * Converts 'My first blog post' to 'my-first-blog-post'
+     *
+     * @param  string $string String to urlize.
+     *
+     * @return string Urlized string.
+     */
     public function urlize(string $string): string
     {
         // Remove all non url friendly characters with the unaccent function
@@ -435,13 +481,25 @@ class Inflector implements CaseConverter, Unaccenter, Slugifier, Pluralization
         return trim($urlized, '-');
     }
 
-    /** {@inheritDoc} */
+    /**
+     * Returns a word in singular form.
+     *
+     * @param string $word The word in plural form.
+     *
+     * @return string The word in singular form.
+     */
     public function singularize(string $word): string
     {
         return $this->singularizer->inflect($word);
     }
 
-    /** {@inheritDoc} */
+    /**
+     * Returns a word in plural form.
+     *
+     * @param string $word The word in singular form.
+     *
+     * @return string The word in plural form.
+     */
     public function pluralize(string $word): string
     {
         return $this->pluralizer->inflect($word);

@@ -12,7 +12,12 @@ use function count;
 
 
 /**
- * Represents a complete PHP file with namespaces, classes, and functions.
+ * Definition of a PHP file.
+ *
+ * Generates:
+ * - opening tag (<?php)
+ * - doc comments
+ * - one or more namespaces
  */
 final class PhpFile
 {
@@ -23,9 +28,6 @@ final class PhpFile
 	private bool $strictTypes = false;
 
 
-	/**
-	 * Parses PHP source code and returns the resulting PhpFile representation.
-	 */
 	public static function fromCode(string $code): self
 	{
 		return (new Factory)->fromCode($code);
@@ -33,8 +35,8 @@ final class PhpFile
 
 
 	/**
-	 * Adds a namespace, class-like type, or function to the file.
-	 * Class-like types and functions are placed into their respective namespace (created if needed).
+	 * Adds a namespace, class-like type, or function to the file. If the item has a namespace,
+	 * it will be added to that namespace (creating it if needed).
 	 */
 	public function add(ClassType|InterfaceType|TraitType|EnumType|GlobalFunction|PhpNamespace $item): static
 	{
@@ -57,8 +59,8 @@ final class PhpFile
 
 
 	/**
-	 * Adds a class to the file. Accepts the fully qualified name including namespace.
-	 * @throws Nette\InvalidStateException if the class already exists
+	 * Adds a class to the file. If it already exists, throws an exception.
+	 * As a parameter, pass the full name with namespace.
 	 */
 	public function addClass(string $name): ClassType
 	{
@@ -69,8 +71,8 @@ final class PhpFile
 
 
 	/**
-	 * Adds an interface to the file. Accepts the fully qualified name including namespace.
-	 * @throws Nette\InvalidStateException if the interface already exists
+	 * Adds an interface to the file. If it already exists, throws an exception.
+	 * As a parameter, pass the full name with namespace.
 	 */
 	public function addInterface(string $name): InterfaceType
 	{
@@ -81,8 +83,8 @@ final class PhpFile
 
 
 	/**
-	 * Adds a trait to the file. Accepts the fully qualified name including namespace.
-	 * @throws Nette\InvalidStateException if the trait already exists
+	 * Adds a trait to the file. If it already exists, throws an exception.
+	 * As a parameter, pass the full name with namespace.
 	 */
 	public function addTrait(string $name): TraitType
 	{
@@ -93,8 +95,8 @@ final class PhpFile
 
 
 	/**
-	 * Adds an enum to the file. Accepts the fully qualified name including namespace.
-	 * @throws Nette\InvalidStateException if the enum already exists
+	 * Adds an enum to the file. If it already exists, throws an exception.
+	 * As a parameter, pass the full name with namespace.
 	 */
 	public function addEnum(string $name): EnumType
 	{
@@ -105,8 +107,8 @@ final class PhpFile
 
 
 	/**
-	 * Adds a function to the file. Accepts the fully qualified name including namespace.
-	 * @throws Nette\InvalidStateException if the function already exists
+	 * Adds a function to the file. If it already exists, throws an exception.
+	 * As a parameter, pass the full name with namespace.
 	 */
 	public function addFunction(string $name): GlobalFunction
 	{
@@ -117,7 +119,7 @@ final class PhpFile
 
 
 	/**
-	 * Adds a namespace to the file, or returns the existing one if it already exists.
+	 * Adds a namespace to the file. If it already exists, it returns the existing one.
 	 */
 	public function addNamespace(string|PhpNamespace $namespace): PhpNamespace
 	{
@@ -131,7 +133,7 @@ final class PhpFile
 
 
 	/**
-	 * Removes a namespace from the file.
+	 * Removes the namespace from the file.
 	 */
 	public function removeNamespace(string|PhpNamespace $namespace): static
 	{
@@ -148,7 +150,7 @@ final class PhpFile
 	}
 
 
-	/** @return array<string, ClassType|InterfaceType|TraitType|EnumType>  fully qualified name => class */
+	/** @return array<string, ClassType|InterfaceType|TraitType|EnumType> */
 	public function getClasses(): array
 	{
 		$classes = [];
@@ -163,7 +165,7 @@ final class PhpFile
 	}
 
 
-	/** @return array<string, GlobalFunction>  fully qualified name => function */
+	/** @return array<string, GlobalFunction> */
 	public function getFunctions(): array
 	{
 		$functions = [];
@@ -179,7 +181,7 @@ final class PhpFile
 
 
 	/**
-	 * Adds a use statement to the root (unnamed) namespace.
+	 * Adds a use statement to the file, to the global namespace.
 	 * @param  PhpNamespace::Name*  $of
 	 */
 	public function addUse(string $name, ?string $alias = null, string $of = PhpNamespace::NameNormal): static
@@ -190,7 +192,7 @@ final class PhpFile
 
 
 	/**
-	 * Enables or disables the declare(strict_types=1) statement.
+	 * Adds declare(strict_types=1) to output.
 	 */
 	public function setStrictTypes(bool $state = true): static
 	{

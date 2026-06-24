@@ -21,9 +21,6 @@ final class Processor
 	private bool $skipDefaults = false;
 
 
-	/**
-	 * When enabled, properties with default values are omitted from the output.
-	 */
 	public function skipDefaults(bool $value = true): void
 	{
 		$this->skipDefaults = $value;
@@ -68,10 +65,7 @@ final class Processor
 	}
 
 
-	/**
-	 * Returns all deprecation warnings collected during the last processing run.
-	 * @return list<string>
-	 */
+	/** @return list<string> */
 	public function getWarnings(): array
 	{
 		$res = [];

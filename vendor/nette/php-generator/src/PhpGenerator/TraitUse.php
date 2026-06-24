@@ -32,9 +32,6 @@ final class TraitUse
 	}
 
 
-	/**
-	 * Adds a conflict resolution rule (e.g., 'methodA insteadof TraitB' or 'methodA as protected').
-	 */
 	public function addResolution(string $resolution): static
 	{
 		$this->resolutions[] = $resolution;

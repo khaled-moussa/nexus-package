@@ -50,8 +50,7 @@ trait ConstantsAware
 
 
 	/**
-	 * Adds a constant.
-	 * @throws Nette\InvalidStateException if the constant already exists and $overwrite is false
+	 * Adds a constant. If it already exists, throws an exception or overwrites it if $overwrite is true.
 	 */
 	public function addConstant(string $name, mixed $value, bool $overwrite = false): Constant
 	{

@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Doctrine\Inflector;
 
-/** @final */
 class CachedWordInflector implements WordInflector
 {
     /** @var WordInflector */

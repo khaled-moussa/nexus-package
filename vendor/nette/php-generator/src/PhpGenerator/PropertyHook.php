@@ -23,11 +23,7 @@ final class PropertyHook
 	private bool $returnReference = false;
 
 
-	/**
-	 * Sets the hook body. When $short is true, uses arrow-function style (=> expression).
-	 * Optionally accepts Dumper-style placeholders resolved against $args.
-	 * @param  ?mixed[]  $args
-	 */
+	/** @param  ?mixed[]  $args */
 	public function setBody(
 		#[Language('PHP')]
 		string $code,
@@ -49,9 +45,6 @@ final class PropertyHook
 	}
 
 
-	/**
-	 * Returns true if the hook uses the arrow function style (=> expression), not a block body.
-	 */
 	public function isShort(): bool
 	{
 		return $this->short && trim($this->body) !== '';

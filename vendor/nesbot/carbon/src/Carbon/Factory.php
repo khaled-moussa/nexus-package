@@ -14,6 +14,7 @@ declare(strict_types=1);
 namespace Carbon;
 
 use Closure;
+use DateTime;
 use DateTimeImmutable;
 use DateTimeInterface;
 use DateTimeZone;
@@ -560,9 +561,6 @@ class Factory
      *   - When the string "now" is passed to the constructor or parse(), ex. new Carbon('now')
      *   - When a string containing the desired time is passed to Carbon::parse().
      *
-     * Note the timezone parameter was left out of the examples above and
-     * has no affect as the mock value will be returned regardless of its value.
-     *
      * Only the moment is mocked with setTestNow(), the timezone will still be the one passed
      * as parameter of date_default_timezone_get() as a fallback (see setTestNowAndTimezone()).
      *
@@ -696,9 +694,19 @@ class Factory
             }
 
             if (!($testNow instanceof CarbonInterface)) {
-                $timezone ??= $this->useTimezoneFromTestNow ? $testNow->getTimezone() : null;
+                $timezone ??= $this->useTimezoneFromTestNow
+                    ? $testNow->getTimezone()
+                    : new CarbonTimeZone(date_default_timezone_get());
                 $testNow = $this->__call('instance', [$testNow, $timezone]);
             }
+        }
+
+        if ($testNow !== null && $timezone === null) {
+            if ($testNow instanceof DateTime) {
+                $testNow = clone $testNow;
+            }
+
+            $testNow = $testNow->setTimezone(date_default_timezone_get());
         }
 
         return $testNow;

@@ -57,7 +57,7 @@ class Autoloader
      *
      * @param string $class a name of a Scrivo class
      *
-     * @return void
+     * @return bool true if the source file was successfully included
      */
     public static function load($class)
     {
@@ -66,6 +66,8 @@ class Autoloader
         }
 
         $c = str_replace("\\", "/", substr($class, 10)) . ".php";
-        include __DIR__ . "/$c";
+        $res = include __DIR__ . "/$c";
+
+        return $res == 1 ? true : false;
     }
 }

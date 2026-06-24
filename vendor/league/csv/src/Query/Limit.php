@@ -17,11 +17,11 @@ use Deprecated;
 use League\Csv\MapIterator;
 use LimitIterator;
 
-final readonly class Limit
+final class Limit
 {
     public function __construct(
-        public int $offset,
-        public int $length,
+        public readonly int $offset,
+        public readonly int $length,
     ) {
         0 <= $this->offset || throw new QueryException(self::class.' expects the offset to be greater or equal to 0, '.$this->offset.' given.');
         -2 < $this->length || throw new QueryException(self::class.' expects the length to be greater or equal to -1, '.$this->length.' given.');
