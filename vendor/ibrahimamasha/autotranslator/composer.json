@@ -1,0 +1,23 @@
+{
+  "name": "ibrahimamasha/autotranslator",
+  "description": "Automatically translate Laravel JSON files using AI or free tools.",
+  "type": "library",
+  "autoload": {
+    "psr-4": {
+      "ibrahimmasha\\autotranslator\\": "src/"
+    }
+  },
+  "extra": {
+    "laravel": {
+      "providers": [
+        "ibrahimmasha\\autotranslator\\AutoTranslatorServiceProvider"
+      ]
+    }
+  },
+  "require": {
+    "deeplcom/deepl-php": "^1.4"
+  },
+  "suggest": {
+    "laravel/framework": "Required for Laravel integration"
+  }
+}

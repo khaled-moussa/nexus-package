@@ -19,9 +19,9 @@ enum VehicleServiceTypeEnum: string
     public function label(): string
     {
         return match ($this) {
-            self::REPAIR => 'Repair',
-            self::PART_REPLACEMENT => 'Part Replacement',
-            self::DIAGNOSTIC => 'Diagnostic',
+            self::REPAIR => __('Repair'),
+            self::PART_REPLACEMENT => __('Part Replacement'),
+            self::DIAGNOSTIC => __('Diagnostic'),
         };
     }
 

@@ -3,7 +3,7 @@
         'name' => 'internal/nexus',
         'pretty_version' => 'dev-master',
         'version' => 'dev-master',
-        'reference' => '00f9c052d6a6965d686cca29c2feab49458663da',
+        'reference' => '446670e005b336ded42b7b9881c08e407dc0f632',
         'type' => 'library',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
@@ -88,6 +88,15 @@
             'reference' => 'c03e649220089f6e5a52d422e24e3f98c73e456d',
             'type' => 'library',
             'install_path' => __DIR__ . '/../danharrin/livewire-rate-limiting',
+            'aliases' => array(),
+            'dev_requirement' => false,
+        ),
+        'deeplcom/deepl-php' => array(
+            'pretty_version' => 'v1.19.0',
+            'version' => '1.19.0.0',
+            'reference' => 'bde58fa2a6d1fbef75d187739a8dff90171844c1',
+            'type' => 'library',
+            'install_path' => __DIR__ . '/../deeplcom/deepl-php',
             'aliases' => array(),
             'dev_requirement' => false,
         ),
@@ -295,6 +304,15 @@
             'reference' => '9c19128923b05a5d7355e5d2318d7808b7e33bbd',
             'type' => 'library',
             'install_path' => __DIR__ . '/../guzzlehttp/uri-template',
+            'aliases' => array(),
+            'dev_requirement' => false,
+        ),
+        'ibrahimamasha/autotranslator' => array(
+            'pretty_version' => '2.1.0',
+            'version' => '2.1.0.0',
+            'reference' => 'ea5f66110dbec43c291631d0cabb43c5b2c7e91f',
+            'type' => 'library',
+            'install_path' => __DIR__ . '/../ibrahimamasha/autotranslator',
             'aliases' => array(),
             'dev_requirement' => false,
         ),
@@ -517,7 +535,7 @@
         'internal/nexus' => array(
             'pretty_version' => 'dev-master',
             'version' => 'dev-master',
-            'reference' => '00f9c052d6a6965d686cca29c2feab49458663da',
+            'reference' => '446670e005b336ded42b7b9881c08e407dc0f632',
             'type' => 'library',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),
@@ -727,6 +745,36 @@
             'aliases' => array(),
             'dev_requirement' => false,
         ),
+        'php-http/async-client-implementation' => array(
+            'dev_requirement' => false,
+            'provided' => array(
+                0 => '*',
+            ),
+        ),
+        'php-http/client-implementation' => array(
+            'dev_requirement' => false,
+            'provided' => array(
+                0 => '*',
+            ),
+        ),
+        'php-http/discovery' => array(
+            'pretty_version' => '1.20.0',
+            'version' => '1.20.0.0',
+            'reference' => '82fe4c73ef3363caed49ff8dd1539ba06044910d',
+            'type' => 'composer-plugin',
+            'install_path' => __DIR__ . '/../php-http/discovery',
+            'aliases' => array(),
+            'dev_requirement' => false,
+        ),
+        'php-http/multipart-stream-builder' => array(
+            'pretty_version' => '1.4.2',
+            'version' => '1.4.2.0',
+            'reference' => '10086e6de6f53489cca5ecc45b6f468604d3460e',
+            'type' => 'library',
+            'install_path' => __DIR__ . '/../php-http/multipart-stream-builder',
+            'aliases' => array(),
+            'dev_requirement' => false,
+        ),
         'phpoption/phpoption' => array(
             'pretty_version' => '1.9.5',
             'version' => '1.9.5.0',
@@ -820,7 +868,8 @@
         'psr/http-client-implementation' => array(
             'dev_requirement' => false,
             'provided' => array(
-                0 => '1.0',
+                0 => '*',
+                1 => '1.0',
             ),
         ),
         'psr/http-factory' => array(
@@ -835,7 +884,8 @@
         'psr/http-factory-implementation' => array(
             'dev_requirement' => false,
             'provided' => array(
-                0 => '1.0',
+                0 => '*',
+                1 => '1.0',
             ),
         ),
         'psr/http-message' => array(
@@ -850,7 +900,8 @@
         'psr/http-message-implementation' => array(
             'dev_requirement' => false,
             'provided' => array(
-                0 => '1.0',
+                0 => '*',
+                1 => '1.0',
             ),
         ),
         'psr/log' => array(

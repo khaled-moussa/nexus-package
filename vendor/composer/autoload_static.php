@@ -60,6 +60,10 @@ class ComposerStaticInitec82a84af1ddea7c0dfdbf54b8a86c93
         array (
             'libphonenumber\\' => 15,
         ),
+        'i' =>
+        array (
+            'ibrahimmasha\\autotranslator\\' => 28,
+        ),
         'c' =>
         array (
             'chillerlan\\Settings\\' => 20,
@@ -176,6 +180,11 @@ class ComposerStaticInitec82a84af1ddea7c0dfdbf54b8a86c93
             'Illuminate\\Support\\' => 19,
             'Illuminate\\' => 11,
         ),
+        'H' =>
+        array (
+            'Http\\Message\\MultipartStream\\' => 29,
+            'Http\\Discovery\\' => 15,
+        ),
         'G' =>
         array (
             'GuzzleHttp\\UriTemplate\\' => 23,
@@ -209,6 +218,7 @@ class ComposerStaticInitec82a84af1ddea7c0dfdbf54b8a86c93
             'Doctrine\\Inflector\\' => 19,
             'Doctrine\\Common\\Lexer\\' => 22,
             'Dflydev\\DotAccessData\\' => 22,
+            'DeepL\\' => 6,
             'DanHarrin\\LivewireRateLimiting\\' => 31,
             'DanHarrin\\DateFormatConverter\\' => 30,
         ),
@@ -235,6 +245,10 @@ class ComposerStaticInitec82a84af1ddea7c0dfdbf54b8a86c93
         'libphonenumber\\' =>
         array (
             0 => __DIR__ . '/..' . '/giggsey/libphonenumber-for-php-lite/src',
+        ),
+        'ibrahimmasha\\autotranslator\\' =>
+        array (
+            0 => __DIR__ . '/..' . '/ibrahimamasha/autotranslator/src',
         ),
         'chillerlan\\Settings\\' =>
         array (
@@ -564,6 +578,14 @@ class ComposerStaticInitec82a84af1ddea7c0dfdbf54b8a86c93
         array (
             0 => __DIR__ . '/..' . '/laravel/framework/src/Illuminate',
         ),
+        'Http\\Message\\MultipartStream\\' =>
+        array (
+            0 => __DIR__ . '/..' . '/php-http/multipart-stream-builder/src',
+        ),
+        'Http\\Discovery\\' =>
+        array (
+            0 => __DIR__ . '/..' . '/php-http/discovery/src',
+        ),
         'GuzzleHttp\\UriTemplate\\' =>
         array (
             0 => __DIR__ . '/..' . '/guzzlehttp/uri-template/src',
@@ -651,6 +673,10 @@ class ComposerStaticInitec82a84af1ddea7c0dfdbf54b8a86c93
         'Dflydev\\DotAccessData\\' =>
         array (
             0 => __DIR__ . '/..' . '/dflydev/dot-access-data/src',
+        ),
+        'DeepL\\' =>
+        array (
+            0 => __DIR__ . '/..' . '/deeplcom/deepl-php/src',
         ),
         'DanHarrin\\LivewireRateLimiting\\' =>
         array (
