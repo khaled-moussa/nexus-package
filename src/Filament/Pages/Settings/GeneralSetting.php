@@ -47,6 +47,11 @@ class GeneralSetting extends Page
     |--------------------------------------------------------------------------
     */
 
+    public function getTitle(): string|Htmlable
+    {
+        return __('General Setting');
+    }
+
     public static function getNavigationLabel(): string
     {
         return __('General');
