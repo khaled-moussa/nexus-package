@@ -1,0 +1,36 @@
+{
+    "name": "tapp/filament-timezone-field",
+    "description": "Filament timezone field.",
+    "keywords": ["tapp network", "filament", "laravel", "timezone"],
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Tapp Network",
+            "email": "steve@tappnetwork.com",
+            "role": "Developer"
+        },
+        {
+            "name": "Tapp Network",
+            "email": "andreia.bohner@tappnetwork.com",
+            "role": "Developer"
+        }
+    ],
+    "homepage": "https://github.com/TappNetwork/filament-timezone-field",
+    "support": {
+        "issues": "https://github.com/TappNetwork/filament-timezone-field/issues",
+        "source": "https://github.com/TappNetwork/filament-timezone-field"
+    },
+    "require": {
+        "symfony/intl": "^7.0|^8.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "Tapp\\FilamentTimezoneField\\": "src"
+        }
+    },
+    "config": {
+        "sort-packages": true
+    },
+    "minimum-stability": "dev",
+    "prefer-stable": true
+}
