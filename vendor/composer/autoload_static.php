@@ -15,8 +15,8 @@ class ComposerStaticInitec82a84af1ddea7c0dfdbf54b8a86c93
         'b6b991a57620e2fb6b2f66f03fe9ddc2' => __DIR__ . '/..' . '/symfony/string/Resources/functions.php',
         '606a39d89246991a373564698c2d8383' => __DIR__ . '/..' . '/symfony/polyfill-php85/bootstrap.php',
         '667aeda72477189d0494fecd327c3641' => __DIR__ . '/..' . '/symfony/var-dumper/Resources/functions/dump.php',
-        '47e1160838b5e5a10346ac4084b58c23' => __DIR__ . '/..' . '/laravel/prompts/src/helpers.php',
         '29ffe97919493792170d47eb03a68da9' => __DIR__ . '/..' . '/blade-ui-kit/blade-icons/src/helpers.php',
+        '47e1160838b5e5a10346ac4084b58c23' => __DIR__ . '/..' . '/laravel/prompts/src/helpers.php',
         '40275907c8566c390185147049ef6e5d' => __DIR__ . '/..' . '/livewire/livewire/src/helpers.php',
         '2c620c99f96a2b964346b45a4d1d1e64' => __DIR__ . '/..' . '/spatie/invade/src/functions.php',
         'e125f489d647ae664b0af7b573079de7' => __DIR__ . '/..' . '/filament/support/src/helpers.php',
@@ -28,9 +28,9 @@ class ComposerStaticInitec82a84af1ddea7c0dfdbf54b8a86c93
         'a4a119a56e50fbb293281d9a48007e0e' => __DIR__ . '/..' . '/symfony/polyfill-php80/bootstrap.php',
         'f598d06aa772fa33d905e87be6398fb1' => __DIR__ . '/..' . '/symfony/polyfill-intl-idn/bootstrap.php',
         '6d4419a22bfb72a20b561583f68f48b3' => __DIR__ . '/..' . '/filament/notifications/src/Testing/helpers.php',
-        '7b11c4dc42b3b3023073cb14e519683c' => __DIR__ . '/..' . '/ralouphie/getallheaders/src/getallheaders.php',
         '89e9938b64b06cc502d7ceca69a380fe' => __DIR__ . '/..' . '/filament/filament/src/global_helpers.php',
         'ebb446bb6d02e998480945fbbb73dc64' => __DIR__ . '/..' . '/filament/filament/src/helpers.php',
+        '7b11c4dc42b3b3023073cb14e519683c' => __DIR__ . '/..' . '/ralouphie/getallheaders/src/getallheaders.php',
         '2203a247e6fda86070a5e4e07aed533a' => __DIR__ . '/..' . '/symfony/clock/Resources/now.php',
         '09f6b20656683369174dd6fa83b7e5fb' => __DIR__ . '/..' . '/symfony/polyfill-uuid/bootstrap.php',
         'a1105708a18b76903365ca1c4aa61b02' => __DIR__ . '/..' . '/symfony/translation/Resources/functions.php',
@@ -109,6 +109,7 @@ class ComposerStaticInitec82a84af1ddea7c0dfdbf54b8a86c93
             'Symfony\\Component\\CssSelector\\' => 30,
             'Symfony\\Component\\Console\\' => 26,
             'Symfony\\Component\\Clock\\' => 24,
+            'StijnVanouplines\\BladeCountryFlags\\' => 35,
             'Spatie\\StructureDiscoverer\\' => 27,
             'Spatie\\ShikiPhp\\' => 16,
             'Spatie\\ModelStates\\' => 19,
@@ -214,6 +215,7 @@ class ComposerStaticInitec82a84af1ddea7c0dfdbf54b8a86c93
         'C' =>
         array (
             'Cron\\' => 5,
+            'CraftForge\\FilamentLanguageSwitcher\\' => 36,
             'Carbon\\Doctrine\\' => 16,
             'Carbon\\' => 7,
         ),
@@ -385,6 +387,10 @@ class ComposerStaticInitec82a84af1ddea7c0dfdbf54b8a86c93
         'Symfony\\Component\\Clock\\' =>
         array (
             0 => __DIR__ . '/..' . '/symfony/clock',
+        ),
+        'StijnVanouplines\\BladeCountryFlags\\' =>
+        array (
+            0 => __DIR__ . '/..' . '/stijnvanouplines/blade-country-flags/src',
         ),
         'Spatie\\StructureDiscoverer\\' =>
         array (
@@ -657,6 +663,10 @@ class ComposerStaticInitec82a84af1ddea7c0dfdbf54b8a86c93
         'Cron\\' =>
         array (
             0 => __DIR__ . '/..' . '/dragonmantank/cron-expression/src/Cron',
+        ),
+        'CraftForge\\FilamentLanguageSwitcher\\' =>
+        array (
+            0 => __DIR__ . '/..' . '/craft-forge/filament-language-switcher/src',
         ),
         'Carbon\\Doctrine\\' =>
         array (

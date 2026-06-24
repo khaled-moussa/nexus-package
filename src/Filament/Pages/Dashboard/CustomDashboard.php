@@ -2,7 +2,6 @@
 
 namespace Nexus\Filament\Pages\Dashboard;
 
-use BackedEnum;
 use Filament\Forms\Components\DatePicker;
 use Nexus\Filament\Components\Actions\ActionButton;
 use Filament\Pages\Dashboard as BaseDashboard;
@@ -11,7 +10,7 @@ use Filament\Pages\Dashboard\Concerns\HasFiltersAction;
 use Filament\Support\Icons\Heroicon;
 use Filament\Support\Enums\Size;
 use Illuminate\Contracts\Support\Htmlable;
-use Override;
+use BackedEnum;
 
 class CustomDashboard extends BaseDashboard
 {
