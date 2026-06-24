@@ -2,9 +2,9 @@
 
 namespace Nexus\Filament\Components\Forms\Fields;
 
-use Nexus\Domain\User\Enums\GenderEnum;
 use Nexus\Filament\Components\Forms\Fields\SelectField;
 use Nexus\Filament\Components\Forms\Fields\NameField;
+use Nexus\Domain\User\Enums\GenderEnum;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\TextInput;
 
@@ -59,6 +59,7 @@ class UserField
         ?string $label = 'Gender',
         bool $required = true,
     ): Select {
+        
         return SelectField::make(
             name: $name,
             label: $label,

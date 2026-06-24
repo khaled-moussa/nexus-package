@@ -2,8 +2,8 @@
 
 namespace Nexus\Filament\Components\Tables\Columns;
 
-use Closure;
 use Filament\Tables\Columns\TextColumn;
+use Closure;
 
 class ContactColumn
 {
@@ -17,25 +17,31 @@ class ContactColumn
         string $name,
         ?string $label = null,
         ?Closure $description = null,
-        Closure|string|null $url = null,
         bool $copyable = true,
         bool $searchable = true,
-        ?string $placeholder = '—',
+        Closure|string|null $url = null,
+        ?string $placeholder = null,
     ): TextColumn {
 
         return TextColumn::make($name)
-            ->label($label ? __($label) : null)
             ->description($description)
-            ->placeholder($placeholder ? __($placeholder) : null)
-            ->when($url, fn($column) => $column->url($url))
-            ->when($copyable, fn($column) => $column->copyable())
-            ->when($searchable, fn($column) => $column->searchable());
+            ->when($label,       fn(TextColumn $column) => $column->label(__($label)))
+            ->when($url,         fn(TextColumn $column) => $column->url($url))
+            ->when($copyable,    fn(TextColumn $column) => $column->copyable())
+            ->when($searchable,  fn(TextColumn $column) => $column->searchable())
+            ->when($placeholder, fn(TextColumn $column) => $column->placeholder(__($placeholder)));
     }
 
     /*
     |--------------------------------------------------------------------------
-    | Email Variant
+    | Variants
     |--------------------------------------------------------------------------
+    */
+
+    /*
+    |-------------------------
+    | Email Variant
+    |-------------------------
     */
 
     public static function email(
@@ -51,9 +57,9 @@ class ContactColumn
     }
 
     /*
-    |--------------------------------------------------------------------------
+    |-------------------------
     | Phone Variant
-    |--------------------------------------------------------------------------
+    |-------------------------
     */
 
     public static function phone(
@@ -70,9 +76,9 @@ class ContactColumn
     }
 
     /*
-    |--------------------------------------------------------------------------
+    |-------------------------
     | Custom Variant
-    |--------------------------------------------------------------------------
+    |-------------------------
     */
 
     public static function custom(

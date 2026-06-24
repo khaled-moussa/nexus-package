@@ -11,7 +11,25 @@ class StateFilter
 {
     /*
     |--------------------------------------------------------------------------
-    | Gender
+    | Base Builder
+    |--------------------------------------------------------------------------
+    */
+
+    public static function make(
+        string $name,
+        string $stateClass,
+        ?string $label = null,
+    ): SelectFilter {
+
+        return SelectFilter::make($name)
+            ->options($stateClass::options())
+            ->native(false)
+            ->when($label, fn(SelectFilter $filter) => $filter->label(__($label)));
+    }
+
+    /*
+    |--------------------------------------------------------------------------
+    | Request State
     |--------------------------------------------------------------------------
     */
 
@@ -20,15 +38,16 @@ class StateFilter
         ?string $label = 'Request State',
     ): SelectFilter {
 
-        return SelectFilter::make($name)
-            ->label($label ? __($label) : null)
-            ->options(RequestStates::options())
-            ->native(false);
+        return self::make(
+            name: $name,
+            stateClass: RequestStates::class,
+            label: $label,
+        );
     }
 
     /*
     |--------------------------------------------------------------------------
-    | Gender
+    | Vehicle State
     |--------------------------------------------------------------------------
     */
 
@@ -36,16 +55,17 @@ class StateFilter
         string $name = 'vehicle_state',
         ?string $label = 'Vehicle State',
     ): SelectFilter {
+        return self::make(
 
-        return SelectFilter::make($name)
-            ->label($label ? __($label) : null)
-            ->options(VehicleStates::options())
-            ->native(false);
+            name: $name,
+            stateClass: VehicleStates::class,
+            label: $label,
+        );
     }
 
     /*
     |--------------------------------------------------------------------------
-    | Gender
+    | Quotation State
     |--------------------------------------------------------------------------
     */
 
@@ -53,10 +73,11 @@ class StateFilter
         string $name = 'quotation_state',
         ?string $label = 'Quotation State',
     ): SelectFilter {
-
-        return SelectFilter::make($name)
-            ->label($label ? __($label) : null)
-            ->options(QuotationStates::options())
-            ->native(false);
+        return self::make(
+            
+            name: $name,
+            stateClass: QuotationStates::class,
+            label: $label,
+        );
     }
 }

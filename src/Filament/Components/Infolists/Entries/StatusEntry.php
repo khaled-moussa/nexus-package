@@ -2,8 +2,9 @@
 
 namespace Nexus\Filament\Components\Infolists\Entries;
 
-use Closure;
 use Filament\Infolists\Components\TextEntry;
+use Filament\Support\Colors\Color;
+use Closure;
 
 class StatusEntry
 {
@@ -22,22 +23,22 @@ class StatusEntry
     ): TextEntry {
 
         return TextEntry::make($name)
-            ->label($label ? __($label) : null)
             ->hiddenLabel($hiddenLabel)
-            ->when(
-                $placeholder,
-                fn(TextEntry $entry) => $entry->placeholder($placeholder)
-            )
-            ->when(
-                $badge,
-                fn(TextEntry $entry) => $entry->badge()
-            );
+            ->when($label,       fn(TextEntry $entry) => $entry->label(__($label)))
+            ->when($badge,       fn(TextEntry $entry) => $entry->badge())
+            ->when($placeholder, fn(TextEntry $entry) => $entry->placeholder(__($placeholder)));
     }
 
     /*
     |--------------------------------------------------------------------------
-    | Boolean Status
+    | Variants
     |--------------------------------------------------------------------------
+    */
+
+    /*
+    |-------------------------
+    | Boolean Variant
+    |-------------------------
     */
 
     public static function boolean(
@@ -48,15 +49,15 @@ class StatusEntry
     ): TextEntry {
 
         return self::make($name, $label, $hiddenLabel)
-            ->when(! is_null($state), fn(TextEntry $entry) => $entry->state($state))
-            ->formatStateUsing(fn($state) => (bool) $state ? __('Active') : __('Inactive'))
-            ->color(fn($state) => (bool) $state ? 'success'  : 'danger');
+            ->when($state, fn(TextEntry $entry) => $entry->state($state))
+            ->when($state, fn(TextEntry $entry) => $entry->formatStateUsing((bool) $state ? __('Active') : __('Inactive')))
+            ->when($state, fn(TextEntry $entry) => $entry->color(fn($state) => (bool) $state ? Color::Green  : Color::Rose));
     }
 
     /*
-    |--------------------------------------------------------------------------
-    | Custom Status
-    |--------------------------------------------------------------------------
+    |-------------------------
+    | Custom Variant
+    |-------------------------
     */
 
     public static function custom(
@@ -69,15 +70,15 @@ class StatusEntry
     ): TextEntry {
 
         return self::make($name, $label, $hiddenLabel)
-            ->when(! is_null($state), fn(TextEntry $entry) => $entry->state($state))
-            ->when($color, fn(TextEntry $entry) => $entry->color($color))
-            ->formatStateUsing($formatUsing);
+            ->formatStateUsing($formatUsing)
+            ->when($state, fn(TextEntry $entry) => $entry->state($state))
+            ->when($color, fn(TextEntry $entry) => $entry->color($color));
     }
 
     /*
-    |--------------------------------------------------------------------------
-    | Enum Status
-    |--------------------------------------------------------------------------
+    |-------------------------
+    | Enum Variant
+    |-------------------------
     */
 
     public static function enum(
@@ -87,9 +88,13 @@ class StatusEntry
         ?Closure $state = null,
     ): TextEntry {
 
-        return self::make($name, $label, $hiddenLabel)
-            ->when(! is_null($state), fn(TextEntry $entry) => $entry->state($state))
-            ->formatStateUsing(fn($state) => $state?->label())
-            ->color(fn($state) => $state?->filamentColor());
+        return self::make(
+            name: $name,
+            label: $label,
+            hiddenLabel: $hiddenLabel
+        )
+            ->when($state, fn(TextEntry $entry) => $entry->state($state))
+            ->when($state, fn(TextEntry $entry) => $entry->formatStateUsing(fn($state) => $state?->label()))
+            ->when($state, fn(TextEntry $entry) => $entry->color(fn($state) => $state?->filamentColor()));
     }
 }

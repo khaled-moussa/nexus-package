@@ -22,11 +22,11 @@ class DescriptionEntry
     ): TextEntry {
 
         return TextEntry::make($name)
-            ->label($label ? __($label) : null)
             ->hiddenLabel($hiddenLabel)
             ->color(Color::Gray)
-            ->placeholder($placeholder ?? __('No description'))
-            ->when($fullWidth, fn ($entry) => $entry->columnSpanFull());
+            ->when($label,       fn(TextEntry $entry) => $entry->label(__($label)))
+            ->when($fullWidth,   fn(TextEntry $entry) => $entry->columnSpanFull())
+            ->when($placeholder, fn(TextEntry $entry) => $entry->placeholder(__($placeholder)));
     }
 
     /*
@@ -35,17 +35,11 @@ class DescriptionEntry
     |--------------------------------------------------------------------------
     */
 
-    public static function full(
-        string $name,
-        ?string $label = null,
-    ): TextEntry {
-
-        return self::make(
-            name: $name,
-            label: $label,
-            fullWidth: true,
-        );
-    }
+    /*
+    |-------------------------
+    | Compact Width Variant
+    |-------------------------
+    */
 
     public static function compact(
         string $name,

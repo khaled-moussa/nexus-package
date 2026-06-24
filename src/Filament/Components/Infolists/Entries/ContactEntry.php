@@ -23,17 +23,23 @@ class ContactEntry
     ): TextEntry {
 
         return TextEntry::make($name)
-            ->label($label ? __($label) : null)
             ->hiddenLabel($hiddenLabel)
-            ->placeholder($placeholder)
-            ->when($icon, fn ($entry) => $entry->icon($icon))
-            ->when($copyable, fn ($entry) => $entry->copyable());
+            ->when($label,       fn(TextEntry $field) => $field->label(__($label)))
+            ->when($icon,        fn(TextEntry $entry) => $entry->icon($icon))
+            ->when($copyable,    fn(TextEntry $entry) => $entry->copyable())
+            ->when($placeholder, fn(TextEntry $entry) => $entry->placeholder(__($placeholder)));
     }
 
     /*
     |--------------------------------------------------------------------------
-    | Email Variant
+    | Variants
     |--------------------------------------------------------------------------
+    */
+
+    /*
+    |-------------------------
+    | Email Variant
+    |-------------------------
     */
 
     public static function email(
@@ -45,15 +51,15 @@ class ContactEntry
         return self::make(
             name: $name,
             label: $label,
-            placeholder: __('No email'),
+            placeholder: 'No email',
             copyable: $copyable,
         );
     }
 
     /*
-    |--------------------------------------------------------------------------
+    |-------------------------
     | Phone Variant
-    |--------------------------------------------------------------------------
+    |-------------------------
     */
 
     public static function phone(
@@ -65,30 +71,7 @@ class ContactEntry
         return self::make(
             name: $name,
             label: $label,
-            placeholder: __('No phone'),
-            copyable: $copyable,
-        );
-    }
-
-    /*
-    |--------------------------------------------------------------------------
-    | Generic Contact (fully flexible)
-    |--------------------------------------------------------------------------
-    */
-
-    public static function custom(
-        string $name,
-        ?string $label = null,
-        ?Heroicon $icon = null,
-        ?string $placeholder = null,
-        bool $copyable = true,
-    ): TextEntry {
-
-        return self::make(
-            name: $name,
-            label: $label,
-            icon: $icon,
-            placeholder: $placeholder,
+            placeholder: 'No phone',
             copyable: $copyable,
         );
     }

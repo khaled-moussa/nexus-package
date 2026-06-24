@@ -3,6 +3,7 @@
 namespace Nexus\Filament\Components\Tables\Groups;
 
 use Filament\Tables\Grouping\Group;
+use Closure;
 
 class UserGroup
 {
@@ -15,22 +16,30 @@ class UserGroup
     public static function make(
         string $field,
         ?string $label = null,
-        ?\Closure $titleUsing = null,
+        ?Closure $titleUsing = null,
     ): Group {
 
         $group = Group::make($field)
-            ->label($label ? __($label) : null)
-            ->titlePrefixedWithLabel(false);
+            ->titlePrefixedWithLabel(false)
+            ->when($label, fn(Group $group) => $group->label(__($label)));
 
-        return $titleUsing
-            ? $group->getTitleFromRecordUsing($titleUsing)
-            : $group;
+        if ($titleUsing) {
+            $group->getTitleFromRecordUsing($titleUsing);
+        }
+
+        return $group;
     }
 
     /*
     |--------------------------------------------------------------------------
     | Variants
     |--------------------------------------------------------------------------
+    */
+
+    /*
+    |-------------------------
+    | Active
+    |-------------------------
     */
 
     public static function active(
@@ -41,9 +50,15 @@ class UserGroup
         return self::make(
             field: $field,
             label: $label,
-            titleUsing: fn($state) => $state ? __('Active') : __('Not Active'),
+            titleUsing: fn($state) => filled($state) ? __('Active') : __('Not Active'),
         );
     }
+
+    /*
+    |-------------------------
+    | Email Verified
+    |-------------------------
+    */
 
     public static function emailVerified(
         string $field = 'email_verified_at',
@@ -58,9 +73,9 @@ class UserGroup
     }
 
     /*
-    |--------------------------------------------------------------------------
-    | Gender Variant
-    |--------------------------------------------------------------------------
+    |-------------------------
+    | Gender Verified
+    |-------------------------
     */
 
     public static function gender(
@@ -71,7 +86,7 @@ class UserGroup
         return self::make(
             field: $field,
             label: $label,
-            titleUsing: fn($record) => $record?->getGender()?->label() ?? __('Unknown'),
+            titleUsing: fn($record) => $record?->getGender()->label() ?? __('Unknown'),
         );
     }
 }

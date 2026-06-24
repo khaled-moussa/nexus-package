@@ -3,12 +3,13 @@
 namespace Nexus\Filament\Components\Forms\Fields;
 
 use Filament\Forms\Components\Select;
+use Filament\Support\Icons\Heroicon;
 
 class SelectField
 {
     /*
     |--------------------------------------------------------------------------
-    | Builder
+    | Base Builder
     |--------------------------------------------------------------------------
     */
 
@@ -20,13 +21,18 @@ class SelectField
         bool $searchable = false,
         bool $native = false,
         ?string $placeholder = null,
+        string|Heroicon|null $prefixIcon = null,
+        ?bool $fullWidth = null,
     ): Select {
+
         return Select::make($name)
-            ->label($label ? __($label) : null)
             ->required($required)
             ->options($options)
             ->searchable($searchable)
             ->native($native)
-            ->when($placeholder, fn (Select $field) => $field->placeholder(__($placeholder)));
+            ->when($label,       fn(Select $field) => $field->label(__($label)))
+            ->when($placeholder, fn(Select $field) => $field->placeholder(__($placeholder)))
+            ->when($prefixIcon,  fn(Select $field) => $field->prefixIcon($prefixIcon))
+            ->when($fullWidth,   fn(Select $field) => $field->columnSpanFull());
     }
 }

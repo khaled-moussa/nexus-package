@@ -9,7 +9,7 @@ class PhoneField
 {
     /*
     |--------------------------------------------------------------------------
-    | Builder
+    | Base Builder
     |--------------------------------------------------------------------------
     */
 
@@ -25,11 +25,11 @@ class PhoneField
     ): PhoneInput {
 
         return PhoneInput::make($name)
-            ->label($label ? __($label) : null)
             ->required($required)
-            ->when($mobileOnly, fn($field) => $field->validateFor(type: PhoneNumberType::MOBILE))
-            ->when($strict, fn($field) => $field->strictMode())
-            ->when($ipLookup, fn($field) => $field->enableIpLookup())
-            ->when($unique && $uniqueTable, fn($field) => $field->unique($uniqueTable, ignoreRecord: true));
+            ->when($label,      fn(PhoneInput $field) => $field->label(__($label)))
+            ->when($mobileOnly, fn(PhoneInput $field) => $field->validateFor(type: PhoneNumberType::MOBILE))
+            ->when($strict,     fn(PhoneInput $field) => $field->strictMode())
+            ->when($ipLookup,   fn(PhoneInput $field) => $field->enableIpLookup())
+            ->when($unique && $uniqueTable, fn(PhoneInput $field) => $field->unique($uniqueTable, ignoreRecord: true));
     }
 }

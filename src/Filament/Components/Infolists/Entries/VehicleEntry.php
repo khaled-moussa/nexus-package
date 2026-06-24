@@ -9,14 +9,44 @@ use Nexus\Filament\Components\Infolists\Sections\CustomSection;
 use Filament\Infolists\Components\TextEntry;
 use Filament\Schemas\Components\Section;
 use Filament\Support\Colors\Color;
-use Filament\Support\Enums\FontWeight;
 
 class VehicleEntry
 {
     /*
     |--------------------------------------------------------------------------
-    | Manufacturer
+    | Base Builder
     |--------------------------------------------------------------------------
+    */
+
+    private static function make(
+        string $name,
+        string $label,
+        bool $bold = false,
+        bool $badge = false,
+        string|Color|array|null $color = null,
+        ?string $placeholder = null,
+    ): TextEntry {
+
+        return NameEntry::make(
+            name: $name,
+            label: $label,
+            bold: $bold,
+            badge: $badge,
+            color: $color,
+            placeholder: $placeholder,
+        );
+    }
+
+    /*
+    |--------------------------------------------------------------------------
+    | Vehicle Entries
+    |--------------------------------------------------------------------------
+    */
+
+    /*
+    |-------------------------
+    | Manufacturer Entry
+    |-------------------------
     */
 
     public static function manufacturer(
@@ -24,15 +54,17 @@ class VehicleEntry
         string $label = 'Manufacturer'
     ): TextEntry {
 
-        return TextEntry::make($name)
-            ->label($label ? __($label) : null)
-            ->weight(FontWeight::Bold);
+        return self::make(
+            name: $name,
+            label: $label,
+            bold: true,
+        );
     }
 
     /*
-    |--------------------------------------------------------------------------
-    | Model
-    |--------------------------------------------------------------------------
+    |-------------------------
+    | Model Entry
+    |-------------------------
     */
 
     public static function model(
@@ -40,14 +72,16 @@ class VehicleEntry
         string $label = 'Model'
     ): TextEntry {
 
-        return TextEntry::make($name)
-            ->label($label ? __($label) : null);
+        return self::make(
+            name: $name,
+            label: $label,
+        );
     }
 
     /*
-    |--------------------------------------------------------------------------
-    | Model Year
-    |--------------------------------------------------------------------------
+    |-------------------------
+    | Model Year Entry
+    |-------------------------
     */
 
     public static function modelYear(
@@ -55,16 +89,18 @@ class VehicleEntry
         string $label = 'Model Year'
     ): TextEntry {
 
-        return TextEntry::make($name)
-            ->label($label ? __($label) : null)
-            ->badge()
-            ->color(Color::Gray);
+        return self::make(
+            name: $name,
+            label: $label,
+            badge: true,
+            color: Color::Gray
+        );
     }
 
     /*
-    |--------------------------------------------------------------------------
-    | Plate Number
-    |--------------------------------------------------------------------------
+    |-------------------------
+    | Plate Number Entry
+    |-------------------------
     */
 
     public static function plateNumber(
@@ -72,16 +108,18 @@ class VehicleEntry
         string $label = 'Plate Number'
     ): TextEntry {
 
-        return TextEntry::make($name)
-            ->label($label ? __($label) : null)
-            ->badge()
-            ->color(Color::Blue);
+        return self::make(
+            name: $name,
+            label: $label,
+            badge: true,
+            color: Color::Blue
+        );
     }
 
     /*
-    |--------------------------------------------------------------------------
-    | Vin Number
-    |--------------------------------------------------------------------------
+    |-------------------------
+    | Vin Number Entry
+    |-------------------------
     */
 
     public static function vinNumber(
@@ -89,16 +127,18 @@ class VehicleEntry
         string $label = 'Vin Number'
     ): TextEntry {
 
-        return TextEntry::make($name)
-            ->label($label ? __($label) : null)
-            ->badge()
-            ->color(Color::Emerald);
+        return self::make(
+            name: $name,
+            label: $label,
+            badge: true,
+            color: Color::Emerald
+        );
     }
 
     /*
-    |--------------------------------------------------------------------------
-    | Kilometers
-    |--------------------------------------------------------------------------
+    |-------------------------
+    | Kilometers VariEntryant
+    |-------------------------
     */
 
     public static function kilometers(
@@ -114,9 +154,9 @@ class VehicleEntry
     }
 
     /*
-    |--------------------------------------------------------------------------
-    | Service Type
-    |--------------------------------------------------------------------------
+    |-------------------------
+    | Service Entry
+    |-------------------------
     */
 
     public static function serviceType(
@@ -131,9 +171,9 @@ class VehicleEntry
     }
 
     /*
-    |--------------------------------------------------------------------------
-    | Vehicle State
-    |--------------------------------------------------------------------------
+    |-------------------------
+    | State Entry
+    |-------------------------
     */
 
     public static function vehicleState(
@@ -148,9 +188,9 @@ class VehicleEntry
     }
 
     /*
-    |--------------------------------------------------------------------------
-    | Maintenance Count
-    |--------------------------------------------------------------------------
+    |-------------------------
+    | Maintenance Count Entry
+    |-------------------------
     */
 
     public static function maintenanceCount(
@@ -165,9 +205,9 @@ class VehicleEntry
     }
 
     /*
-    |--------------------------------------------------------------------------
-    | Vehicle Issue
-    |--------------------------------------------------------------------------
+    |-------------------------
+    | Issue Entry
+    |-------------------------
     */
 
     public static function vehicleDescription(
@@ -182,9 +222,9 @@ class VehicleEntry
     }
 
     /*
-    |--------------------------------------------------------------------------
-    | Vehicle Issue
-    |--------------------------------------------------------------------------
+    |-------------------------
+    | Comments Entry
+    |-------------------------
     */
 
     public static function vehicleComment(
@@ -198,10 +238,18 @@ class VehicleEntry
         );
     }
 
+
+
     /*
     |--------------------------------------------------------------------------
-    | Vehicle Issue & Comment Section
+    | Ready Sections
     |--------------------------------------------------------------------------
+    */
+
+    /*
+    |-------------------------
+    | Issue & Comment Section
+    |-------------------------
     */
 
     public static function issueAndCommentSection(): Section

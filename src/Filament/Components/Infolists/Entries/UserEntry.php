@@ -17,13 +17,15 @@ class UserEntry
         string $name = 'full_name',
         ?string $label = 'Full name',
         bool $hiddenLabel = false,
+        bool $bold = true,
+        ?string $placeholder = null,
     ): TextEntry {
 
         return TextEntry::make($name)
-            ->label($label ? __($label) : null)
             ->hiddenLabel($hiddenLabel)
-            ->weight(FontWeight::Bold)
-            ->placeholder('—');
+            ->when($label,       fn(TextEntry $entry) => $entry->label(__($label)))
+            ->when($bold,        fn(TextEntry $entry) => $entry->weight(FontWeight::Bold))
+            ->when($placeholder, fn(TextEntry $entry) => $entry->placeholder(__($placeholder)));
     }
 
     /*
@@ -36,14 +38,15 @@ class UserEntry
         string $name = 'gender',
         ?string $label = 'Gender',
         bool $hiddenLabel = false,
+        ?string $placeholder = null,
     ): TextEntry {
 
         return TextEntry::make($name)
-            ->label($label ? __($label) : null)
             ->hiddenLabel($hiddenLabel)
             ->badge()
-            ->color(fn ($state) => $state?->filamentColor())
-            ->formatStateUsing(fn ($state) => $state?->label())
-            ->placeholder('—');
+            ->color(fn($state) => $state?->filamentColor())
+            ->formatStateUsing(fn($state) => $state?->label())
+            ->when($label,       fn(TextEntry $entry) => $entry->label(__($label)))
+            ->when($placeholder, fn(TextEntry $entry) => $entry->placeholder(__($placeholder)));
     }
 }

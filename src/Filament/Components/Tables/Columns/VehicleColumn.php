@@ -2,17 +2,48 @@
 
 namespace Nexus\Filament\Components\Tables\Columns;
 
-use Closure;
 use Filament\Support\Colors\Color;
 use Filament\Support\Enums\FontWeight;
 use Filament\Tables\Columns\TextColumn;
+use Closure;
 
 class VehicleColumn
 {
     /*
     |--------------------------------------------------------------------------
-    | Manufacturer
+    | Base Builder
     |--------------------------------------------------------------------------
+    */
+
+    public static function make(
+        string $name,
+        ?string $label,
+        string|Closure|null $description = null,
+        string|Color|array|null $color = null,
+        ?bool $bold = false,
+        bool $badge = false,
+    ): TextColumn {
+
+        return NameColumn::make(
+            name: $name,
+            label: $label,
+            description: $description,
+            bold: $bold,
+            badge: $badge,
+            color: $color,
+        );
+    }
+
+    /*
+    |--------------------------------------------------------------------------
+    | Variants
+    |--------------------------------------------------------------------------
+    */
+
+    /*
+    |-------------------------
+    | Manufacturer Variant
+    |-------------------------
     */
 
     public static function manufacturer(
@@ -20,34 +51,35 @@ class VehicleColumn
         ?string $label = 'Manufacturer',
     ): TextColumn {
 
-        return TextColumn::make($name)
-            ->label($label ? __($label) : null)
-            ->weight(FontWeight::Bold)
-            ->searchable();
+        return self::make(
+            name: $name,
+            label: $label
+        );
     }
 
     /*
-    |--------------------------------------------------------------------------
-    | Model
-    |--------------------------------------------------------------------------
+    |-------------------------
+    | Model Variant
+    |-------------------------
     */
 
     public static function model(
         string $name = 'model',
         ?string $label = 'Model',
-        ?Closure $description = null,
+        string|Closure|null $description = null,
     ): TextColumn {
 
-        return TextColumn::make($name)
-            ->label($label ? __($label) : null)
-            ->description($description)
-            ->searchable();
+        return self::make(
+            name: $name,
+            label: $label,
+            description: $description,
+        );
     }
 
     /*
-    |--------------------------------------------------------------------------
-    | Model Year
-    |--------------------------------------------------------------------------
+    |-------------------------
+    | Model Year Variant
+    |-------------------------
     */
 
     public static function modelYear(
@@ -55,16 +87,17 @@ class VehicleColumn
         ?string $label = 'Model Year',
     ): TextColumn {
 
-        return TextColumn::make($name)
-            ->label($label ? __($label) : null)
-            ->badge()
-            ->color(Color::Gray);
+        return self::make(
+            name: $name,
+            label: $label,
+            badge: true,
+        );
     }
 
     /*
-    |--------------------------------------------------------------------------
-    | Plate Number
-    |--------------------------------------------------------------------------
+    |-------------------------
+    | Plate No Variant
+    |-------------------------
     */
 
     public static function plateNumber(
@@ -72,17 +105,17 @@ class VehicleColumn
         ?string $label = 'Plate No',
     ): TextColumn {
 
-        return TextColumn::make($name)
-            ->label($label ? __($label) : null)
-            ->badge()
-            ->color(Color::Blue)
-            ->searchable();
+        return self::make(
+            name: $name,
+            label: $label,
+            badge: true,
+        );
     }
 
     /*
-    |--------------------------------------------------------------------------
-    | Vin Number
-    |--------------------------------------------------------------------------
+    |-------------------------
+    | Vin No Variant
+    |-------------------------
     */
 
     public static function vinNumber(
@@ -90,17 +123,18 @@ class VehicleColumn
         ?string $label = 'Vin No',
     ): TextColumn {
 
-        return TextColumn::make($name)
-            ->label($label ? __($label) : null)
-            ->badge()
-            ->color(Color::Emerald)
-            ->searchable();
+        return self::make(
+            name: $name,
+            label: $label,
+            badge: true,
+            color: Color::Emerald,
+        );
     }
 
     /*
-    |--------------------------------------------------------------------------
-    | Maintenance Count
-    |--------------------------------------------------------------------------
+    |-------------------------
+    | Maintenance Count Variant
+    |-------------------------
     */
 
     public static function maintenanceCount(

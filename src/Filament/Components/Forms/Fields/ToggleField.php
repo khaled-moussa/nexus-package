@@ -8,7 +8,7 @@ class ToggleField
 {
     /*
     |--------------------------------------------------------------------------
-    | Builder
+    | Base Builder
     |--------------------------------------------------------------------------
     */
 
@@ -22,11 +22,11 @@ class ToggleField
     ): Toggle {
 
         return Toggle::make($name)
-            ->label($label ? __($label) : null)
             ->default($default)
             ->inline($inline)
-            ->when($hiddenLabel, fn($field) => $field->hiddenLabel())
-            ->when($helperText, fn($field) => $field->belowLabel(__($helperText)));
+            ->when($label,       fn(Toggle $field) => $field->label(__($label)))
+            ->when($hiddenLabel, fn(Toggle $field) => $field->hiddenLabel())
+            ->when($helperText,  fn(Toggle $field) => $field->belowLabel(__($helperText)));
     }
 
     /*
@@ -39,6 +39,7 @@ class ToggleField
         string $name = 'is_active',
         ?string $label = 'Active'
     ): Toggle {
+
         return self::make(
             name: $name,
             label: $label,

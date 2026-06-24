@@ -2,9 +2,10 @@
 
 namespace Nexus\Filament\Components\Tables\Columns;
 
-use Closure;
 use Filament\Support\Enums\FontWeight;
 use Filament\Tables\Columns\TextColumn;
+use Filament\Support\Colors\Color;
+use Closure;
 
 class NameColumn
 {
@@ -17,25 +18,39 @@ class NameColumn
     public static function make(
         string $name,
         ?string $label = null,
-        ?Closure $description = null,
+        string|Closure|null $description = null,
+        string|Closure|null $state = null,
+        bool $bold = true,
+        bool $badge = false,
+        bool $tooltip = false,
+        ?string $limit = null,
         bool $searchable = true,
+        string|Color|array|null $color = null,
         ?Closure $searchableQuery = null,
-        ?Closure $state = null,
     ): TextColumn {
+
         return TextColumn::make($name)
-            ->label($label ? __($label) : null)
-            ->state($state)
-            ->description($description)
-            ->searchable($searchable, $searchableQuery)
-            ->weight(FontWeight::Medium)
-            ->limit(40)
-            ->tooltip(fn($state) => $state);
+            ->when($label,       fn(TextColumn $column) => $column->label(__($label)))
+            ->when($state,       fn(TextColumn $column) => $column->state($state))
+            ->when($bold,        fn(TextColumn $column) => $column->weight(FontWeight::Medium))
+            ->when($color,       fn(TextColumn $column) => $column->color($color))
+            ->when($badge,       fn(TextColumn $column) => $column->badge())
+            ->when($limit,       fn(TextColumn $column) => $column->limit($limit))
+            ->when($tooltip,     fn(TextColumn $column) => $column->tooltip($tooltip))
+            ->when($searchable,  fn(TextColumn $column) => $column->searchable($searchable, $searchableQuery))
+            ->when($description, fn(TextColumn $column) => $column->description($description));
     }
 
     /*
     |--------------------------------------------------------------------------
-    | Organization
+    | Variants
     |--------------------------------------------------------------------------
+    */
+
+    /*
+    |-------------------------
+    | Organization Variant
+    |-------------------------
     */
 
     public static function organization(
@@ -55,9 +70,9 @@ class NameColumn
     }
 
     /*
-    |--------------------------------------------------------------------------
-    | Workshop
-    |--------------------------------------------------------------------------
+    |-------------------------
+    | Workshop Variant
+    |-------------------------
     */
 
     public static function workshop(
@@ -77,14 +92,14 @@ class NameColumn
     }
 
     /*
-    |--------------------------------------------------------------------------
-    | Scopes
-    |--------------------------------------------------------------------------
+    |-------------------------
+    | Company Variant
+    |-------------------------
     */
 
     public static function companyBrand(
         string $name = 'company_brand',
-        ?string $label = 'Organization Name',
+        ?string $label = 'Company Name',
     ): TextColumn {
         return self::make(
             name: $name,

@@ -15,24 +15,33 @@ class NumericEntry
     public static function make(
         string $name,
         ?string $label = null,
+        bool $hiddenLabel = false,
         bool $money = false,
         ?string $currency = 'SAR',
         ?string $locale = null,
         ?string $suffix = null,
+        ?string $placeholder = null,
     ): TextEntry {
 
         return TextEntry::make($name)
-            ->label($label ? __($label) : null)
-            ->when($money, fn($e) => $e->money($currency, locale: $locale ?? app()->getLocale()))
-            ->when($suffix, fn($e) => $e->suffix($suffix))
+            ->hiddenLabel($hiddenLabel)
             ->numeric()
-            ->placeholder('—');
+            ->when($label,       fn(TextEntry $entry) => $entry->label(__($label)))
+            ->when($money,       fn(TextEntry $entry) => $entry->money($currency, locale: $locale ?? app()->getLocale()))
+            ->when($suffix,      fn(TextEntry $entry) => $entry->suffix($suffix))
+            ->when($placeholder, fn(TextEntry $entry) => $entry->placeholder(__($placeholder)));
     }
 
     /*
     |--------------------------------------------------------------------------
-    | Number
+    | Variants
     |--------------------------------------------------------------------------
+    */
+
+    /*
+    |-------------------------
+    | Number Variant
+    |-------------------------
     */
 
     public static function number(
@@ -49,9 +58,9 @@ class NumericEntry
     }
 
     /*
-    |--------------------------------------------------------------------------
-    | Money
-    |--------------------------------------------------------------------------
+    |-------------------------
+    | Money Variant
+    |-------------------------
     */
 
     public static function money(
@@ -72,9 +81,9 @@ class NumericEntry
     }
 
     /*
-    |--------------------------------------------------------------------------
-    | Percentage
-    |--------------------------------------------------------------------------
+    |-------------------------
+    | Percentage Variant
+    |-------------------------
     */
 
     public static function percentage(

@@ -15,17 +15,17 @@ class EmailEntry
 
     public static function make(
         string $name,
-        ?string $label = null,
+        ?string $label = 'Email',
         bool $hiddenLabel = false,
-        bool $copyable = true,
         bool $icon = true,
+        bool $copyable = true,
     ): TextEntry {
 
         return TextEntry::make($name)
-            ->label($label ? __($label) : null)
             ->hiddenLabel($hiddenLabel)
-            ->when($icon, fn ($entry) => $entry->icon(Heroicon::OutlinedEnvelope))
-            ->when($copyable, fn ($entry) => $entry->copyable());
+            ->when($label,    fn(TextEntry $entry) => $entry->label(__($label)))
+            ->when($icon,     fn(TextEntry $entry) => $entry->icon(Heroicon::OutlinedEnvelope))
+            ->when($copyable, fn(TextEntry $entry) => $entry->copyable());
     }
 
     /*
@@ -34,20 +34,15 @@ class EmailEntry
     |--------------------------------------------------------------------------
     */
 
-    public static function default(
-        string $name = 'email',
-        ?string $label = null,
-    ): TextEntry {
-
-        return self::make(
-            name: $name,
-            label: $label,
-        );
-    }
+    /*
+    |-------------------------
+    | Readonly Variant
+    |-------------------------
+    */
 
     public static function readonly(
         string $name,
-        ?string $label = null,
+        ?string $label = 'Email',
     ): TextEntry {
 
         return self::make(

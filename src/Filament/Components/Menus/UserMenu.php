@@ -2,9 +2,9 @@
 
 namespace Nexus\Filament\Components\Menus;
 
-use Nexus\Filament\Pages\Settings\GeneralSetting;
 use Filament\Navigation\MenuItem;
 use Filament\Support\Icons\Heroicon;
+use Nexus\Filament\Pages\Settings\GeneralSetting;
 
 class UserMenu
 {

@@ -19,20 +19,24 @@ class DescriptionField
         int $rows = 3,
         bool $fullWidth = true,
     ): Textarea {
-        $field = Textarea::make($name)
-            ->label($label ? __($label) : null)
-            ->required($required)
-            ->rows($rows);
 
-        return $fullWidth
-            ? $field->columnSpanFull()
-            : $field;
+        return Textarea::make($name)
+            ->required($required)
+            ->rows($rows)
+            ->when($label, fn(Textarea $field) => $field->label(__($label)))
+            ->when($fullWidth, fn(Textarea $field) => $field->columnSpanFull());
     }
 
     /*
     |--------------------------------------------------------------------------
-    | Preset Variants
+    | Variants
     |--------------------------------------------------------------------------
+    */
+
+    /*
+    |-------------------------
+    | Short Variant Rows (1) 
+    |-------------------------
     */
 
     public static function short(string $name, ?string $label = null, bool $required = true,): Textarea
@@ -45,6 +49,12 @@ class DescriptionField
         );
     }
 
+    /*
+    |-------------------------
+    | Medium Variant Rows (3) 
+    |-------------------------
+    */
+
     public static function medium(string $name, ?string $label = null, bool $required = true): Textarea
     {
         return self::make(
@@ -54,6 +64,12 @@ class DescriptionField
             rows: 3
         );
     }
+
+    /*
+    |-------------------------
+    | Long Variant Rows (4) 
+    |-------------------------
+    */
 
     public static function long(string $name, ?string $label = null, bool $required = true): Textarea
     {

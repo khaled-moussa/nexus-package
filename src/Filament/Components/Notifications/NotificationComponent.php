@@ -20,6 +20,7 @@ class NotificationComponent
         bool $persistent = false,
         array $actions = [],
     ): void {
+        
         $notification = Notification::make()
             ->title($title)
             ->duration($duration);

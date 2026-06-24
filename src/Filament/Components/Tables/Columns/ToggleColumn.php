@@ -19,14 +19,20 @@ class ToggleColumn
     ): BaseToggleColumn {
 
         return BaseToggleColumn::make($name)
-            ->label($label ? __($label) : null)
-            ->when($sortable, fn ($column) => $column->sortable());
+            ->when($label,    fn(BaseToggleColumn $column) => $column->label(__($label)))
+            ->when($sortable, fn(BaseToggleColumn $column) => $column->sortable());
     }
 
     /*
     |--------------------------------------------------------------------------
     | Variants
     |--------------------------------------------------------------------------
+    */
+
+    /*
+    |-------------------------
+    | Active Variant
+    |-------------------------
     */
 
     public static function active(

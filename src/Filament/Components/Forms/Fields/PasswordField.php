@@ -9,7 +9,7 @@ class PasswordField
 {
     /*
     |--------------------------------------------------------------------------
-    | Builder
+    | Base Builder
     |--------------------------------------------------------------------------
     */
 
@@ -22,14 +22,12 @@ class PasswordField
     ): TextInput {
 
         return TextInput::make($name)
-            ->label($label ? __($label) : null)
             ->required($required)
             ->password()
-            ->maxLength(255)
-            ->autocomplete('new-password')
             ->confirmed()
             ->prefixIcon(Heroicon::OutlinedLockClosed)
-            ->when($confirmed, fn ($field) => $field->confirmed())
-            ->when($helperText, fn ($field) => $field->helperText($helperText));
+            ->when($label,      fn(TextInput $field) => $field->label(__($label)))
+            ->when($confirmed,  fn(TextInput $field) => $field->confirmed())
+            ->when($helperText, fn(TextInput $field) => $field->helperText($helperText));
     }
 }

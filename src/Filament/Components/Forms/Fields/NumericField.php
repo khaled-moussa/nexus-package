@@ -19,21 +19,29 @@ class NumericField
         int|float|string|null $default = null,
         int|float|null $minValue = null,
         int|float|null $maxValue = null,
+        ?string $suffix = null,
     ): TextInput {
 
         return TextInput::make($name)
-            ->label($label ? __($label) : null)
             ->numeric()
             ->required($required)
-            ->when(! is_null($default), fn(TextInput $field) => $field->default($default))
-            ->when(! is_null($minValue), fn(TextInput $field) => $field->minValue($minValue))
-            ->when(! is_null($maxValue), fn(TextInput $field) => $field->maxValue($maxValue));
+            ->when($label,    fn(TextInput $field) => $field->label(__($label)))
+            ->when($default,  fn(TextInput $field) => $field->default($default))
+            ->when($minValue, fn(TextInput $field) => $field->minValue($minValue))
+            ->when($maxValue, fn(TextInput $field) => $field->maxValue($maxValue))
+            ->when($suffix,   fn(TextInput $field) => $field->suffix($suffix));
     }
 
     /*
     |--------------------------------------------------------------------------
     | Variants
     |--------------------------------------------------------------------------
+    */
+
+    /*
+    |-------------------------
+    | Money Variant
+    |-------------------------
     */
 
     public static function money(
@@ -53,8 +61,16 @@ class NumericField
             default: $default,
             minValue: $minValue,
             maxValue: $maxValue,
-        )->suffix($currency);
+            suffix: $currency,
+        );
     }
+
+
+    /*
+    |-------------------------
+    | Percentage Variant
+    |-------------------------
+    */
 
     public static function percentage(
         string $name,
@@ -71,8 +87,15 @@ class NumericField
             default: $default,
             minValue: 0,
             maxValue: $max,
-        )->suffix('%');
+            suffix: '%',
+        );
     }
+
+    /*
+    |-------------------------
+    | Decimal Variant
+    |-------------------------
+    */
 
     public static function decimal(
         string $name,

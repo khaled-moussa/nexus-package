@@ -22,16 +22,22 @@ class CountColumn
     ): TextColumn {
 
         return TextColumn::make($name)
-            ->label($label ? __($label) : null)
             ->size($size)
-            ->when($badge, fn($column) => $column->badge())
-            ->when($relation, fn($column) => $column->counts($relation));
+            ->when($label,    fn(TextColumn $column) => $column->label(__($label)))
+            ->when($badge,    fn(TextColumn $column) => $column->badge())
+            ->when($relation, fn(TextColumn $column) => $column->counts($relation));
     }
 
     /*
     |--------------------------------------------------------------------------
     | Variants
     |--------------------------------------------------------------------------
+    */
+
+    /*
+    |-------------------------
+    | Default Variant
+    |-------------------------
     */
 
     public static function default(
@@ -46,6 +52,12 @@ class CountColumn
             relation: $relation,
         );
     }
+
+    /*
+    |-------------------------
+    | Large Variant
+    |-------------------------
+    */
 
     public static function large(
         string $name,

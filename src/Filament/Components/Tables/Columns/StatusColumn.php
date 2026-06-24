@@ -8,7 +8,7 @@ class StatusColumn
 {
     /*
     |--------------------------------------------------------------------------
-    | Enum State (Badge)
+    | Base Builder
     |--------------------------------------------------------------------------
     */
 
@@ -20,10 +20,11 @@ class StatusColumn
     ): TextColumn {
 
         return TextColumn::make($name)
-            ->label($label ? __($label) : null)
             ->badge()
-            ->formatStateUsing(fn($state) => $state?->label())
+            ->toggleable($toggleable, isToggledHiddenByDefault: $defaultHidden)
             ->color(fn($state) => $state?->filamentColor())
-            ->toggleable($toggleable, isToggledHiddenByDefault: $defaultHidden);
+            ->formatStateUsing(fn($state) => $state?->label())
+            ->when($label, fn(TextColumn $column) => $column->label(__($label)))
+        ;
     }
 }

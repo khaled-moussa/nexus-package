@@ -8,15 +8,17 @@ class TenantTypeGroup
 {
     /*
     |--------------------------------------------------------------------------
-    | Factory Method
+    | Tenant Group
     |--------------------------------------------------------------------------
     */
+
     public static function make(
         string $name,
         ?string $label = null,
     ): Group {
+
         return Group::make($name)
-            ->label(__($label))
-            ->getKeyFromRecordUsing(fn($record) => $record->getType()->label());
+            ->getKeyFromRecordUsing(fn($record) => $record->getType()->label())
+            ->when($label, fn(Group $group) => $group->label(__($label)));
     }
 }

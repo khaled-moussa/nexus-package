@@ -3,6 +3,7 @@
 namespace Nexus\Filament\Components\Tables\Groups;
 
 use Filament\Tables\Grouping\Group;
+use Closure;
 
 class VehicleGroup
 {
@@ -15,16 +16,18 @@ class VehicleGroup
     public static function make(
         string $field,
         ?string $label = null,
-        ?\Closure $titleUsing = null,
+        ?Closure $titleUsing = null,
     ): Group {
 
         $group = Group::make($field)
-            ->label($label ? __($label) : null)
-            ->titlePrefixedWithLabel(false);
+            ->titlePrefixedWithLabel(false)
+            ->when($label,      fn(Group $group) => $group->label(__($label)));
 
-        return $titleUsing
-            ? $group->getTitleFromRecordUsing($titleUsing)
-            : $group;
+        if ($titleUsing) {
+            $group->getTitleFromRecordUsing($titleUsing);
+        }
+
+        return $group;
     }
 
     /*
@@ -75,7 +78,7 @@ class VehicleGroup
         return self::make(
             field: $field,
             label: $label,
-            titleUsing: fn($state) => $state?->label(),
+            titleUsing: fn($state) => filled($state) ? $state?->label() : __('Unknown'),
         );
     }
 }

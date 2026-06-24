@@ -20,9 +20,9 @@ class NameField
     ): TextInput {
 
         return TextInput::make($name)
-            ->label($label ? __($label) : null)
             ->required($required)
             ->maxLength($maxLength)
-            ->autocomplete('name');
+            ->autocomplete($name)
+            ->when($label, fn(TextInput $field) => $field->label(__($label)));
     }
 }

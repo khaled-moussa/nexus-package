@@ -17,41 +17,29 @@ class IdentifierEntry
         string $name,
         ?string $label = null,
         bool $hiddenLabel = false,
+        ?array $color = null,
         bool $badge = true,
         bool $copyable = true,
-        ?array $color = null,
     ): TextEntry {
 
         return TextEntry::make($name)
-            ->label($label ? __($label) : null)
             ->hiddenLabel($hiddenLabel)
-            ->when($badge, fn ($e) => $e->badge())
-            ->when($copyable, fn ($e) => $e->copyable())
-            ->when($color, fn ($e) => $e->color($color));
+            ->when($label,    fn(TextEntry $entry) => $entry->label(__($label)))
+            ->when($color,    fn(TextEntry $entry) => $entry->color($color))
+            ->when($badge,    fn(TextEntry $entry) => $entry->badge())
+            ->when($copyable, fn(TextEntry $entry) => $entry->copyable());
     }
 
     /*
     |--------------------------------------------------------------------------
-    | UUID Variant
+    | Variants
     |--------------------------------------------------------------------------
     */
 
-    public static function uuid(
-        string $name = 'uuid',
-        ?string $label = 'Ref',
-    ): TextEntry {
-
-        return self::make(
-            name: $name,
-            label: $label,
-            color: Color::Amber,
-        );
-    }
-
     /*
-    |--------------------------------------------------------------------------
-    | ID / Generic Identifier Variant
-    |--------------------------------------------------------------------------
+    |-------------------------
+    | ID Variant
+    |-------------------------
     */
 
     public static function id(
@@ -63,6 +51,24 @@ class IdentifierEntry
             name: $name,
             label: $label,
             color: Color::Gray,
+        );
+    }
+
+    /*
+    |-------------------------
+    | UUID Variant
+    |-------------------------
+    */
+
+    public static function uuid(
+        string $name = 'uuid',
+        ?string $label = 'Ref',
+    ): TextEntry {
+
+        return self::make(
+            name: $name,
+            label: $label,
+            color: Color::Amber,
         );
     }
 }

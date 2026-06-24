@@ -17,45 +17,57 @@ class IconEntry
         string $name,
         ?string $label = null,
         bool $hiddenLabel = false,
+        bool $boolean = false,
     ): BaseIconEntry {
 
         return BaseIconEntry::make($name)
-            ->label($label ? __($label) : null)
-            ->hiddenLabel($hiddenLabel);
+            ->hiddenLabel($hiddenLabel)
+            ->when($label,   fn(BaseIconEntry $entry) => $entry->label(__($label)))
+            ->when($boolean, function (BaseIconEntry $entry) {
+                $entry->trueIcon(Heroicon::OutlinedCheckCircle);
+                $entry->falseIcon(Heroicon::OutlinedXCircle);
+            });
     }
 
     /*
     |--------------------------------------------------------------------------
-    | Active State
+    | Variants
     |--------------------------------------------------------------------------
+    */
+
+    /*
+    |-------------------------
+    | Active Variant
+    |-------------------------
     */
 
     public static function active(
         string $name = 'is_active',
-        ?string $label = null,
+        ?string $label = 'Active',
     ): BaseIconEntry {
 
-        return self::make($name, $label ?? __('Active'))
-            ->boolean()
-            ->trueIcon(Heroicon::OutlinedCheckCircle)
-            ->falseIcon(Heroicon::OutlinedXCircle);
+        return self::make(
+            name: $name,
+            label: $label,
+            boolean: true
+        );
     }
 
     /*
-    |--------------------------------------------------------------------------
-    | Email Verified
-    |--------------------------------------------------------------------------
+    |-------------------------
+    | Email Verified Variant
+    |-------------------------
     */
 
     public static function emailVerified(
         string $name = 'is_email_verified',
-        ?string $label = null,
+        ?string $label = 'Email Verified',
     ): BaseIconEntry {
 
-        return self::make($name, $label ?? __('Email Verified'))
-            ->boolean()
-            ->formatStateUsing(fn ($state) => filled($state))
-            ->trueIcon(Heroicon::OutlinedCheckCircle)
-            ->falseIcon(Heroicon::OutlinedXCircle);
+        return self::make(
+            name: $name,
+            label: $label,
+            boolean: true
+        );
     }
 }

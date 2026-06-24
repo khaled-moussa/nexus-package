@@ -10,7 +10,7 @@ class AddressField
 {
     /*
     |--------------------------------------------------------------------------
-    | Builder
+    | Base Builder
     |--------------------------------------------------------------------------
     */
 
@@ -22,17 +22,24 @@ class AddressField
     ): TextInput {
 
         return TextInput::make($name)
-            ->label($label ? __($label) : null)
             ->required($required)
             ->maxLength($maxLength)
             ->prefixIcon(Heroicon::OutlinedMapPin)
-            ->placeholder(__('No address'));
+            ->placeholder(__('No address'))
+            ->when($label, fn(TextInput $field) => $field->label(__($label)));
+        ;
     }
 
     /*
     |--------------------------------------------------------------------------
-    | Country
+    | Variants
     |--------------------------------------------------------------------------
+    */
+
+    /*
+    |-------------------------
+    | Country Vraiant
+    |-------------------------
     */
 
     public static function country(
@@ -53,9 +60,9 @@ class AddressField
     }
 
     /*
-    |--------------------------------------------------------------------------
-    | City
-    |--------------------------------------------------------------------------
+    |-------------------------
+    | City Vraiant
+    |-------------------------
     */
 
     public static function city(

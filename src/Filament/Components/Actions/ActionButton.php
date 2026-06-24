@@ -9,36 +9,48 @@ use Filament\Support\Icons\Heroicon;
 
 class ActionButton
 {
+    /*
+    |--------------------------------------------------------------------------
+    | Base Builder
+    |--------------------------------------------------------------------------
+    */
+
     public static function make(
         string $name,
         Closure $action,
         ?string $label = null,
+        ?Heroicon $icon = null,
         string|array|null $color = null,
+        Size $size = Size::Small,
+        bool $isButton = true,
         bool $hiddenLabel = false,
         Closure|bool $hidden = false,
-        Size $size = Size::Small,
-        ?Heroicon $icon = null,
-        ?string $successTitle = null,
-        bool $isButton = true,
         bool $requiresConfirmation = false,
+        ?string $successTitle = null,
     ): Action {
         return Action::make($name)
-            ->label($label ? __($label) : null)
-            ->hiddenLabel($hiddenLabel)
-            ->hidden($hidden)
-            ->size($size)
             ->action($action)
-            ->when($isButton, fn($a) => $a->button())
-            ->when($icon, fn($a) => $a->icon($icon))
-            ->when($color, fn($a) => $a->color($color))
-            ->when($requiresConfirmation, fn($a) => $a->requiresConfirmation())
-            ->when($successTitle, fn($a) => $a->successNotificationTitle($successTitle));
+            ->hidden($hidden)
+            ->hiddenLabel($hiddenLabel)
+            ->size($size)
+            ->when($label, fn(Action $action) => $action->label(__($label)))
+            ->when($isButton, fn(Action $action) => $action->button())
+            ->when($icon, fn(Action $action) => $action->icon($icon))
+            ->when($color, fn(Action $action) => $action->color($color))
+            ->when($requiresConfirmation, fn(Action $action) => $action->requiresConfirmation())
+            ->when($successTitle, fn(Action $action) => $action->successNotificationTitle(__($successTitle)));
     }
 
     /*
     |--------------------------------------------------------------------------
-    | Size Variants
+    | Variants
     |--------------------------------------------------------------------------
+    */
+
+    /*
+    |-------------------------
+    | Small Size Vraiant
+    |-------------------------
     */
 
     public static function sm(
@@ -62,6 +74,12 @@ class ActionButton
         );
     }
 
+    /*
+    |-------------------------
+    | Medium Size Vraiant
+    |-------------------------
+    */
+
     public static function md(
         string $name,
         Closure $action,
@@ -69,7 +87,7 @@ class ActionButton
         ?Heroicon $icon = null,
         ?string $successTitle = null,
         bool $requiresConfirmation = false,
-        bool $hidden = false,
+        Closure|bool $hidden = false,
     ): Action {
         return self::make(
             name: $name,
@@ -83,6 +101,12 @@ class ActionButton
         );
     }
 
+    /*
+    |-------------------------
+    | Large Size Vraiant
+    |-------------------------
+    */
+
     public static function lg(
         string $name,
         Closure $action,
@@ -90,7 +114,7 @@ class ActionButton
         ?Heroicon $icon = null,
         ?string $successTitle = null,
         bool $requiresConfirmation = false,
-        bool $hidden = false,
+        Closure|bool $hidden = false,
     ): Action {
         return self::make(
             name: $name,
@@ -106,8 +130,14 @@ class ActionButton
 
     /*
     |--------------------------------------------------------------------------
-    | Prebuilt Actions
+    | Color Variants
     |--------------------------------------------------------------------------
+    */
+
+    /*
+    |-------------------------
+    | Danger Color Vraiant
+    |-------------------------
     */
 
     public static function danger(
@@ -116,7 +146,7 @@ class ActionButton
         string $label,
         ?Heroicon $icon = null,
         bool $requiresConfirmation = false,
-        bool $hidden = false,
+        Closure|bool $hidden = false,
     ): Action {
         return self::make(
             name: $name,
@@ -129,13 +159,19 @@ class ActionButton
         );
     }
 
+    /*
+    |-------------------------
+    | Success Color Vraiant
+    |-------------------------
+    */
+
     public static function success(
         string $name,
         Closure $action,
         string $label,
         ?Heroicon $icon = null,
         bool $requiresConfirmation = false,
-        bool $hidden = false,
+        Closure|bool $hidden = false,
     ): Action {
         return self::make(
             name: $name,
@@ -148,19 +184,25 @@ class ActionButton
         );
     }
 
+    /*
+    |--------------------------------------------------------------------------
+    | Link Actions
+    |--------------------------------------------------------------------------
+    */
+
     public static function link(
         string $name,
         string $label,
         Closure|string $url,
         ?Heroicon $icon = null,
         bool $openInNewTab = false,
-        bool $hidden = false,
+        Closure|bool $hidden = false,
     ): Action {
         return Action::make($name)
-            ->label(__($label))
-            ->link()
-            ->url($url, shouldOpenInNewTab: $openInNewTab)
             ->hidden($hidden)
-            ->when($icon, fn($a) => $a->icon($icon));
+            ->link()
+            ->label(__($label))
+            ->url($url, shouldOpenInNewTab: $openInNewTab)
+            ->when($icon, fn(Action $action) => $action->icon($icon));
     }
 }

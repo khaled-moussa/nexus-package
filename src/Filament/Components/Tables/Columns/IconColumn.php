@@ -15,16 +15,24 @@ class IconColumn
     public static function make(
         string $name,
         ?string $label = null,
+        bool $boolean = false,
     ): BaseIconColumn {
 
         return BaseIconColumn::make($name)
-            ->label($label ? __($label) : null);
+            ->when($label,   fn(BaseIconColumn $column) => $column->label(__($label)))
+            ->when($boolean, fn(BaseIconColumn $column) => $column->boolean());
     }
 
     /*
     |--------------------------------------------------------------------------
-    | Generic Status (custom icon logic can be extended later)
+    | Variants
     |--------------------------------------------------------------------------
+    */
+
+    /*
+    |-------------------------
+    | Boolean Variant
+    |-------------------------
     */
 
     public static function boolean(
@@ -34,8 +42,8 @@ class IconColumn
 
         return self::make(
             name: $name,
-            label: $label
-        )
-            ->boolean();
+            label: $label,
+            boolean: true
+        );
     }
 }

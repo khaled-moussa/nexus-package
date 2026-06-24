@@ -19,14 +19,20 @@ class DatetimeGroup
     ): Group {
 
         return Group::make($field)
-            ->label($label ? __($label) : null)
-            ->when($date, fn(Group $group) => $group->date());
+            ->when($date,  fn(Group $group) => $group->date())
+            ->when($label, fn(Group $group) => $group->label(__($label)));
     }
 
     /*
     |--------------------------------------------------------------------------
     | Variants
     |--------------------------------------------------------------------------
+    */
+
+    /*
+    |-------------------------
+    | Created At
+    |-------------------------
     */
 
     public static function createdAt(
@@ -39,6 +45,12 @@ class DatetimeGroup
             label: $label,
         );
     }
+
+    /*
+    |-------------------------
+    | Updated At
+    |-------------------------
+    */
 
     public static function updatedAt(
         string $field = 'updated_at',

@@ -16,19 +16,27 @@ class DatetimeEntry
         string $name,
         ?string $label = null,
         bool $badge = false,
+        bool $hiddenLabel = false,
         ?string $placeholder = null,
     ): TextEntry {
 
         return TextEntry::make($name)
-            ->label($label ? __($label) : null)
-            ->when($badge, fn($entry) => $entry->badge())
-            ->placeholder($placeholder ?? __('No date'));
+            ->hiddenLabel($hiddenLabel)
+            ->when($label,       fn(TextEntry $field) => $field->label(__($label)))
+            ->when($badge,       fn(TextEntry $entry) => $entry->badge())
+            ->when($placeholder, fn(TextEntry $entry) => $entry->placeholder(__($placeholder)));
     }
 
     /*
     |--------------------------------------------------------------------------
-    | Variants - Semantic
+    | Variants
     |--------------------------------------------------------------------------
+    */
+
+    /*
+    |-------------------------
+    | Created At Variant
+    |-------------------------
     */
 
     public static function createdAt(
@@ -43,6 +51,12 @@ class DatetimeEntry
         );
     }
 
+    /*
+    |-------------------------
+    | Updated At Variant
+    |-------------------------
+    */
+
     public static function updatedAt(
         string $name = 'updated_at',
         ?string $label = 'Updated at',
@@ -55,6 +69,12 @@ class DatetimeEntry
         );
     }
 
+    /*
+    |-------------------------
+    | Completed At Variant
+    |-------------------------
+    */
+
     public static function completedAt(
         string $name = 'completed_at_formatted',
         ?string $label = 'Completed at',
@@ -66,6 +86,12 @@ class DatetimeEntry
             badge: true,
         );
     }
+
+    /*
+    |-------------------------
+    | Received At Variant
+    |-------------------------
+    */
 
     public static function receivedAt(
         string $name = 'received_at_formatted',

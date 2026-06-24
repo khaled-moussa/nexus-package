@@ -22,16 +22,22 @@ class DatetimeColumn
     ): TextColumn {
 
         return TextColumn::make($name)
-            ->label($label ? __($label) : null)
-            ->when($badge, fn ($column) => $column->badge())
             ->toggleable($toggleable, isToggledHiddenByDefault: $defaultHidden)
-            ->placeholder($placeholder);
+            ->when($label,       fn(TextColumn $column) => $column->label(__($label)))
+            ->when($badge,       fn(TextColumn $column) => $column->badge())
+            ->when($placeholder, fn(TextColumn $column) => $column->placeholder(__($placeholder)));
     }
 
     /*
     |--------------------------------------------------------------------------
     | Variants
     |--------------------------------------------------------------------------
+    */
+
+    /*
+    |-------------------------
+    | Default Variant
+    |-------------------------
     */
 
     public static function default(
@@ -46,6 +52,12 @@ class DatetimeColumn
         );
     }
 
+    /*
+    |-------------------------
+    | Created At Variant
+    |-------------------------
+    */
+
     public static function createdAt(
         string $name = 'created_at_formatted',
         ?string $label = 'Created at',
@@ -58,6 +70,12 @@ class DatetimeColumn
             placeholder: __('No date'),
         );
     }
+
+    /*
+    |-------------------------
+    | Updated At Variant
+    |-------------------------
+    */
 
     public static function updatedAt(
         string $name = 'updated_at',

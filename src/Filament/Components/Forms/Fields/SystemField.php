@@ -2,10 +2,11 @@
 
 namespace Nexus\Filament\Components\Forms\Fields;
 
-use Nexus\Support\Enums\ThemeEnum;
+use App\Support\Enums\ThemeEnum;
+use Tapp\FilamentTimezoneField\Forms\Components\TimezoneSelect;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\Toggle;
-use Tapp\FilamentTimezoneField\Forms\Components\TimezoneSelect;
+use Filament\Support\Icons\Heroicon;
 
 class SystemField
 {
@@ -25,9 +26,9 @@ class SystemField
             name: $name,
             label: $label,
             options: ThemeEnum::options(),
-        )
-            ->prefixIcon('heroicon-o-sun')
-            ->when($fullWidth, fn(Select $field) => $field->columnSpanFull());
+            prefixIcon: Heroicon::OutlinedSun,
+            fullWidth: $fullWidth,
+        );
     }
 
     /*
@@ -45,21 +46,21 @@ class SystemField
     ): TimezoneSelect {
 
         return TimezoneSelect::make($name)
-            ->label($label ? __($label) : null)
+            ->when($label,      fn(TimezoneSelect $field) => $field->label(__($label)))
             ->when($searchable, fn(TimezoneSelect $field) => $field->searchable())
-            ->when($native, fn(TimezoneSelect $field) => $field->native())
-            ->when($fullWidth, fn(TimezoneSelect $field) => $field->columnSpanFull());
+            ->when($native,     fn(TimezoneSelect $field) => $field->native())
+            ->when($fullWidth,  fn(TimezoneSelect $field) => $field->columnSpanFull());
     }
 
     /*
     |--------------------------------------------------------------------------
-    | Notification
+    | Notification Toggle
     |--------------------------------------------------------------------------
     */
 
     public static function siteNotification(
         string $name = 'siteNotificationActive',
-        ?string $label = 'Site Notification',
+        ?string $label = 'Site Notification'
     ): Toggle {
 
         return ToggleField::make(
@@ -71,7 +72,7 @@ class SystemField
 
     public static function emailNotification(
         string $name = 'emailNotificationActive',
-        ?string $label = 'Email Notification',
+        ?string $label = 'Email Notification'
     ): Toggle {
 
         return ToggleField::make(

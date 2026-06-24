@@ -16,13 +16,13 @@ class UserFilter
 
     public static function gender(
         string $name = 'gender',
-        ?string $label = null,
+        ?string $label = 'Gender',
     ): SelectFilter {
 
         return SelectFilter::make($name)
-            ->label($label ? __($label) : __('Gender'))
             ->options(GenderEnum::options())
-            ->native(false);
+            ->native(false)
+            ->when($label, fn(SelectFilter $filter) => $filter->label(__($label)));
     }
 
     /*
@@ -33,12 +33,12 @@ class UserFilter
 
     public static function emailVerified(
         string $name = 'email_verified_at',
-        ?string $label = null,
+        ?string $label = 'Email Verified',
     ): TernaryFilter {
 
         return TernaryFilter::make($name)
-            ->label($label ? __($label) : __('Email Verified'))
             ->nullable()
-            ->native(false);
+            ->native(false)
+            ->when($label, fn(SelectFilter $filter) => $filter->label(__($label)));
     }
 }

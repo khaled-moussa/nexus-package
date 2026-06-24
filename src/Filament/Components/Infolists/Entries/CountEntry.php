@@ -12,7 +12,6 @@ class CountEntry
     | Base Builder
     |--------------------------------------------------------------------------
     */
-
     public static function make(
         string $name,
         ?string $label = null,
@@ -23,17 +22,23 @@ class CountEntry
     ): TextEntry {
 
         return TextEntry::make($name)
-            ->label($label ? __($label) : null)
             ->hiddenLabel($hiddenLabel)
             ->size($size)
-            ->when($badge, fn ($entry) => $entry->badge())
-            ->when($relation, fn ($entry) => $entry->counts($relation));
+            ->when($label,    fn(TextEntry $field) => $field->label(__($label)))
+            ->when($badge,    fn(TextEntry $entry) => $entry->badge())
+            ->when($relation, fn(TextEntry $entry) => $entry->counts($relation));
     }
 
     /*
     |--------------------------------------------------------------------------
-    | Variants - Badge
+    | Variants
     |--------------------------------------------------------------------------
+    */
+
+    /*
+    |-------------------------
+    | Badge Variant
+    |-------------------------
     */
 
     public static function badge(
@@ -53,9 +58,9 @@ class CountEntry
     }
 
     /*
-    |--------------------------------------------------------------------------
-    | Variants - Sizes
-    |--------------------------------------------------------------------------
+    |-------------------------
+    | Small Text Variant
+    |-------------------------
     */
 
     public static function sm(
@@ -76,6 +81,12 @@ class CountEntry
         );
     }
 
+    /*
+    |-------------------------
+    | Medium Text Variant
+    |-------------------------
+    */
+
     public static function md(
         string $name,
         ?string $label = null,
@@ -93,6 +104,12 @@ class CountEntry
             badge: $badge,
         );
     }
+
+    /*
+    |-------------------------
+    | Large Text Variant
+    |-------------------------
+    */
 
     public static function lg(
         string $name,

@@ -2,8 +2,8 @@
 
 namespace Nexus\Filament\Components\Forms\Fields;
 
-use Nexus\Domain\Tenant\Enums\TenantTypeEnum;
 use Nexus\Filament\Components\Forms\Fields\SelectField;
+use Nexus\Domain\Tenant\Enums\TenantTypeEnum;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\TextInput;
 
@@ -23,7 +23,6 @@ class TenantField
         return NameField::make(
             name: $name,
             label: $label,
-
         );
     }
 
@@ -44,7 +43,6 @@ class TenantField
         );
     }
 
-
     /*
     |--------------------------------------------------------------------------
     | Tenant Type
@@ -57,6 +55,7 @@ class TenantField
         bool $required = true,
         array $exclude = [],
     ): Select {
+        
         return SelectField::make(
             name: $name,
             label: $label,

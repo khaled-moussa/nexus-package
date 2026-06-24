@@ -2,9 +2,8 @@
 
 namespace Nexus\Filament\Components\Tables\Columns;
 
-use Closure;
-use Filament\Support\Enums\FontWeight;
 use Filament\Tables\Columns\TextColumn;
+use Closure;
 
 class UserColumn
 {
@@ -20,11 +19,11 @@ class UserColumn
     ): TextColumn {
 
         return TextColumn::make($name)
-            ->label($label ? __($label) : null)
             ->badge()
-            ->formatStateUsing(fn($state) => $state?->label())
             ->color(fn($state) => $state?->filamentColor())
-            ->placeholder(__('No gender'));
+            ->formatStateUsing(fn($state) => $state?->label())
+            ->placeholder(__('No gender'))
+            ->when($label, fn(TextColumn $column) => $column->label(__($label)));
     }
 
     /*
@@ -39,13 +38,14 @@ class UserColumn
         ?Closure $description = null,
     ): TextColumn {
 
-        return TextColumn::make($name)
-            ->label($label ? __($label) : null)
-            ->description($description)
-            ->weight(FontWeight::Bold)
-            ->limit(40)
-            ->tooltip(fn($state) => $state)
-            ->searchable();
+        return NameColumn::make(
+            name: $name,
+            label: $label,
+            description: $description,
+            bold: true,
+            limit: 40,
+            tooltip: true
+        );
     }
 
     public static function creator(
@@ -54,12 +54,14 @@ class UserColumn
         ?Closure $description = null,
     ): TextColumn {
 
-        return TextColumn::make($name)
-            ->label($label ? __($label) : null)
-            ->description($description)
-            ->weight(FontWeight::Bold)
-            ->limit(40)
-            ->tooltip(fn($state) => $state)
-            ->searchable(true,  fn($query, $search) => $query->orWhereRelation('creator', 'full_name', 'like', "%{$search}%"));
+        return NameColumn::make(
+            name: $name,
+            label: $label,
+            description: $description,
+            bold: true,
+            limit: 40,
+            tooltip: true,
+            searchableQuery: fn($query, $search) => $query->orWhereRelation('creator', 'full_name', 'like', "%{$search}%")
+        );
     }
 }

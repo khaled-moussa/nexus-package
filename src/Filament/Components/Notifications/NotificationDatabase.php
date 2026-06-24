@@ -25,6 +25,7 @@ class NotificationDatabase
         array $actions = [],
         bool $broadcast = true,
     ): void {
+
         $notification = Notification::make()
             ->title($title)
             ->duration($duration);
@@ -130,9 +131,8 @@ class NotificationDatabase
     |--------------------------------------------------------------------------
     */
 
-    private static function normalizeRecipients(
-        Model|Collection|EloquentCollection|array $recipients,
-    ): array {
+    private static function normalizeRecipients(Model|Collection|EloquentCollection|array $recipients): array
+    {
         return match (true) {
             $recipients instanceof Model              => [$recipients],
             $recipients instanceof Collection,

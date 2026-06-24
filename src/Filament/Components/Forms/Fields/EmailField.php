@@ -15,19 +15,19 @@ class EmailField
 
     public static function make(
         string $name = 'email',
-        ?string $label = null,
+        ?string $label = 'Email',
         bool $required = true,
         bool $unique = true,
         ?string $uniqueTable = 'users',
     ): TextInput {
 
         return TextInput::make($name)
-            ->label($label ? __($label) : __('Email'))
             ->required($required)
             ->email()
             ->maxLength(255)
             ->autocomplete('email')
             ->prefixIcon(Heroicon::OutlinedEnvelope)
-            ->when($unique && $uniqueTable, fn($field) => $field->unique($uniqueTable, ignoreRecord: true));
+            ->when($label, fn(TextInput $field) => $field->label(__($label)))
+            ->when($unique && $uniqueTable, fn(TextInput $field) => $field->unique($uniqueTable, ignoreRecord: true));
     }
 }
