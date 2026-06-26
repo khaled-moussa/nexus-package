@@ -9,9 +9,9 @@ use Closure;
 class StatusEntry
 {
     /*
-    |--------------------------------------------------------------------------
+    |---------------------------------------------------------------------------------------------------------------------------
     | Base Builder
-    |--------------------------------------------------------------------------
+    |---------------------------------------------------------------------------------------------------------------------------
     */
 
     public static function make(
@@ -31,14 +31,8 @@ class StatusEntry
 
     /*
     |--------------------------------------------------------------------------
-    | Variants
-    |--------------------------------------------------------------------------
-    */
-
-    /*
-    |-------------------------
     | Boolean Variant
-    |-------------------------
+    |--------------------------------------------------------------------------
     */
 
     public static function boolean(
@@ -49,15 +43,15 @@ class StatusEntry
     ): TextEntry {
 
         return self::make($name, $label, $hiddenLabel)
-            ->when($state, fn(TextEntry $entry) => $entry->state($state))
-            ->when($state, fn(TextEntry $entry) => $entry->formatStateUsing((bool) $state ? __('Active') : __('Inactive')))
-            ->when($state, fn(TextEntry $entry) => $entry->color(fn($state) => (bool) $state ? Color::Green  : Color::Rose));
+            ->when(!is_null($state), fn(TextEntry $entry) => $entry->state($state))
+            ->when(!is_null($state), fn(TextEntry $entry) => $entry->formatStateUsing(fn($state) => (bool) $state ? __('Active') : __('Inactive')))
+            ->when(!is_null($state), fn(TextEntry $entry) => $entry->color(fn($state) => (bool) $state ? Color::Green  : Color::Rose));
     }
 
     /*
-    |-------------------------
+    |--------------------------------------------------------------------------
     | Custom Variant
-    |-------------------------
+    |--------------------------------------------------------------------------
     */
 
     public static function custom(
@@ -76,9 +70,9 @@ class StatusEntry
     }
 
     /*
-    |-------------------------
+    |--------------------------------------------------------------------------
     | Enum Variant
-    |-------------------------
+    |--------------------------------------------------------------------------
     */
 
     public static function enum(
@@ -95,6 +89,6 @@ class StatusEntry
         )
             ->when($state, fn(TextEntry $entry) => $entry->state($state))
             ->when($state, fn(TextEntry $entry) => $entry->formatStateUsing(fn($state) => $state?->label()))
-            ->when($state, fn(TextEntry $entry) => $entry->color(fn($state) => $state?->colorFilament()));
+            ->when($state, fn(TextEntry $entry) => $entry->color(fn($state) => $state?->filamentColor()));
     }
 }
