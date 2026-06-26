@@ -19,12 +19,16 @@ class TenantField
         string $name,
         ?string $label,
         bool $required = true,
+        bool $unique = false,
+        ?string $uniqueTable = null,
     ): TextInput {
 
         return NameField::make(
             name: $name,
             label: $label,
             required: $required,
+            unique: $unique,
+            uniqueTable: $uniqueTable
         );
     }
 
@@ -72,22 +76,30 @@ class TenantField
     public static function taxNumber(
         string $name = 'tax_number',
         ?string $label = 'Tax Number',
+        bool $unique = true,
+        ?string $uniqueTable = 'tenants',
     ): TextInput {
 
         return self::make(
             name: $name,
             label: $label,
+            unique: $unique,
+            uniqueTable: $uniqueTable
         );
     }
 
     public static function commercialRegistrationNumber(
         string $name = 'commercial_registration_number',
         ?string $label = 'Commercial Registration Number',
+        bool $unique = true,
+        ?string $uniqueTable = 'tenants',
     ): TextInput {
 
         return self::make(
             name: $name,
             label: $label,
+            unique: $unique,
+            uniqueTable: $uniqueTable
         );
     }
 
