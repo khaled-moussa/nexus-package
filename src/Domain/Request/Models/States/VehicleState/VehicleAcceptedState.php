@@ -21,7 +21,7 @@ class VehicleAcceptedState extends VehicleStates
         return 'success';
     }
 
-    public static function colorFilament(): array
+    public static function filamentColor(): array
     {
         return Color::Green;
     }

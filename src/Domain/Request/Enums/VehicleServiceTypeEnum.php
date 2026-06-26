@@ -31,7 +31,7 @@ enum VehicleServiceTypeEnum: string
     |--------------------------------------------------------------------------
     */
 
-    public function colorFilament(): array
+    public function filamentColor(): array
     {
         return match ($this) {
             self::REPAIR => Color::Red,

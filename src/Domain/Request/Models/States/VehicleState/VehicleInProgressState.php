@@ -21,7 +21,7 @@ class VehicleInProgressState extends VehicleStates
         return 'primary';
     }
 
-    public static function colorFilament(): array
+    public static function filamentColor(): array
     {
         return Color::Blue;
     }

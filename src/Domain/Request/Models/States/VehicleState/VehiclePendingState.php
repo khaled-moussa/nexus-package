@@ -21,7 +21,7 @@ class VehiclePendingState extends VehicleStates
         return 'warning';
     }
 
-    public static function colorFilament(): array
+    public static function filamentColor(): array
     {
         return Color::Amber;
     }
