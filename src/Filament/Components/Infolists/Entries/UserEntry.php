@@ -57,7 +57,7 @@ class UserEntry
     public static function gender(
         string $name         = 'gender',
         ?string $label       = 'Gender',
-        bool $badge          = false,
+        bool $badge          = true,
         ?string $placeholder = 'No gender',
     ): TextEntry {
         return NameEntry::enum(
