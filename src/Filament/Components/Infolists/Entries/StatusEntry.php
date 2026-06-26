@@ -44,7 +44,7 @@ class StatusEntry
 
         return self::make($name, $label, $hiddenLabel)
             ->when(!is_null($state), fn(TextEntry $entry) => $entry->state($state))
-            ->when(!is_null($state), fn(TextEntry $entry) => $entry->formatStateUsing((bool) $state ? __('Active') : __('Inactive')))
+            ->when(!is_null($state), fn(TextEntry $entry) => $entry->formatStateUsing(fn($state) => (bool) $state ? __('Active') : __('Inactive')))
             ->when(!is_null($state), fn(TextEntry $entry) => $entry->color(fn($state) => (bool) $state ? Color::Green  : Color::Rose));
     }
 
