@@ -22,7 +22,7 @@ class StatusColumn
         return TextColumn::make($name)
             ->badge()
             ->toggleable($toggleable, isToggledHiddenByDefault: $defaultHidden)
-            ->color(fn($state) => $state?->colorFilament())
+            ->color(fn($state) => $state?->colorFilamentUpdate())
             ->formatStateUsing(fn($state) => $state?->label())
             ->when($label, fn(TextColumn $column) => $column->label(__($label)))
         ;

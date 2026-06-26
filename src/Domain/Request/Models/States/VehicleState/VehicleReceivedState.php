@@ -21,7 +21,7 @@ class VehicleReceivedState extends VehicleStates
         return 'gray';
     }
 
-    public static function colorFilament(): array
+    public static function colorFilamentUpdate(): array
     {
         return Color::Gray;
     }

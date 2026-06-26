@@ -21,7 +21,7 @@ class QuotationPendingState extends QuotationStates
         return 'warning';
     }
 
-    public static function colorFilament(): array
+    public static function colorFilamentUpdate(): array
     {
         return Color::Amber;
     }
