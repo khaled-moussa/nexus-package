@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Filament\Components\Infolists\Entries;
+namespace Nexus\Filament\Components\Infolists\Entries;
 
 use Closure;
 use Filament\Infolists\Components\TextEntry;
