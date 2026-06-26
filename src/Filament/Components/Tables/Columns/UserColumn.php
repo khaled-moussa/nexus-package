@@ -20,7 +20,7 @@ class UserColumn
 
         return TextColumn::make($name)
             ->badge()
-            ->color(fn($state) => $state?->colorFilamentUpdate())
+            ->color(fn($state) => $state?->colorFilament())
             ->formatStateUsing(fn($state) => $state?->label())
             ->placeholder(__('No gender'))
             ->when($label, fn(TextColumn $column) => $column->label(__($label)));

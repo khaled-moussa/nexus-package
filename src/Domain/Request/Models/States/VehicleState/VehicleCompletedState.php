@@ -21,7 +21,7 @@ class VehicleCompletedState extends VehicleStates
         return 'success';
     }
 
-    public static function colorFilamentUpdate(): array
+    public static function colorFilament(): array
     {
         return Color::Green;
     }

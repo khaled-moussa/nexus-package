@@ -64,7 +64,7 @@ class NameEntry
             badge:       $badge,
             placeholder: $placeholder,
         )
-            ->color(fn($state) => $state->colorFilamentUpdate())
+            ->color(fn($state) => $state->colorFilament())
             ->formatStateUsing(fn($state) => $state->label());
     }
 }

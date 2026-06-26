@@ -21,7 +21,7 @@ class QuotationRejectedState extends QuotationStates
         return 'danger';
     }
 
-    public static function colorFilamentUpdate(): array
+    public static function colorFilament(): array
     {
         return Color::Red;
     }
