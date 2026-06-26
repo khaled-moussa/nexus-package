@@ -1,13 +1,11 @@
 <?php
 
-namespace Nexus\Filament\Components\Forms\Fields;
+namespace Nexus\Filament\Components\Infolists\Entries;
 
-use Nexus\Filament\Components\Forms\Fields\SelectField;
-use Nexus\Domain\Tenant\Enums\TenantTypeEnum;
-use Filament\Forms\Components\Select;
-use Filament\Forms\Components\TextInput;
+use App\Filament\Components\Infolists\Entries\NameEntry;
+use Filament\Infolists\Components\TextEntry;
 
-class TenantField
+class TenantEntry
 {
     /*
     |--------------------------------------------------------------------------
@@ -17,17 +15,22 @@ class TenantField
 
     private static function make(
         string $name,
-        ?string $label,
-        bool $required = true,
-    ): TextInput {
+        ?string $label       = null,
+        bool $bold           = false,
+        bool $badge          = false,
+        bool $copyable       = false,
+        ?string $placeholder = null,
+    ): TextEntry {
 
-        return NameField::make(
+        return NameEntry::make(
             name: $name,
             label: $label,
-            required: $required,
+            bold: $bold,
+            badge: $badge,
+            copyable: $copyable,
+            placeholder: $placeholder,
         );
     }
-
 
     /*
     |--------------------------------------------------------------------------
@@ -38,11 +41,13 @@ class TenantField
     public static function organization(
         string $name = 'name',
         ?string $label = 'Organization Name',
-    ): TextInput {
+        bool $bold = true,
+    ): TextEntry {
 
         return self::make(
             name: $name,
             label: $label,
+            bold: $bold,
         );
     }
 
@@ -55,11 +60,13 @@ class TenantField
     public static function workshop(
         string $name = 'name',
         ?string $label = 'Workshop Name',
-    ): TextInput {
+        bool $bold = true,
+    ): TextEntry {
 
         return self::make(
             name: $name,
             label: $label,
+            bold: $bold,
         );
     }
 
@@ -72,22 +79,61 @@ class TenantField
     public static function taxNumber(
         string $name = 'tax_number',
         ?string $label = 'Tax Number',
-    ): TextInput {
+        ?string $placeholder = 'No tax'
+    ): TextEntry {
 
         return self::make(
             name: $name,
             label: $label,
+            copyable: true,
+            placeholder: $placeholder,
         );
     }
 
     public static function commercialRegistrationNumber(
         string $name = 'commercial_registration_number',
         ?string $label = 'Commercial Registration Number',
-    ): TextInput {
+        ?string $placeholder = 'No commercial registration'
+    ): TextEntry {
 
         return self::make(
             name: $name,
             label: $label,
+            copyable: true,
+            placeholder: $placeholder,
+        );
+    }
+
+    /*
+    |--------------------------------------------------------------------------
+    | Contact Information
+    |--------------------------------------------------------------------------
+    */
+
+    public static function phone(
+        string $name = 'phone',
+        ?string $label = 'Phone',
+        ?string $placeholder = 'No phone'
+    ): TextEntry {
+
+        return self::make(
+            name: $name,
+            label: $label,
+            copyable: true,
+            placeholder: $placeholder,
+        );
+    }
+
+    public static function address(
+        string $name = 'address',
+        ?string $label = 'Address',
+        ?string $placeholder = 'No address'
+    ): TextEntry {
+
+        return self::make(
+            name: $name,
+            label: $label,
+            placeholder: $placeholder,
         );
     }
 
@@ -99,14 +145,14 @@ class TenantField
 
     public static function type(
         string $name = 'type',
-        ?string $label = null,
-        array $exclude = [],
-    ): Select {
+        ?string $label = 'Type',
+        ?bool $badge = true,
+    ): TextEntry {
 
-        return SelectField::make(
+        return self::make(
             name: $name,
             label: $label,
-            options: TenantTypeEnum::options($exclude),
+            badge: $badge,
         );
     }
 }

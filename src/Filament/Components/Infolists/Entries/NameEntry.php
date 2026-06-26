@@ -1,11 +1,12 @@
 <?php
 
-namespace Nexus\Filament\Components\Infolists\Entries;
+namespace App\Filament\Components\Infolists\Entries;
 
+use Closure;
 use Filament\Infolists\Components\TextEntry;
 use Filament\Support\Colors\Color;
 use Filament\Support\Enums\FontWeight;
-use Closure;
+use Filament\Support\Icons\Heroicon;
 
 class NameEntry
 {
@@ -17,65 +18,53 @@ class NameEntry
 
     public static function make(
         string $name,
-        ?string $label = null,
-        bool $hiddenLabel = false,
-        string|Closure|null $state = null,
-        bool $isSub = true,
-        bool $bold = false,
-        bool $badge = false,
-        string|Color|array|null $color = null,
-        ?string $placeholder = null,
+        ?string $label                  = null,
+        bool $hiddenLabel               = false,
+        string|Closure|null $state      = null,
+        bool $isSub                     = true,
+        bool $bold                      = false,
+        bool $badge                     = false,
+        string|Color|array|null $color  = null,
+        bool $copyable                  = false,
+        ?string $placeholder            = null,
+        ?string $separator              = null,
+        string|Heroicon|null $icon      = null,
     ): TextEntry {
-
         return TextEntry::make($name)
             ->hiddenLabel($hiddenLabel)
-            ->color(Color::Gray)
-            ->when($label,       fn(TextEntry $entry) => $entry->label(__($label)))
-            ->when($state,       fn(TextEntry $entry) => $entry->state($state))
-            ->when($bold,        fn(TextEntry $entry) => $entry->weight(FontWeight::Bold))
-            ->when($badge,       fn(TextEntry $entry) => $entry->badge())
-            ->when($color,       fn(TextEntry $entry) => $entry->color($color))
-            ->when($isSub,       fn(TextEntry $entry) => $entry->color(Color::Gray))
-            ->when($placeholder, fn(TextEntry $entry) => $entry->placeholder(__($placeholder)));
+            ->when($isSub,       fn(TextEntry $e) => $e->color(Color::Gray))
+            ->when($label,       fn(TextEntry $e) => $e->label(__($label)))
+            ->when($state,       fn(TextEntry $e) => $e->state($state))
+            ->when($bold,        fn(TextEntry $e) => $e->weight(FontWeight::Bold))
+            ->when($badge,       fn(TextEntry $e) => $e->badge())
+            ->when($copyable,    fn(TextEntry $e) => $e->copyable())
+            ->when($placeholder, fn(TextEntry $e) => $e->placeholder(__($placeholder)))
+            ->when($separator,   fn(TextEntry $e) => $e->separator($separator))
+            ->when($color,       fn(TextEntry $e) => $e->color($color))
+            ->when($icon,        fn(TextEntry $e) => $e->icon($icon));
     }
 
     /*
     |--------------------------------------------------------------------------
-    | Variants
+    | Enum
     |--------------------------------------------------------------------------
     */
 
-    /*
-    |-------------------------
-    | Organization Variant
-    |-------------------------
-    */
-
-    public static function organization(
-        string $name = 'name',
-        ?string $label = 'Organization Name',
+    public static function enum(
+        string $name,
+        ?string $label      = null,
+        bool $hiddenLabel   = false,
+        bool $badge         = false,
+        ?string $placeholder = null,
     ): TextEntry {
-
         return self::make(
-            name: $name,
-            label: $label,
-        );
-    }
-
-    /*
-    |-------------------------
-    | Workshop Variant
-    |-------------------------
-    */
-
-    public static function workshop(
-        string $name = 'name',
-        ?string $label = 'Workshop Name',
-    ): TextEntry {
-
-        return self::make(
-            name: $name,
-            label: $label,
-        );
+            name:        $name,
+            label:       $label,
+            hiddenLabel: $hiddenLabel,
+            badge:       $badge,
+            placeholder: $placeholder,
+        )
+            ->color(fn($state) => $state->colorFilament())
+            ->formatStateUsing(fn($state) => $state->label());
     }
 }

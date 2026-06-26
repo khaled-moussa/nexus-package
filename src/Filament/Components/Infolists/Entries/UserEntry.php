@@ -2,30 +2,51 @@
 
 namespace Nexus\Filament\Components\Infolists\Entries;
 
+use App\Filament\Components\Infolists\Entries\NameEntry;
 use Filament\Infolists\Components\TextEntry;
-use Filament\Support\Enums\FontWeight;
 
 class UserEntry
 {
     /*
     |--------------------------------------------------------------------------
-    | Full name
+    | Base Builder
+    |--------------------------------------------------------------------------
+    */
+
+    private static function make(
+        string $name,
+        ?string $label       = null,
+        bool $bold           = false,
+        bool $copyable       = false,
+        ?string $placeholder = null,
+    ): TextEntry {
+        return NameEntry::make(
+            name: $name,
+            label: $label,
+            bold: $bold,
+            copyable: $copyable,
+            placeholder: $placeholder,
+        );
+    }
+
+    /*
+    |--------------------------------------------------------------------------
+    | Name
     |--------------------------------------------------------------------------
     */
 
     public static function name(
-        string $name = 'full_name',
-        ?string $label = 'Full name',
-        bool $hiddenLabel = false,
-        bool $bold = true,
-        ?string $placeholder = null,
+        string $name         = 'full_name',
+        ?string $label       = 'Full Name',
+        bool $bold           = true,
+        ?string $placeholder = 'No full name',
     ): TextEntry {
-
-        return TextEntry::make($name)
-            ->hiddenLabel($hiddenLabel)
-            ->when($label,       fn(TextEntry $entry) => $entry->label(__($label)))
-            ->when($bold,        fn(TextEntry $entry) => $entry->weight(FontWeight::Bold))
-            ->when($placeholder, fn(TextEntry $entry) => $entry->placeholder(__($placeholder)));
+        return self::make(
+            name: $name,
+            label: $label,
+            bold: $bold,
+            placeholder: $placeholder,
+        );
     }
 
     /*
@@ -35,18 +56,56 @@ class UserEntry
     */
 
     public static function gender(
-        string $name = 'gender',
-        ?string $label = 'Gender',
-        bool $hiddenLabel = false,
-        ?string $placeholder = null,
+        string $name         = 'gender',
+        ?string $label       = 'Gender',
+        bool $badge          = false,
+        ?string $placeholder = 'No gender',
     ): TextEntry {
+        return NameEntry::enum(
+            name: $name,
+            label: $label,
+            badge: $badge,
+            placeholder: $placeholder,
+        );
+    }
 
-        return TextEntry::make($name)
-            ->hiddenLabel($hiddenLabel)
-            ->badge()
-            ->color(fn($state) => $state?->filamentColor())
-            ->formatStateUsing(fn($state) => $state?->label())
-            ->when($label,       fn(TextEntry $entry) => $entry->label(__($label)))
-            ->when($placeholder, fn(TextEntry $entry) => $entry->placeholder(__($placeholder)));
+    /*
+    |--------------------------------------------------------------------------
+    | Email
+    |--------------------------------------------------------------------------
+    */
+
+    public static function email(
+        string $name      = 'email',
+        ?string $label    = 'Email',
+        bool $copyable    = true,
+        string $placeholder = 'No email'
+    ): TextEntry {
+        return self::make(
+            name: $name,
+            label: $label,
+            copyable: $copyable,
+            placeholder: $placeholder,
+        );
+    }
+
+    /*
+    |--------------------------------------------------------------------------
+    | Phone
+    |--------------------------------------------------------------------------
+    */
+
+    public static function phone(
+        string $name      = 'phone',
+        ?string $label    = 'Phone',
+        bool $copyable    = true,
+        string $placeholder = 'No phone'
+    ): TextEntry {
+        return self::make(
+            name: $name,
+            label: $label,
+            copyable: $copyable,
+            placeholder: $placeholder,
+        );
     }
 }
