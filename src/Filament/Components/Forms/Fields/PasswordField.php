@@ -24,7 +24,6 @@ class PasswordField
         return TextInput::make($name)
             ->required($required)
             ->password()
-            ->confirmed()
             ->prefixIcon(Heroicon::OutlinedLockClosed)
             ->when($label,      fn(TextInput $field) => $field->label(__($label)))
             ->when($confirmed,  fn(TextInput $field) => $field->confirmed())
