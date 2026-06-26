@@ -95,6 +95,6 @@ class StatusEntry
         )
             ->when($state, fn(TextEntry $entry) => $entry->state($state))
             ->when($state, fn(TextEntry $entry) => $entry->formatStateUsing(fn($state) => $state?->label()))
-            ->when($state, fn(TextEntry $entry) => $entry->color(fn($state) => $state?->filamentColor()));
+            ->when($state, fn(TextEntry $entry) => $entry->color(fn($state) => $state?->colorFilament()));
     }
 }

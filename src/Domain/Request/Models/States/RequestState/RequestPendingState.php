@@ -21,7 +21,7 @@ class RequestPendingState extends RequestStates
         return 'warning';
     }
 
-    public static function filamentColor(): array
+    public static function colorFilament(): array
     {
         return Color::Amber;
     }

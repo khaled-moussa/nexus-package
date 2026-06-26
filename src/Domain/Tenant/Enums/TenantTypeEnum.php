@@ -31,7 +31,7 @@ enum TenantTypeEnum: string
     |--------------------------------------------------------------------------
     */
 
-    public function filamentColor(): array
+    public function colorFilament(): array
     {
         return match ($this) {
             self::ORGANIZATION => Color::Indigo,

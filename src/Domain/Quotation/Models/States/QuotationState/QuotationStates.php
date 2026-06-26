@@ -19,7 +19,7 @@ abstract class QuotationStates extends State
 
     abstract public static function colorClass(): string;
 
-    abstract public static function filamentColor(): array;
+    abstract public static function colorFilament(): array;
 
     abstract public static function colorCode(): string;
 
