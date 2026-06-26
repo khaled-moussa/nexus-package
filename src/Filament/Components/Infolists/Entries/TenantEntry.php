@@ -2,7 +2,6 @@
 
 namespace Nexus\Filament\Components\Infolists\Entries;
 
-use App\Filament\Components\Infolists\Entries\NameEntry;
 use Filament\Infolists\Components\TextEntry;
 
 class TenantEntry
