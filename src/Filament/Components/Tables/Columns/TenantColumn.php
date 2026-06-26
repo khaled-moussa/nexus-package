@@ -3,12 +3,10 @@
 namespace Nexus\Filament\Components\Tables\Columns;
 
 use Closure;
-use Filament\Support\Colors\Color;
-use Filament\Support\Enums\FontWeight;
 use Filament\Tables\Columns\TextColumn;
 use Illuminate\Database\Eloquent\Builder;
 
-class NameColumn
+class TenantColumn
 {
     /*
     |--------------------------------------------------------------------------
@@ -20,32 +18,17 @@ class NameColumn
         string $name,
         ?string $label = null,
         bool $searchable = true,
-        bool $sortable = true,
-        bool $copyable = false,
-        ?Closure $state = null,
         ?Closure $searchableQuery = null,
+        ?Closure $state = null,
     ): TextColumn {
 
-        $column = TextColumn::make($name)
-            ->label(__($label ?? str($name)->headline()))
-            ->weight(FontWeight::SemiBold)
-            ->color(Color::Slate)
-            ->sortable($sortable)
-            ->toggleable()
-            ->searchable(
-                condition: $searchable,
-                query: $searchableQuery,
-            );
-
-        if ($copyable) {
-            $column->copyable();
-        }
-
-        if ($state) {
-            $column->state($state);
-        }
-
-        return $column;
+        return NameColumn::make(
+            name: $name,
+            label: $label,
+            searchable: $searchable,
+            searchableQuery: $searchableQuery,
+            state: $state,
+        );
     }
 
     /*
@@ -98,7 +81,7 @@ class NameColumn
 
     /*
     |--------------------------------------------------------------------------
-    | Company Variant
+    | Company Brand Variant
     |--------------------------------------------------------------------------
     */
 
@@ -111,7 +94,6 @@ class NameColumn
             name: $name,
             label: $label,
             searchable: false,
-            sortable: false,
             state: fn () => config('company.brand_name'),
         );
     }
