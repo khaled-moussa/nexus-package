@@ -21,7 +21,7 @@ class VehicleRejectedState extends VehicleStates
         return 'danger';
     }
 
-    public static function filamentColor(): array
+    public static function colorFilamentUpdate(): array
     {
         return Color::Red;
     }

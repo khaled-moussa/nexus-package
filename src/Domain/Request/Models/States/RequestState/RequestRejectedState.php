@@ -21,7 +21,7 @@ class RequestRejectedState extends RequestStates
         return 'danger';
     }
 
-    public static function filamentColor(): array
+    public static function colorFilamentUpdate(): array
     {
         return Color::Red;
     }

@@ -21,7 +21,7 @@ class RequestAcceptedState extends RequestStates
         return 'success';
     }
 
-    public static function filamentColor(): array
+    public static function colorFilamentUpdate(): array
     {
         return Color::Green;
     }
