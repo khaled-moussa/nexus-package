@@ -19,7 +19,7 @@ abstract class VehicleStates extends State
 
     abstract public static function colorClass(): string;
 
-    abstract public static function colorFilamentUpdate(): array;
+    abstract public static function colorFilament(): array;
 
     abstract public static function colorCode(): string;
 

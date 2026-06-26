@@ -21,7 +21,7 @@ class RequestReceivedState extends RequestStates
         return 'gray';
     }
 
-    public static function colorFilamentUpdate(): array
+    public static function colorFilament(): array
     {
         return Color::Gray;
     }
