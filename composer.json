@@ -3,7 +3,7 @@
   "description": "Shared core features for scopes and mas",
   "type": "library",
   "license": "proprietary",
-  "minimum-stability": "stable",
+  "minimum-stability": "dev",
   "prefer-stable": true,
   "autoload": {
     "psr-4": {
