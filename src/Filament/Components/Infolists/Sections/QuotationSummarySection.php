@@ -23,21 +23,25 @@ class QuotationSummarySection
                 NumericEntry::money(
                     'quotation.total',
                     'Total Price',
+                    placeholder: '—'
                 ),
 
                 NumericEntry::money(
-                    'quotation.discount_total',
-                    'Total Sale',
+                    name: 'quotation.discount_total',
+                    label: 'Total Sale',
+                    placeholder: '—'
                 ),
 
                 NumericEntry::money(
-                    'quotation.tax_total',
-                    'Total VAT',
+                    name: 'quotation.tax_total',
+                    label: 'Total VAT',
+                    placeholder: '—'
                 ),
 
                 NumericEntry::number(
-                    'quotation.quantity_total',
-                    'Total Quantity',
+                    name: 'quotation.quantity_total',
+                    label: 'Total Quantity',
+                    placeholder: '—'
                 ),
             ]);
     }

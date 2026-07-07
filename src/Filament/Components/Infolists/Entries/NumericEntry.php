@@ -48,6 +48,7 @@ class NumericEntry
         string $name,
         ?string $label = null,
         ?string $suffix = null,
+        ?string $placeholder = null,
     ): TextEntry {
 
         return self::make(
@@ -68,6 +69,7 @@ class NumericEntry
         ?string $label = null,
         string $currency = 'SAR',
         ?string $locale = null,
+        ?string $placeholder = null,
     ): TextEntry {
 
         return self::make(
@@ -89,6 +91,7 @@ class NumericEntry
     public static function percentage(
         string $name,
         ?string $label = null,
+        ?string $placeholder = null,
     ): TextEntry {
 
         return self::make(
