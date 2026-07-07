@@ -40,4 +40,21 @@ class NameColumn
             ->when($searchable,  fn(TextColumn $column) => $column->searchable($searchable, $searchableQuery))
             ->when(!is_null($description), fn(TextColumn $column) => $column->description($description));
     }
+
+
+    /*
+    |--------------------------------------------------------------------------
+    | Company Brand
+    |--------------------------------------------------------------------------
+    */
+
+    public static function companyBrand(
+        string $name = 'company_brand',
+        ?string $label = 'Organization',
+    ): TextColumn {
+        return self::make(
+            name: $name,
+            label: $label,
+        )->state(fn() => config('company.name'));
+    }
 }
