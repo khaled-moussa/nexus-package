@@ -55,6 +55,7 @@ class NumericEntry
             name: $name,
             label: $label,
             suffix: $suffix,
+            placeholder: $placeholder
         );
     }
 
@@ -79,6 +80,7 @@ class NumericEntry
             currency: $currency,
             locale: $locale,
             suffix: " {$currency}",
+            placeholder: $placeholder
         );
     }
 
@@ -98,6 +100,7 @@ class NumericEntry
             name: $name,
             label: $label,
             suffix: '%',
+            placeholder: $placeholder
         );
     }
 }

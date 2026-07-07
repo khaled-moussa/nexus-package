@@ -87,8 +87,7 @@ class StatusEntry
             label: $label,
             hiddenLabel: $hiddenLabel
         )
-            ->when($state, fn(TextEntry $entry) => $entry->state($state))
-            ->when($state, fn(TextEntry $entry) => $entry->formatStateUsing(fn($state) => $state?->label()))
-            ->when($state, fn(TextEntry $entry) => $entry->color(fn($state) => $state?->filamentColor()));
+            ->color(fn($state) => $state->colorFilament())
+            ->formatStateUsing(fn($state) => $state->label());
     }
 }
