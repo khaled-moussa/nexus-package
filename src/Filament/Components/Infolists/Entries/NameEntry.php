@@ -58,13 +58,29 @@ class NameEntry
         ?string $placeholder = null,
     ): TextEntry {
         return self::make(
-            name:        $name,
-            label:       $label,
+            name: $name,
+            label: $label,
             hiddenLabel: $hiddenLabel,
-            badge:       $badge,
+            badge: $badge,
             placeholder: $placeholder,
         )
             ->color(fn($state) => $state->colorFilament())
             ->formatStateUsing(fn($state) => $state->label());
+    }
+
+    /*
+    |--------------------------------------------------------------------------
+    | Enum
+    |--------------------------------------------------------------------------
+    */
+
+    public static function companyBrand(
+        string $name = 'company_brand',
+        ?string $label = 'Organization',
+    ): TextEntry {
+        return self::make(
+            name: $name,
+            label: $label,
+        )->state(fn() => config('company.name'));
     }
 }
