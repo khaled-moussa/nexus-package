@@ -72,7 +72,7 @@ class ContactColumn
             label: $label,
             url: fn($state) => filled($state) ? "tel:{state}" : null,
             placeholder: 'No phone'
-        );
+        )->extraAttributes(['class' => 'ltr']);
     }
 
     /*

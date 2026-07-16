@@ -42,12 +42,14 @@ class DatetimeEntry
     public static function createdAt(
         string $name = 'created_at_formatted',
         ?string $label = 'Created at',
+        ?string $placeholder = 'No date',
     ): TextEntry {
 
         return self::make(
             name: $name,
             label: $label,
             badge: true,
+            placeholder: $placeholder
         );
     }
 
@@ -60,12 +62,14 @@ class DatetimeEntry
     public static function updatedAt(
         string $name = 'updated_at',
         ?string $label = 'Updated at',
+        ?string $placeholder = 'No date',
     ): TextEntry {
 
         return self::make(
             name: $name,
             label: $label,
             badge: true,
+            placeholder: $placeholder
         );
     }
 
@@ -78,12 +82,14 @@ class DatetimeEntry
     public static function completedAt(
         string $name = 'completed_at_formatted',
         ?string $label = 'Completed at',
+        ?string $placeholder = 'No date',
     ): TextEntry {
 
         return self::make(
             name: $name,
             label: $label,
             badge: true,
+            placeholder: $placeholder
         );
     }
 
@@ -96,12 +102,14 @@ class DatetimeEntry
     public static function receivedAt(
         string $name = 'received_at_formatted',
         ?string $label = 'Received at',
+        ?string $placeholder = 'No date',
     ): TextEntry {
 
         return self::make(
             name: $name,
             label: $label,
             badge: true,
+            placeholder: $placeholder
         );
     }
 }

@@ -19,9 +19,9 @@ enum TenantTypeEnum: string
     public function label(): string
     {
         return match ($this) {
-            self::ORGANIZATION => 'Organization',
-            self::INTERNAL_WORKSHOP => 'Internal Workshop',
-            self::EXTERNAL_WORKSHOP => 'External Workshop',
+            self::ORGANIZATION      => __('Organization'),
+            self::INTERNAL_WORKSHOP => __('Internal Workshop'),
+            self::EXTERNAL_WORKSHOP => __('External Workshop'),
         };
     }
 

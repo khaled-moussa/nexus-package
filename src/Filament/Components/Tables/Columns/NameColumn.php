@@ -36,7 +36,7 @@ class NameColumn
             ->when($color,       fn(TextColumn $column) => $column->color($color))
             ->when($badge,       fn(TextColumn $column) => $column->badge())
             ->when($limit,       fn(TextColumn $column) => $column->limit($limit))
-            ->when($tooltip,     fn(TextColumn $column) => $column->tooltip($tooltip))
+            ->when($tooltip,     fn(TextColumn $column) => $column->tooltip(fn($state) => $state))
             ->when($searchable,  fn(TextColumn $column) => $column->searchable($searchable, $searchableQuery))
             ->when(!is_null($description), fn(TextColumn $column) => $column->description($description));
     }
