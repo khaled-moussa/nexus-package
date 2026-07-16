@@ -40,7 +40,7 @@ class TenantEntry
     public static function organization(
         string $name = 'name',
         ?string $label = 'Organization Name',
-        bool $bold = true,
+        bool $bold = false,
     ): TextEntry {
 
         return self::make(
@@ -59,7 +59,7 @@ class TenantEntry
     public static function workshop(
         string $name = 'name',
         ?string $label = 'Workshop Name',
-        bool $bold = true,
+        bool $bold = false,
     ): TextEntry {
 
         return self::make(
