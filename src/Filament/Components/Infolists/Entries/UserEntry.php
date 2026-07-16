@@ -37,7 +37,7 @@ class UserEntry
     public static function name(
         string $name         = 'full_name',
         ?string $label       = 'Full Name',
-        bool $bold           = true,
+        bool $bold           = false,
         ?string $placeholder = 'No full name',
     ): TextEntry {
         return self::make(
