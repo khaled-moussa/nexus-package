@@ -148,6 +148,7 @@
   "Registered organizations": "Registered organizations",
   "Internal workshops": "Internal workshops",
   "External workshops": "External workshops",
+  "Dashboard": "لوحة تحكم",
   "Created requests": "Created requests",
   "Assigned workshop requests": "Assigned workshop requests",
   "Requests": "Requests",
@@ -207,5 +208,10 @@
   "Assign Workshop": "Assign Workshop",
   "Notifications": "Notifications",
   "Site Notification": "Site Notification",
-  "Email Notification": "Email Notification"
+  "Email Notification": "Email Notification",
+  "Male": "Male",
+  "Female": "Female",
+  "No users": "No users",
+  "Avg Hours": "Avg Hours",
+  "No Data": "No Data"
 }

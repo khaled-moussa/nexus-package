@@ -51,14 +51,16 @@ class CustomDashboard extends BaseDashboard
             FilterAction::make()
                 ->schema([
                     DatePicker::make('startDate')
-                        ->placeholder(__('Start date'))
+                        ->label(__('Start date'))
                         ->prefixIcon(Heroicon::OutlinedCalendar)
-                        ->native(false),
+                        ->native(false)
+                        ->placeholder(__('Start date')),
 
                     DatePicker::make('endDate')
-                        ->placeholder(__('End date'))
+                        ->label(__('End date'))
                         ->prefixIcon(Heroicon::OutlinedCalendar)
-                        ->native(false),
+                        ->native(false)
+                        ->placeholder(__('End date')),
                 ])
                 ->extraModalFooterActions([
                     ActionButton::make(
