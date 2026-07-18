@@ -58,11 +58,17 @@ class ContactEntry
         bool $copyable      = true,
         string $placeholder = 'No phone',
     ): TextEntry {
-        return self::make(
+        $entry =  self::make(
             name: $name,
             label: $label,
             copyable: $copyable,
             placeholder: $placeholder,
-        )->extraAttributes(['class' => 'ltr']);
+        );
+
+        if ($entry) {
+            $entry->extraAttributes(['class' => 'ltr']);
+        }
+
+        return $entry;
     }
 }
