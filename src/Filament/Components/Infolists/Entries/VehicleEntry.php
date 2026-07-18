@@ -57,7 +57,7 @@ class VehicleEntry
         return self::make(
             name: $name,
             label: $label,
-            bold: true,
+            bold: false,
         );
     }
 
