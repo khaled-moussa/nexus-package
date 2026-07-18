@@ -77,9 +77,9 @@ class PanelPreset
             |--------------------------------------------------------------------------
             */
 
-            ->brandName(config('company.brand_name'))
-            ->brandLogo(asset(config('company.panel_logo_light')))
-            ->darkModeBrandLogo(asset(config('company.panel_logo_dark')))
+            ->brandName(config('company.brand.name'))
+            ->brandLogo(fn() => view('components.brand.logo'))
+            ->darkModeBrandLogo(fn() => view('components.brand.logo', ['dark' => true]))
             ->brandLogoHeight('30px')
 
             ->font('Poppins')
