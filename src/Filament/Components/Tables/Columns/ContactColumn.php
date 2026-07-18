@@ -4,6 +4,7 @@ namespace Nexus\Filament\Components\Tables\Columns;
 
 use Filament\Tables\Columns\TextColumn;
 use Closure;
+use Nexus\Support\Enums\LanguageEnum;
 
 class ContactColumn
 {
@@ -67,12 +68,18 @@ class ContactColumn
         ?string $label = 'Phone',
     ): TextColumn {
 
-        return self::make(
+        $column =  self::make(
             name: $name,
             label: $label,
             url: fn($state) => filled($state) ? "tel:{state}" : null,
             placeholder: 'No phone'
-        )->extraAttributes(['class' => 'ltr']);
+        );
+
+        if (app()->getLocale() == LanguageEnum::AR->value) {
+            $column->extraAttributes(['class' => 'ltr']);
+        }
+
+        return $column;
     }
 
     /*

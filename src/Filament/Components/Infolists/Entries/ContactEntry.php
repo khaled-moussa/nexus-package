@@ -4,7 +4,7 @@ namespace Nexus\Filament\Components\Infolists\Entries;
 
 use Filament\Infolists\Components\TextEntry;
 
-class UserEntry
+class ContactEntry
 {
     /*
     |--------------------------------------------------------------------------
@@ -15,14 +15,12 @@ class UserEntry
     private static function make(
         string $name,
         ?string $label       = null,
-        bool $bold           = false,
-        bool $copyable       = false,
+        bool $copyable       = true,
         ?string $placeholder = null,
     ): TextEntry {
         return NameEntry::make(
             name: $name,
             label: $label,
-            bold: $bold,
             copyable: $copyable,
             placeholder: $placeholder,
         );
@@ -30,41 +28,41 @@ class UserEntry
 
     /*
     |--------------------------------------------------------------------------
-    | Name
+    | Email
     |--------------------------------------------------------------------------
     */
 
-    public static function name(
-        string $name         = 'full_name',
-        ?string $label       = 'Full Name',
-        bool $bold           = false,
-        ?string $placeholder = 'No full name',
+    public static function email(
+        string $name        = 'email',
+        ?string $label      = 'Email',
+        bool $copyable      = true,
+        string $placeholder = 'No email',
     ): TextEntry {
         return self::make(
             name: $name,
             label: $label,
-            bold: $bold,
+            copyable: $copyable,
             placeholder: $placeholder,
         );
     }
 
     /*
     |--------------------------------------------------------------------------
-    | Gender
+    | Phone
     |--------------------------------------------------------------------------
     */
 
-    public static function gender(
-        string $name         = 'gender',
-        ?string $label       = 'Gender',
-        bool $badge          = true,
-        ?string $placeholder = 'No gender',
+    public static function phone(
+        string $name        = 'phone',
+        ?string $label      = 'Phone',
+        bool $copyable      = true,
+        string $placeholder = 'No phone',
     ): TextEntry {
-        return NameEntry::enum(
+        return self::make(
             name: $name,
             label: $label,
-            badge: $badge,
+            copyable: $copyable,
             placeholder: $placeholder,
-        );
+        )->extraAttributes(['class' => 'ltr']);
     }
 }

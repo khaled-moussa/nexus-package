@@ -109,20 +109,6 @@ class TenantEntry
     |--------------------------------------------------------------------------
     */
 
-    public static function phone(
-        string $name = 'phone',
-        ?string $label = 'Phone',
-        ?string $placeholder = 'No phone'
-    ): TextEntry {
-
-        return self::make(
-            name: $name,
-            label: $label,
-            copyable: true,
-            placeholder: $placeholder,
-        );
-    }
-
     public static function address(
         string $name = 'address',
         ?string $label = 'Address',
