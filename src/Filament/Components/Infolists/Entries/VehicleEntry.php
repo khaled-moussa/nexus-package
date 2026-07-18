@@ -149,7 +149,7 @@ class VehicleEntry
         return NumericEntry::number(
             name: $name,
             label: $label,
-            suffix: __(' KM'),
+            suffix: __('KM'),
         );
     }
 
