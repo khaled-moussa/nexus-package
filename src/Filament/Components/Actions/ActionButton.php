@@ -27,6 +27,7 @@ class ActionButton
         Closure|bool $hidden = false,
         bool $requiresConfirmation = false,
         ?string $successTitle = null,
+        ?string $successNotification = false,
     ): Action {
         return Action::make($name)
             ->action($action)
@@ -38,7 +39,8 @@ class ActionButton
             ->when($icon, fn(Action $action) => $action->icon($icon))
             ->when($color, fn(Action $action) => $action->color($color))
             ->when($requiresConfirmation, fn(Action $action) => $action->requiresConfirmation())
-            ->when($successTitle, fn(Action $action) => $action->successNotificationTitle(__($successTitle)));
+            ->when($successTitle, fn(Action $action) => $action->successNotificationTitle(__($successTitle)))
+            ->when($successNotification, fn(Action $action) => $action->successNotification())
     }
 
     /*
