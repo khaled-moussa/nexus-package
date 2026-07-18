@@ -92,6 +92,7 @@ class GeneralSetting extends Page
                 label: __('Save'),
                 action: $this->save(...),
                 requiresConfirmation: true,
+                sendSuccessNotification: true,
             ),
         ];
     }

@@ -27,7 +27,7 @@ class ActionButton
         Closure|bool $hidden = false,
         bool $requiresConfirmation = false,
         ?string $successTitle = null,
-        ?bool $successNotification = false,
+        ?bool $sendSuccessNotification = false,
     ): Action {
         return Action::make($name)
             ->action($action)
