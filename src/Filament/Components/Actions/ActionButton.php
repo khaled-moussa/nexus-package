@@ -40,7 +40,7 @@ class ActionButton
             ->when($color, fn(Action $action) => $action->color($color))
             ->when($requiresConfirmation, fn(Action $action) => $action->requiresConfirmation())
             ->when($successTitle, fn(Action $action) => $action->successNotificationTitle(__($successTitle)))
-            ->when($successNotification, fn(Action $action) => $action->successNotification())
+            ->when($successNotification, fn(Action $action) => $action->successNotification());
     }
 
     /*
