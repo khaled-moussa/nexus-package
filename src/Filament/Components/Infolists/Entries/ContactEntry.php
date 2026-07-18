@@ -3,6 +3,7 @@
 namespace Nexus\Filament\Components\Infolists\Entries;
 
 use Filament\Infolists\Components\TextEntry;
+use Nexus\Support\Enums\LanguageEnum;
 
 class ContactEntry
 {
@@ -65,7 +66,7 @@ class ContactEntry
             placeholder: $placeholder,
         );
 
-        if ($entry) {
+        if (app()->getLocale() == LanguageEnum::AR->value) {
             $entry->extraAttributes(['class' => 'ltr']);
         }
 
