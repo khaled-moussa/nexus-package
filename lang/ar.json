@@ -216,5 +216,8 @@
   "No Data": "لا توجد بيانات",
   "View Request": "عرض الطلب",
   "KM": " كم",
-  "Saved": "تم الحفظ"
+  "Saved": "تم الحفظ",
+  "Repair": "إصلاح",
+  "Part Replacement": "استبدال قطعة",
+  "Diagnostic": "تشخيص"
 }
