@@ -50,9 +50,9 @@ class PanelPreset
             |--------------------------------------------------------------------------
             */
 
-             ->discoverClusters(
-                in: app_path('Filament/Panels/Admin/Clusters'),
-                for: 'App\\Filament\\Panels\\Admin\\Clusters'
+            ->discoverClusters(
+                in: base_path('vendor/internal/nexus/src/Filament/Clusters'),
+                for: 'Nexus\\Filament\\Clusters'
             )
 
             /*
@@ -78,9 +78,9 @@ class PanelPreset
             */
 
             ->brandName(config('company.brand_name'))
-            // ->brandLogo(asset(config('company.panel_logo_light')))
-            // ->darkModeBrandLogo(asset(config('company.panel_logo_dark')))
-            // ->brandLogoHeight('30px')
+            ->brandLogo(asset(config('company.panel_logo_light')))
+            ->darkModeBrandLogo(asset(config('company.panel_logo_dark')))
+            ->brandLogoHeight('30px')
 
             ->font('Poppins')
             ->defaultThemeMode(ThemeMode::System)
@@ -101,7 +101,7 @@ class PanelPreset
 
     /*
     |--------------------------------------------------------------------------
-    | Filament Plugins
+    | Shared Pages
     |--------------------------------------------------------------------------
     */
 
@@ -115,7 +115,7 @@ class PanelPreset
 
     /*
     |--------------------------------------------------------------------------
-    | Filament Plugins
+    | Shared Widgets
     |--------------------------------------------------------------------------
     */
 
@@ -142,7 +142,7 @@ class PanelPreset
 
     /*
     |--------------------------------------------------------------------------
-    | Middleware Stack
+    | Share Middleware 
     |--------------------------------------------------------------------------
     */
 
@@ -163,7 +163,7 @@ class PanelPreset
 
     /*
     |--------------------------------------------------------------------------
-    | Authentication Middleware
+    | Share Authentication Middleware
     |--------------------------------------------------------------------------
     */
 
