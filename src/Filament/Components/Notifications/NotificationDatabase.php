@@ -27,7 +27,7 @@ class NotificationDatabase
     ): void {
 
         $notification = Notification::make()
-            ->title($title)
+            ->title(__($title))
             ->duration($duration);
 
         /*

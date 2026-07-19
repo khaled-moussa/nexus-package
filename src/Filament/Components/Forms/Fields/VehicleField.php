@@ -232,14 +232,21 @@ class VehicleField
 
     public static function vehicleState(
         string $name = 'vehicle_state',
-        ?string $label = 'Vehicle State'
+        ?string $label = 'Vehicle State',
+        bool $live = false
     ): Select {
 
-        return SelectField::make(
+        $field =  SelectField::make(
             name: $name,
             label: $label,
             options: VehicleStates::options()
         );
+
+        if ($live) {
+            $field->live();
+        }
+
+        return $field;
     }
 
     /*
