@@ -45,6 +45,9 @@ class SyncRequestStateAction
         if ($this->allAccepted($vehicles)) {
             $requestState->transitionTo(RequestAcceptedState::class);
         }
+
+        // Handle timestamp for stats like completed at, ...
+        app(UpdateRequestTimestampsAction::class)->execute($request);
     }
 
     /*
