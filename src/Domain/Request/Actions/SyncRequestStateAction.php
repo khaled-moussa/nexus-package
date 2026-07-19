@@ -47,7 +47,7 @@ class SyncRequestStateAction
         }
 
         // Handle timestamp for stats like completed at, ...
-        app(UpdateRequestTimestampsAction::class)->execute($request);
+        // app(UpdateRequestTimestampsAction::class)->execute($request);
     }
 
     /*

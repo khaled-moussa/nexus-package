@@ -15,6 +15,7 @@ class UpdateRequestTimestamps
 
     public function handle(RequestUpdated $event): void
     {
+        info('debug');
         app(UpdateRequestTimestampsAction::class)->execute(
             $event->request,
         );
