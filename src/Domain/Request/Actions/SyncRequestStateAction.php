@@ -8,6 +8,7 @@ use Nexus\Domain\Request\Models\States\RequestState\RequestAcceptedState;
 use Nexus\Domain\Request\Models\States\RequestState\RequestCompletedState;
 use Nexus\Domain\Request\Models\States\RequestState\RequestDeliveredState;
 use Nexus\Domain\Request\Models\States\RequestState\RequestInProgressState;
+use Nexus\Domain\Request\Models\States\RequestState\RequestPendingState;
 use Nexus\Domain\Request\Models\States\RequestState\RequestReceivedState;
 use Nexus\Domain\Request\Models\States\RequestState\RequestRejectedState;
 use Nexus\Domain\Request\Models\States\RequestState\RequestStates;
@@ -72,7 +73,11 @@ class SyncRequestStateAction
 
         if ($this->allAccepted($vehicles)) {
             $this->transition($requestState, RequestAcceptedState::class, $request);
+            
+            return;
         }
+
+        $this->transition($requestState, RequestPendingState::class, $request);
     }
 
     /*
