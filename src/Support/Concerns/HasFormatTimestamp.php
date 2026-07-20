@@ -30,7 +30,7 @@ trait HasFormatTimestamp
     |--------------------------------------------------------------------------
     */
 
-    protected function formatTimestamp(?Carbon $value): ?string
+    protected function formatTimestamp(Carbon|string|null $value): ?string
     {
         return $value
             ?->copy()
