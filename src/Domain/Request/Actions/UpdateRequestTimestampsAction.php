@@ -18,23 +18,51 @@ class UpdateRequestTimestampsAction
 
     public function execute(Request|RequestWorkshop $request): void
     {
-        $timestamps = [
-            'completed_at' => null,
-            'received_at'  => null,
-            'delivered_at' => null,
-        ];
+        $state = $request->getRequestState()->value();
 
-        $column = match ($request->getRequestState()->value()) {
-            RequestCompletedState::value() => 'completed_at',
-            RequestReceivedState::value()  => 'received_at',
-            RequestDeliveredState::value() => 'delivered_at',
-            default                        => null,
+        match ($state) {
+            RequestReceivedState::value() => $this->updateReceived($request),
+            RequestCompletedState::value() => $this->updateCompleted($request),
+            RequestDeliveredState::value() => $this->updateDelivered($request),
+            default => $this->reset($request),
         };
+    }
 
-        if ($column !== null) {
-            $timestamps[$column] = now();
+    /*
+    |--------------------------------------------------------------------------
+    | State Handlers
+    |--------------------------------------------------------------------------
+    */
+
+    private function updateReceived(Request|RequestWorkshop $request): void
+    {
+        if ($request->received_at === null) {
+            $request->update([
+                'received_at' => now(),
+            ]);
         }
+    }
 
-        $request->update($timestamps);
+    private function updateCompleted(Request|RequestWorkshop $request): void
+    {
+        $request->update([
+            'completed_at' => $request->completed_at ?? now(),
+        ]);
+    }
+
+    private function updateDelivered(Request|RequestWorkshop $request): void
+    {
+        $request->update([
+            'delivered_at' => $request->delivered_at ?? now(),
+        ]);
+    }
+
+    private function reset(Request|RequestWorkshop $request): void
+    {
+        $request->update([
+            'received_at'  => null,
+            'completed_at' => null,
+            'delivered_at' => null,
+        ]);
     }
 }
