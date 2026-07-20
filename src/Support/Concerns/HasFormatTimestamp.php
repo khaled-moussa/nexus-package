@@ -32,11 +32,19 @@ trait HasFormatTimestamp
 
     protected function formatTimestamp(Carbon|string|null $value): ?string
     {
-        return $value
-            ?->copy()
+        if (! $value) {
+            return null;
+        }
+
+        $date = $value instanceof Carbon
+            ? $value->copy()
+            : Carbon::parse($value);
+
+        return $date
             ->timezone($this->getUserTimezone())
             ->format('d M Y g:i A');
     }
+
     /*
     |--------------------------------------------------------------------------
     | Timezone
