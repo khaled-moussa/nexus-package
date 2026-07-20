@@ -24,11 +24,11 @@ class UpdateRequestTimestampsAction
             'delivered_at' => null,
         ];
 
-        $column = match ($request->getRequestState()) {
-            RequestCompletedState::class => 'completed_at',
-            RequestReceivedState::class  => 'received_at',
-            RequestDeliveredState::class => 'delivered_at',
-            default                      => null,
+        $column = match ($request->getRequestState()->value()) {
+            RequestCompletedState::value() => 'completed_at',
+            RequestReceivedState::value()  => 'received_at',
+            RequestDeliveredState::value() => 'delivered_at',
+            default                        => null,
         };
 
         if ($column !== null) {
