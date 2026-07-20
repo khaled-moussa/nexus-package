@@ -10,6 +10,7 @@ use Nexus\Domain\Request\Models\States\VehicleState\VehiclePendingState;
 use Nexus\Domain\Request\Models\States\VehicleState\VehicleReceivedState;
 use Nexus\Domain\Request\Models\States\VehicleState\VehicleRejectedState;
 use Illuminate\Database\Eloquent\Casts\Attribute;
+use Nexus\Domain\Request\Models\States\VehicleState\VehicleDeliveredState;
 
 trait HasRequestVehicleAttribute
 {
@@ -78,6 +79,13 @@ trait HasRequestVehicleAttribute
     {
         return Attribute::make(
             get: fn() => $this->isState(VehicleReceivedState::class)
+        );
+    }
+
+    protected function isDelivered(): Attribute
+    {
+        return Attribute::make(
+            get: fn() => $this->isState(VehicleDeliveredState::class)
         );
     }
 
