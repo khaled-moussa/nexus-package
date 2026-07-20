@@ -38,12 +38,6 @@ class VehicleEntry
     }
 
     /*
-    |--------------------------------------------------------------------------
-    | Vehicle Entries
-    |--------------------------------------------------------------------------
-    */
-
-    /*
     |-------------------------
     | Manufacturer Entry
     |-------------------------
@@ -229,22 +223,16 @@ class VehicleEntry
 
     public static function vehicleComment(
         string $name = 'comments',
-        string $label = 'Comments'
+        string $label = 'Comments',
+        string $placeholder = 'No comments'
     ): TextEntry {
 
         return DescriptionEntry::make(
             name: $name,
             label: $label,
+            placeholder: $placeholder
         );
     }
-
-
-
-    /*
-    |--------------------------------------------------------------------------
-    | Ready Sections
-    |--------------------------------------------------------------------------
-    */
 
     /*
     |-------------------------
