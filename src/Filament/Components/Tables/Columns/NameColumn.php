@@ -55,6 +55,6 @@ class NameColumn
         return self::make(
             name: $name,
             label: $label,
-        )->state(fn() => config('company.name'));
+        )->state(fn() => config('company.brand.name'));
     }
 }

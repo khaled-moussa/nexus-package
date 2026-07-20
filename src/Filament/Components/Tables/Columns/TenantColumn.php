@@ -94,7 +94,7 @@ class TenantColumn
             name: $name,
             label: $label,
             searchable: false,
-            state: fn () => config('company.brand_name'),
+            state: fn () => config('company.brand.name'),
         );
     }
 }
