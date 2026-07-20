@@ -18,24 +18,24 @@ class RequestDeliveredState extends RequestStates
 
     public static function colorClass(): string
     {
-        return 'gray';
+        return 'indigo';
     }
 
     public static function colorFilament(): array
     {
-        return Color::Gray;
+        return Color::Indigo;
     }
 
     public static function colorCode(): string
     {
-        return '#6b7280';
+        return '#6366F1';
     }
 
     public static function colorChart(): array
     {
         return [
-            'background' => 'rgba(107, 114, 128, 0.06)',
-            'border' =>  'rgba(107, 114, 128, 0.6)'
+            'background' => 'rgba(99, 102, 241, 0.06)',
+            'border'     => 'rgba(99, 102, 241, 0.6)',
         ];
     }
 }

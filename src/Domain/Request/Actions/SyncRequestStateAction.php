@@ -6,11 +6,24 @@ use Nexus\Domain\Request\Models\Request;
 use Nexus\Domain\Request\Models\RequestWorkshop;
 use Nexus\Domain\Request\Models\States\RequestState\RequestAcceptedState;
 use Nexus\Domain\Request\Models\States\RequestState\RequestCompletedState;
+use Nexus\Domain\Request\Models\States\RequestState\RequestDeliveredState;
 use Nexus\Domain\Request\Models\States\RequestState\RequestInProgressState;
+use Nexus\Domain\Request\Models\States\RequestState\RequestReceivedState;
 use Nexus\Domain\Request\Models\States\RequestState\RequestRejectedState;
+use Nexus\Domain\Request\Models\States\RequestState\RequestStates;
 
 class SyncRequestStateAction
 {
+    /*
+    |--------------------------------------------------------------------------
+    | Constructor
+    |--------------------------------------------------------------------------
+    */
+
+    public function __construct(
+        private readonly UpdateRequestTimestampsAction $updateRequestTimestamps,
+    ) {}
+
     /*
     |--------------------------------------------------------------------------
     | Execute
@@ -21,33 +34,66 @@ class SyncRequestStateAction
     {
         $vehicles = $this->resolveVehicles($request);
 
-        $requestState = $request->getRequestState();
-
         if ($vehicles->isEmpty()) {
             return;
         }
 
+        $requestState = $request->getRequestState();
+
         if ($this->allRejected($vehicles)) {
-            $requestState->transitionTo(RequestRejectedState::class);
+            $this->transition($requestState, RequestRejectedState::class, $request);
+
             return;
         }
 
         if ($this->hasInProgress($vehicles)) {
-            $requestState->transitionTo(RequestInProgressState::class);
+            $this->transition($requestState, RequestInProgressState::class, $request);
+
+            return;
+        }
+
+        if ($this->allReceived($vehicles)) {
+            $this->transition($requestState, RequestReceivedState::class, $request);
+
             return;
         }
 
         if ($this->allCompleted($vehicles)) {
-            $requestState->transitionTo(RequestCompletedState::class);
+            $this->transition($requestState, RequestCompletedState::class, $request);
+
+            return;
+        }
+
+        if ($this->allDelivered($vehicles)) {
+            $this->transition($requestState, RequestDeliveredState::class, $request);
+
             return;
         }
 
         if ($this->allAccepted($vehicles)) {
-            $requestState->transitionTo(RequestAcceptedState::class);
+            $this->transition($requestState, RequestAcceptedState::class, $request);
+        }
+    }
+
+    /*
+    |--------------------------------------------------------------------------
+    | Transition
+    |--------------------------------------------------------------------------
+    */
+
+    private function transition(
+        RequestStates $state,
+        string $to,
+        Request|RequestWorkshop $request,
+    ): void {
+        // Skip unnecessary transition
+        if ($state::class === $to) {
+            return;
         }
 
-        // Handle timestamp for stats like completed at, ...
-        // app(UpdateRequestTimestampsAction::class)->execute($request);
+        $state->transitionTo($to);
+
+        $this->updateRequestTimestamps->execute($request);
     }
 
     /*
@@ -80,12 +126,26 @@ class SyncRequestStateAction
             ->every(fn($vehicle) => $vehicle->accepted());
     }
 
+    private function allReceived($vehicles): bool
+    {
+        return $vehicles
+            ->reject(fn($vehicle) => $vehicle->rejected())
+            ->every(fn($vehicle) => $vehicle->received());
+    }
+
+    private function allDelivered($vehicles): bool
+    {
+        return $vehicles
+            ->reject(fn($vehicle) => $vehicle->rejected())
+            ->every(fn($vehicle) => $vehicle->delivered());
+    }
 
     /*
     |--------------------------------------------------------------------------
     | Helpers
     |--------------------------------------------------------------------------
     */
+
     private function resolveVehicles(Request|RequestWorkshop $request)
     {
         return match (true) {

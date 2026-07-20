@@ -12,7 +12,6 @@ use Nexus\Support\Models\BaseModel;
 use Spatie\ModelStates\HasStates;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Carbon\Carbon;
-use Nexus\Domain\Request\Events\RequestUpdated;
 
 class Request extends BaseModel
 {
@@ -30,9 +29,8 @@ class Request extends BaseModel
 
     protected $dispatchesEvents = [
         'created' => RequestCreated::class,
-        'updated' => RequestUpdated::class,
     ];
-    
+
     /*
     |--------------------------------------------------------------------------
     | Mass Assignment
