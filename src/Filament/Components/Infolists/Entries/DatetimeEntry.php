@@ -27,11 +27,7 @@ class DatetimeEntry
             ->when($placeholder, fn(TextEntry $entry) => $entry->placeholder(__($placeholder)));
     }
 
-    /*
-    |--------------------------------------------------------------------------
-    | Variants
-    |--------------------------------------------------------------------------
-    */
+
 
     /*
     |-------------------------
@@ -102,6 +98,26 @@ class DatetimeEntry
     public static function receivedAt(
         string $name = 'received_at_formatted',
         ?string $label = 'Received at',
+        ?string $placeholder = 'No date',
+    ): TextEntry {
+
+        return self::make(
+            name: $name,
+            label: $label,
+            badge: true,
+            placeholder: $placeholder
+        );
+    }
+
+    /*
+    |-------------------------
+    | Delivered At Variant
+    |-------------------------
+    */
+
+    public static function deliveredAt(
+        string $name = 'delivered_at_formatted',
+        ?string $label = 'Delivered at',
         ?string $placeholder = 'No date',
     ): TextEntry {
 

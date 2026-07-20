@@ -50,7 +50,7 @@ class PasswordSetupMail extends Mailable implements ShouldQueue
         public readonly User $user,
         public readonly string $url,
     ) {
-        $this->brandName =  config('company.brand_name');
+        $this->brandName =  config('company.brand.name');
         $this->subjectLine =  __('Welcome to ') . $this->brandName;
     }
 
