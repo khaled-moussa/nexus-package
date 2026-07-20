@@ -138,6 +138,11 @@ class RequestWorkshopVehicle extends Pivot
         return $this->is_received;
     }
 
+    public function delivered(): bool
+    {
+        return $this->is_delivered;
+    }
+
     public function rejected(): bool
     {
         return $this->is_rejected;
