@@ -18,24 +18,24 @@ class RequestReceivedState extends RequestStates
 
     public static function colorClass(): string
     {
-        return 'gray';
+        return 'received';
     }
 
     public static function colorFilament(): array
     {
-        return Color::Gray;
+        return Color::Sky;
     }
 
     public static function colorCode(): string
     {
-        return '#6b7280';
+        return '#0ea5e9';
     }
 
     public static function colorChart(): array
     {
         return [
-            'background' => 'rgba(107, 114, 128, 0.06)',
-            'border' =>  'rgba(107, 114, 128, 0.6)'
+            'background' => 'rgba(14, 165, 233, 0.06)',
+            'border' => 'rgba(14, 165, 233, 0.6)',
         ];
     }
 }

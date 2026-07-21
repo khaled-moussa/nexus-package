@@ -18,24 +18,24 @@ class RequestPendingState extends RequestStates
 
     public static function colorClass(): string
     {
-        return 'warning';
+        return 'pending';
     }
 
     public static function colorFilament(): array
     {
-        return Color::Amber;
+        return Color::Gray;
     }
 
     public static function colorCode(): string
     {
-        return '#f59e0b';
+        return '#6b7280';
     }
 
     public static function colorChart(): array
     {
         return [
-            'background' => 'rgba(245, 158, 11, 0.06)',
-            'border' =>  'rgba(245, 158, 11, 0.6)'
+            'background' => 'rgba(107, 114, 128, 0.06)',
+            'border' => 'rgba(107, 114, 128, 0.6)',
         ];
     }
 }

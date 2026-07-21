@@ -35,7 +35,7 @@ class RequestAcceptedState extends RequestStates
     {
         return [
             'background' => 'rgba(16, 185, 129, 0.06)',
-            'border' =>   'rgba(16, 185, 129, 0.6)'
+            'border' => 'rgba(16, 185, 129, 0.6)',
         ];
     }
 }

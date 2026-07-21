@@ -18,24 +18,24 @@ class RequestCompletedState extends RequestStates
 
     public static function colorClass(): string
     {
-        return 'success';
+        return 'completed';
     }
 
     public static function colorFilament(): array
     {
-        return Color::Green;
+        return Color::Emerald;
     }
 
     public static function colorCode(): string
     {
-        return '#22c55e';
+        return '#059669';
     }
 
     public static function colorChart(): array
     {
         return [
-            'background' => 'rgba(59, 130, 246, 0.06)',
-            'border' => 'rgba(59, 130, 246, 0.6)',
+            'background' => 'rgba(5, 150, 105, 0.06)',
+            'border' => 'rgba(5, 150, 105, 0.6)',
         ];
     }
 }

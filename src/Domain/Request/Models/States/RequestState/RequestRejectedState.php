@@ -18,7 +18,7 @@ class RequestRejectedState extends RequestStates
 
     public static function colorClass(): string
     {
-        return 'danger';
+        return 'rejected';
     }
 
     public static function colorFilament(): array
@@ -34,8 +34,8 @@ class RequestRejectedState extends RequestStates
     public static function colorChart(): array
     {
         return [
-            'background' => 'rgba(245, 158, 11, 0.06)',
-            'border' =>  'rgba(245, 158, 11, 0.06)'
+            'background' => 'rgba(239, 68, 68, 0.06)',
+            'border' => 'rgba(239, 68, 68, 0.6)',
         ];
     }
 }

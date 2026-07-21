@@ -13,29 +13,29 @@ class RequestInProgressState extends RequestStates
 
     public static function label(): string
     {
-        return __( 'In Progress');
+        return __('In Progress');
     }
 
     public static function colorClass(): string
     {
-        return 'primary';
+        return 'in_progress';
     }
 
     public static function colorFilament(): array
     {
-        return Color::Blue;
+        return Color::Amber;
     }
 
     public static function colorCode(): string
     {
-        return '#3b82f6';
+        return '#f59e0b';
     }
 
     public static function colorChart(): array
     {
         return [
-            'background' => 'rgba(59, 130, 246, 0.06)',
-            'border' => 'rgba(59, 130, 246, 0.6)',
+            'background' => 'rgba(245, 158, 11, 0.06)',
+            'border' => 'rgba(245, 158, 11, 0.6)',
         ];
     }
 }

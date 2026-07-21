@@ -18,7 +18,7 @@ class RequestDeliveredState extends RequestStates
 
     public static function colorClass(): string
     {
-        return 'indigo';
+        return 'delivered';
     }
 
     public static function colorFilament(): array
@@ -28,14 +28,14 @@ class RequestDeliveredState extends RequestStates
 
     public static function colorCode(): string
     {
-        return '#6366F1';
+        return '#6366f1';
     }
 
     public static function colorChart(): array
     {
         return [
             'background' => 'rgba(99, 102, 241, 0.06)',
-            'border'     => 'rgba(99, 102, 241, 0.6)',
+            'border' => 'rgba(99, 102, 241, 0.6)',
         ];
     }
 }
