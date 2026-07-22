@@ -18,7 +18,7 @@ class RequestAcceptedState extends RequestStates
 
     public static function colorClass(): string
     {
-        return 'success';
+        return 'accepted';
     }
 
     public static function colorFilament(): array

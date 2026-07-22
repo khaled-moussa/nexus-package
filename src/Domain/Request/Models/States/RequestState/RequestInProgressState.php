@@ -18,7 +18,7 @@ class RequestInProgressState extends RequestStates
 
     public static function colorClass(): string
     {
-        return 'in_progress';
+        return 'in-progress';
     }
 
     public static function colorFilament(): array

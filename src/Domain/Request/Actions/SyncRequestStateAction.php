@@ -2,6 +2,7 @@
 
 namespace Nexus\Domain\Request\Actions;
 
+use Illuminate\Support\Collection;
 use Nexus\Domain\Request\Models\Request;
 use Nexus\Domain\Request\Models\RequestWorkshop;
 use Nexus\Domain\Request\Models\States\RequestState\RequestAcceptedState;
@@ -39,45 +40,61 @@ class SyncRequestStateAction
             return;
         }
 
-        $requestState = $request->getRequestState();
+        $this->transition(
+            state: $request->getRequestState(),
+            to: $this->resolveState($vehicles),
+            request: $request,
+        );
+    }
 
-        if ($this->allRejected($vehicles)) {
-            $this->transition($requestState, RequestRejectedState::class, $request);
+    /*
+    |--------------------------------------------------------------------------
+    | State Resolution
+    |--------------------------------------------------------------------------
+    */
 
-            return;
+    private function resolveState(Collection $vehicles): string
+    {
+        // 1. Any pending → Pending 
+        if ($vehicles->contains(fn($v) => $v->pending())) {
+            return RequestPendingState::class;
         }
 
-        if ($this->hasInProgress($vehicles)) {
-            $this->transition($requestState, RequestInProgressState::class, $request);
-
-            return;
+        // 2. Any in-progress → InProgress 
+        if ($vehicles->contains(fn($v) => $v->inProgress())) {
+            return RequestInProgressState::class;
         }
 
-        if ($this->allReceived($vehicles)) {
-            $this->transition($requestState, RequestReceivedState::class, $request);
-
-            return;
+        // 3. All rejected → Rejected 
+        if ($vehicles->every(fn($v) => $v->rejected())) {
+            return RequestRejectedState::class;
         }
 
-        if ($this->allCompleted($vehicles)) {
-            $this->transition($requestState, RequestCompletedState::class, $request);
+        // Non-rejected vehicles only (ignore rejected from here on) 
+        $active = $vehicles->reject(fn($v) => $v->rejected());
 
-            return;
+        // 4. All delivered → Delivered
+        if ($active->every(fn($v) => $v->delivered())) {
+            return RequestDeliveredState::class;
         }
 
-        if ($this->allDelivered($vehicles)) {
-            $this->transition($requestState, RequestDeliveredState::class, $request);
-
-            return;
+        // 5. All completed (or delivered) → Completed
+        if ($active->every(fn($v) => $v->completed() || $v->delivered())) {
+            return RequestCompletedState::class;
         }
 
-        if ($this->allAccepted($vehicles)) {
-            $this->transition($requestState, RequestAcceptedState::class, $request);
-            
-            return;
+        // 6. All received (or completed/delivered) → Received 
+        if ($active->every(fn($v) => $v->received() || $v->completed() || $v->delivered())) {
+            return RequestReceivedState::class;
         }
 
-        $this->transition($requestState, RequestPendingState::class, $request);
+        // 7. All accepted (or received/completed/delivered) → Accepted
+        if ($active->every(fn($v) => $v->accepted() || $v->received() || $v->completed() || $v->delivered())) {
+            return RequestAcceptedState::class;
+        }
+
+        // 8. Default → Pending
+        return RequestPendingState::class;
     }
 
     /*
@@ -86,12 +103,8 @@ class SyncRequestStateAction
     |--------------------------------------------------------------------------
     */
 
-    private function transition(
-        RequestStates $state,
-        string $to,
-        Request|RequestWorkshop $request,
-    ): void {
-        // Skip unnecessary transition
+    private function transition(RequestStates $state, string $to, Request|RequestWorkshop $request): void
+    {
         if ($state::class === $to) {
             return;
         }
@@ -103,59 +116,15 @@ class SyncRequestStateAction
 
     /*
     |--------------------------------------------------------------------------
-    | State Rules
-    |--------------------------------------------------------------------------
-    */
-
-    private function allRejected($vehicles): bool
-    {
-        return $vehicles->every(fn($vehicle) => $vehicle->rejected());
-    }
-
-    private function hasInProgress($vehicles): bool
-    {
-        return $vehicles->contains(fn($vehicle) => $vehicle->inProgress());
-    }
-
-    private function allCompleted($vehicles): bool
-    {
-        return $vehicles
-            ->reject(fn($vehicle) => $vehicle->rejected())
-            ->every(fn($vehicle) => $vehicle->completed());
-    }
-
-    private function allAccepted($vehicles): bool
-    {
-        return $vehicles
-            ->reject(fn($vehicle) => $vehicle->rejected())
-            ->every(fn($vehicle) => $vehicle->accepted());
-    }
-
-    private function allReceived($vehicles): bool
-    {
-        return $vehicles
-            ->reject(fn($vehicle) => $vehicle->rejected())
-            ->every(fn($vehicle) => $vehicle->received());
-    }
-
-    private function allDelivered($vehicles): bool
-    {
-        return $vehicles
-            ->reject(fn($vehicle) => $vehicle->rejected())
-            ->every(fn($vehicle) => $vehicle->delivered());
-    }
-
-    /*
-    |--------------------------------------------------------------------------
     | Helpers
     |--------------------------------------------------------------------------
     */
 
-    private function resolveVehicles(Request|RequestWorkshop $request)
+    private function resolveVehicles(Request|RequestWorkshop $request): Collection
     {
         return match (true) {
-            $request instanceof Request => $request->getRelation('vehicles'),
-            $request instanceof RequestWorkshop => $request->getRelation('workshopVehicles'),
+            $request instanceof Request          => $request->getRelation('vehicles'),
+            $request instanceof RequestWorkshop  => $request->getRelation('workshopVehicles'),
         };
     }
 }
