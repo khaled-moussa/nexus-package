@@ -18,15 +18,6 @@ class PasswordSetupMail extends Mailable implements ShouldQueue
 
     /*
     |--------------------------------------------------------------------------
-    | Properties
-    |--------------------------------------------------------------------------
-    */
-
-    public readonly string $subjectLine;
-    public readonly string $brandName;
-
-    /*
-    |--------------------------------------------------------------------------
     | Queue Configuration
     |--------------------------------------------------------------------------
     */
@@ -49,10 +40,7 @@ class PasswordSetupMail extends Mailable implements ShouldQueue
     public function __construct(
         public readonly User $user,
         public readonly string $url,
-    ) {
-        $this->brandName =  config('company.brand.name');
-        $this->subjectLine =  __('Welcome to ') . $this->brandName;
-    }
+    ) {}
 
     /*
     |--------------------------------------------------------------------------
@@ -62,8 +50,10 @@ class PasswordSetupMail extends Mailable implements ShouldQueue
 
     public function envelope(): Envelope
     {
+        $brandName = config('company.brand.name');
+
         return new Envelope(
-            subject: $this->subjectLine,
+            subject: __('Welcome to ') . $brandName,
         );
     }
 
@@ -75,11 +65,13 @@ class PasswordSetupMail extends Mailable implements ShouldQueue
 
     public function content(): Content
     {
+        $brandName = config('company.brand.name');
+
         return new Content(
             view: 'emails.password-setup-mail',
             with: [
-                'brand_name' => $this->brandName,
-                'subject'    => $this->subjectLine,
+                'brand_name' => $brandName,
+                'subject'    => __('Welcome to ') . $brandName,
                 'name'       => $this->user->getFullName(),
                 'email'      => $this->user->getEmail(),
                 'url'        => $this->url,

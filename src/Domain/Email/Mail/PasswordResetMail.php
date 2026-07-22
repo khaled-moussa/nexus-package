@@ -18,15 +18,6 @@ class PasswordResetMail extends Mailable implements ShouldQueue
 
     /*
     |--------------------------------------------------------------------------
-    | Properties
-    |--------------------------------------------------------------------------
-    */
-
-    public readonly string $subjectLine;
-    public readonly string $brandName;
-
-    /*
-    |--------------------------------------------------------------------------
     | Queue Configuration
     |--------------------------------------------------------------------------
     */
@@ -49,10 +40,7 @@ class PasswordResetMail extends Mailable implements ShouldQueue
     public function __construct(
         public readonly User $user,
         public readonly string $url,
-    ) {
-        $this->brandName =  config('company.brand_name');
-        $this->subjectLine = __('Reset Password');
-    }
+    ) {}
 
     /*
     |--------------------------------------------------------------------------
@@ -62,8 +50,10 @@ class PasswordResetMail extends Mailable implements ShouldQueue
 
     public function envelope(): Envelope
     {
+        $brandName = config('company.brand.name');
+
         return new Envelope(
-            subject: $this->subjectLine,
+            subject: __('Welcome to ') . $brandName,
         );
     }
 
@@ -75,11 +65,13 @@ class PasswordResetMail extends Mailable implements ShouldQueue
 
     public function content(): Content
     {
+        $brandName = config('company.brand.name');
+
         return new Content(
             view: 'emails.password-reset-mail',
             with: [
-                'brand_name' => $this->brandName,
-                'subject' => $this->subjectLine,
+                'brand_name' => $brandName,
+                'subject'    => __('Reset Password'),
                 'name'  => $this->user->getFullName(),
                 'email' => $this->user->getEmail(),
                 'url'   => $this->url,
