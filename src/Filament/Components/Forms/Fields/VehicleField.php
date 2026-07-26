@@ -2,6 +2,7 @@
 
 namespace Nexus\Filament\Components\Forms\Fields;
 
+use Closure;
 use Nexus\Filament\Components\Infolists\Sections\CustomSection;
 use Nexus\Domain\Request\Enums\VehicleServiceTypeEnum;
 use Nexus\Domain\Request\Models\States\VehicleState\VehicleStates;
@@ -233,7 +234,8 @@ class VehicleField
     public static function vehicleState(
         string $name = 'vehicle_state',
         ?string $label = 'Vehicle State',
-        bool $live = false
+        bool $live = false,
+        ?Closure $disableOptions = null
     ): Select {
 
         $field =  SelectField::make(
@@ -244,6 +246,10 @@ class VehicleField
 
         if ($live) {
             $field->live();
+        }
+
+        if ($live) {
+            $field->disableOptionWhen($disableOptions);
         }
 
         return $field;
