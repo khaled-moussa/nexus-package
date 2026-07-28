@@ -153,8 +153,8 @@ class VehicleColumn
     {
         return IconColumn::make('has_quotation')
             ->label('Quotation Found')
-            ->trueIcon(Heroicon::OutlinedCheckCircle)
-            ->falseIcon(Heroicon::OutlinedXCircle)
+            ->trueIcon(Heroicon::OutlinedXCircle)
+            ->falseIcon(Heroicon::OutlinedCheckCircle)
             ->trueColor('success')
             ->falseColor('danger')
             ->tooltip(
