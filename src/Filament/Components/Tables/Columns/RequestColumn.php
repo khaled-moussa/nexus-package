@@ -45,10 +45,10 @@ class RequestColumn
     {
         return IconColumn::make('has_quotation')
             ->label('Quotation Found')
-            ->trueIcon(Heroicon::OutlinedCheckCircle)
-            ->falseIcon(Heroicon::OutlinedXCircle)
-            ->trueColor('success')
-            ->falseColor('danger')
+            ->trueIcon(Heroicon::OutlinedXCircle)
+            ->falseIcon(Heroicon::OutlinedCheckCircle)
+            ->trueColor('danger')
+            ->falseColor('success')
             ->tooltip(
                 fn(bool $state): string => $state
                     ? 'All vehicles have quotations.'
