@@ -20,6 +20,7 @@ class TenantColumn
         bool $searchable = true,
         ?Closure $searchableQuery = null,
         ?Closure $state = null,
+        bool $tooltip = true,
     ): TextColumn {
 
         return NameColumn::make(
@@ -28,6 +29,7 @@ class TenantColumn
             searchable: $searchable,
             searchableQuery: $searchableQuery,
             state: $state,
+            tooltip: $tooltip,
         );
     }
 

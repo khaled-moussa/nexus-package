@@ -26,7 +26,7 @@ class NumericField
             ->numeric()
             ->required($required)
             ->when($label,    fn(TextInput $field) => $field->label(__($label)))
-            ->when($default,  fn(TextInput $field) => $field->default($default))
+            ->when(!is_null($default),  fn(TextInput $field) => $field->default($default))
             ->when($minValue, fn(TextInput $field) => $field->minValue($minValue))
             ->when($maxValue, fn(TextInput $field) => $field->maxValue($maxValue))
             ->when($suffix,   fn(TextInput $field) => $field->suffix($suffix));

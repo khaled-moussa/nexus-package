@@ -137,13 +137,15 @@ class VehicleEntry
 
     public static function kilometers(
         string $name = 'kilometers',
-        string $label = 'Kilometers'
+        string $label = 'Kilometers',
+        string $placeholder = 'No kilometers'
     ): TextEntry {
 
         return NumericEntry::number(
             name: $name,
             label: $label,
             suffix: __('KM'),
+            placeholder: $placeholder
         );
     }
 

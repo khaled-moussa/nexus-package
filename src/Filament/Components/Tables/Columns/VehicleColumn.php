@@ -3,9 +3,10 @@
 namespace Nexus\Filament\Components\Tables\Columns;
 
 use Filament\Support\Colors\Color;
-use Filament\Support\Enums\FontWeight;
+use Filament\Tables\Columns\IconColumn as BaseIconColumn;
 use Filament\Tables\Columns\TextColumn;
 use Closure;
+use Filament\Support\Icons\Heroicon;
 
 class VehicleColumn
 {
@@ -33,8 +34,6 @@ class VehicleColumn
             color: $color,
         );
     }
-
-
 
     /*
     |-------------------------
@@ -142,5 +141,26 @@ class VehicleColumn
             name: $name,
             label: $label
         );
+    }
+
+    /*
+    |-------------------------
+    | Maintenance Count Variant
+    |-------------------------
+    */
+
+    public static function requestQuotationState(): BaseIconColumn
+    {
+        return IconColumn::make('has_quotation')
+            ->label('Quotation Found')
+            ->trueIcon(Heroicon::OutlinedCheckCircle)
+            ->falseIcon(Heroicon::OutlinedXCircle)
+            ->trueColor('success')
+            ->falseColor('danger')
+            ->tooltip(
+                fn(bool $state): string => $state
+                    ? 'All vehicles have quotations.'
+                    : 'No quotation found for one or more vehicles.'
+            );
     }
 }
