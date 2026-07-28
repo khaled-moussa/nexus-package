@@ -9,7 +9,6 @@ use Nexus\Domain\Request\Models\States\RequestState\RequestPendingState;
 use Nexus\Domain\Request\Models\States\RequestState\RequestReceivedState;
 use Nexus\Domain\Request\Models\States\RequestState\RequestRejectedState;
 use Illuminate\Database\Eloquent\Builder;
-use Nexus\Domain\Quotation\Models\States\QuotationState\QuotationAcceptedState;
 
 class RequestQueryBuilder extends Builder
 {
