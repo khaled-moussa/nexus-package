@@ -32,8 +32,6 @@ class NumericEntry
             ->when($placeholder, fn(TextEntry $entry) => $entry->placeholder(__($placeholder)));
     }
 
-
-
     /*
     |-------------------------
     | Number Variant
@@ -75,7 +73,7 @@ class NumericEntry
             money: true,
             currency: $currency,
             locale: $locale,
-            suffix: " {$currency}",
+            // suffix: " {$currency}",
             placeholder: $placeholder
         );
     }

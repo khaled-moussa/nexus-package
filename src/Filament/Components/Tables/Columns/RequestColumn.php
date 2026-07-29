@@ -2,10 +2,10 @@
 
 namespace Nexus\Filament\Components\Tables\Columns;
 
+use Closure;
 use Filament\Support\Colors\Color;
 use Filament\Tables\Columns\IconColumn as BaseIconColumn;
 use Filament\Tables\Columns\TextColumn;
-use Closure;
 use Filament\Support\Icons\Heroicon;
 
 class RequestColumn
@@ -34,25 +34,42 @@ class RequestColumn
             color: $color,
         );
     }
-
     /*
-    |-------------------------
+    |--------------------------------------------------------------------------
     | Vehicles Quotation State
-    |-------------------------
+    |--------------------------------------------------------------------------
     */
 
-    public static function vehiclesQuotationState(): BaseIconColumn
-    {
-        return IconColumn::make('has_quotation')
-            ->label('Quotation Found')
+    public static function vehiclesQuotationState(
+        string $name = 'has_quotation',
+        ?string $label = 'Quotation Found',
+    ): BaseIconColumn {
+        return IconColumn::make($name)
+            ->label(__($label))
             ->trueIcon(Heroicon::OutlinedXCircle)
             ->falseIcon(Heroicon::OutlinedCheckCircle)
             ->trueColor('danger')
             ->falseColor('success')
-            ->tooltip(
-                fn(bool $state): string => $state
-                    ? 'All vehicles have quotations.'
-                    : 'No quotation found for one or more vehicles.'
-            );
+            ->tooltip(fn(bool $state): string => $state ? __('No quotation found for one or more vehicles.')  : __('All vehicles have quotations.'));
+    }
+
+    /*
+    |--------------------------------------------------------------------------
+    | Accepted Quotation Count
+    |--------------------------------------------------------------------------
+    */
+
+    public static function acceptedQuotationsCount(
+        string $name = 'vehicles_count',
+        ?string $label = 'Vehicles',
+        string $acceptedCount = 'accepted_vehicle_quotations',
+        bool $badge = true,
+    ): TextColumn {
+        return CountColumn::make(
+            name: $name,
+            label: $label,
+            badge: $badge,
+            formatUsing: fn($state, $record) => "{$record->{$acceptedCount}} / {$state}",
+        );
     }
 }

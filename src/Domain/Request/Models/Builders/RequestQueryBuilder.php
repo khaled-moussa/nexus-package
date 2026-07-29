@@ -8,6 +8,7 @@ use Nexus\Domain\Request\Models\States\RequestState\RequestInProgressState;
 use Nexus\Domain\Request\Models\States\RequestState\RequestPendingState;
 use Nexus\Domain\Request\Models\States\RequestState\RequestReceivedState;
 use Nexus\Domain\Request\Models\States\RequestState\RequestRejectedState;
+use Nexus\Domain\Quotation\Models\States\QuotationState\QuotationAcceptedState;
 use Illuminate\Database\Eloquent\Builder;
 
 class RequestQueryBuilder extends Builder
@@ -124,6 +125,12 @@ class RequestQueryBuilder extends Builder
 
             ->withExists([
                 'vehicles as has_quotation' => fn($query) => $query->whereDoesntHave('quotationItems'),
+            ])
+
+            ->withCount([
+                'vehicles as accepted_vehicle_quotations' => fn($query) => $query
+                    ->whereHas('quotationItems')
+                    ->whereDoesntHave('quotationItems', fn($query) => $query->where('quotation_state', QuotationAcceptedState::value())),
             ]);
     }
 }
