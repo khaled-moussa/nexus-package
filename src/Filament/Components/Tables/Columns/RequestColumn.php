@@ -60,16 +60,19 @@ class RequestColumn
     */
 
     public static function acceptedQuotationsCount(
-        string $name = 'vehicles_count',
+        string $name = 'accepted_vehicle_quotations',
         ?string $label = 'Vehicles',
-        string $acceptedCount = 'accepted_vehicle_quotations',
         bool $badge = true,
+        bool $toggleable = true,
+        bool $defaultHidden = false,
     ): TextColumn {
         return CountColumn::make(
             name: $name,
             label: $label,
             badge: $badge,
-            formatUsing: fn($state, $record) => "{$record->{$acceptedCount}} / {$state}",
+            toggleable: $toggleable,
+            defaultHidden: $defaultHidden,
+            formatUsing: fn($state, $record) => "{$record->vehicles_count} / {$state}",
         );
     }
 }
