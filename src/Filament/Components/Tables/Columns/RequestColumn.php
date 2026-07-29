@@ -61,7 +61,7 @@ class RequestColumn
 
     public static function acceptedQuotationsCount(
         string $name = 'accepted_vehicle_quotations',
-        ?string $label = 'Vehicles',
+        ?string $label = 'Accepted Quotations',
         bool $badge = true,
         bool $toggleable = true,
         bool $defaultHidden = false,
