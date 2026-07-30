@@ -50,7 +50,7 @@ class RequestColumn
             ->falseIcon(Heroicon::OutlinedCheckCircle)
             ->trueColor('danger')
             ->falseColor('success')
-            ->tooltip(fn(bool $state): string => $state ? __('No quotation found for one or more vehicles.')  : __('All vehicles have quotations.'));
+            ->tooltip(fn(bool $state): string => $state ? __('No quotation found for one or more vehicles.') : __('All vehicles have quotations.'));
     }
 
     /*
@@ -66,13 +66,14 @@ class RequestColumn
         bool $toggleable = true,
         bool $defaultHidden = false,
     ): TextColumn {
+
         return CountColumn::make(
             name: $name,
             label: $label,
             badge: $badge,
             toggleable: $toggleable,
             defaultHidden: $defaultHidden,
-            formatUsing: fn($state, $record) => "{$record->vehicles_count} / {$state}",
+            formatUsing: fn($state, $record) => "{$state} / {$record->vehicles_count}",
         );
     }
 }

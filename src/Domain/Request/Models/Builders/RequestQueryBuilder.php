@@ -130,7 +130,7 @@ class RequestQueryBuilder extends Builder
             ->withCount([
                 'vehicles as accepted_vehicle_quotations' => fn($query) => $query
                     ->whereHas('quotationItems')
-                    ->whereDoesntHave('quotationItems', fn($query) => $query->where('quotation_state', QuotationAcceptedState::value())),
+                    ->whereDoesntHave('quotationItems', fn($query) => $query->where('quotation_state', '!=', QuotationAcceptedState::value())),
             ]);
     }
 }

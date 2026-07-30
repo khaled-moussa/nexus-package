@@ -8,6 +8,7 @@ use Nexus\Domain\Request\Models\States\RequestState\RequestInProgressState;
 use Nexus\Domain\Request\Models\States\RequestState\RequestPendingState;
 use Nexus\Domain\Request\Models\States\RequestState\RequestReceivedState;
 use Nexus\Domain\Request\Models\States\RequestState\RequestRejectedState;
+use Nexus\Domain\Quotation\Models\States\QuotationState\QuotationAcceptedState;
 use Illuminate\Database\Eloquent\Builder;
 
 class RequestWorkshopQueryBuilder extends Builder
@@ -127,7 +128,13 @@ class RequestWorkshopQueryBuilder extends Builder
             ])
 
             ->withExists([
-                'workshopVehicles as has_quotation' => fn($q) => $q->whereHas('quotationItems'),
+                'workshopVehicles as has_quotation' => fn($q) => $q->whereDoesntHave('quotationItems'),
+            ])
+
+            ->withCount([
+                'workshopVehicles as accepted_vehicle_quotations' => fn($query) => $query
+                    ->whereHas('quotationItems')
+                    ->whereDoesntHave('quotationItems', fn($query) => $query->where('quotation_state', '!=', QuotationAcceptedState::value())),
             ]);
     }
 }

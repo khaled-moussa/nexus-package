@@ -17,7 +17,7 @@ class DatetimeColumn
         ?string $label = null,
         bool $badge = false,
         bool $toggleable = true,
-        bool $defaultHidden = false,
+        bool $defaultHidden = true,
         ?string $placeholder = null,
     ): TextColumn {
 
@@ -27,8 +27,6 @@ class DatetimeColumn
             ->when($badge,       fn(TextColumn $column) => $column->badge())
             ->when($placeholder, fn(TextColumn $column) => $column->placeholder(__($placeholder)));
     }
-
-
 
     /*
     |-------------------------
