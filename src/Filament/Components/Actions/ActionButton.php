@@ -17,7 +17,7 @@ class ActionButton
 
     public static function make(
         string $name,
-        Closure $action,
+        ?Closure $callback = null,
         ?string $label = null,
         ?Heroicon $icon = null,
         string|array|null $color = null,
@@ -28,20 +28,23 @@ class ActionButton
         bool $requiresConfirmation = false,
         ?string $successTitle = null,
     ): Action {
-        return Action::make($name)
-            ->action($action)
+        $action = Action::make($name)
             ->hidden($hidden)
             ->hiddenLabel($hiddenLabel)
             ->size($size)
-            ->when($label, fn(Action $action) => $action->label(__($label)))
-            ->when($isButton, fn(Action $action) => $action->button())
-            ->when($icon, fn(Action $action) => $action->icon($icon))
-            ->when($color, fn(Action $action) => $action->color($color))
-            ->when($requiresConfirmation, fn(Action $action) => $action->requiresConfirmation())
-            ->when($successTitle, fn(Action $action) => $action->successNotificationTitle(__($successTitle)));
+            ->when($label,            fn(Action $a) => $a->label(__($label)))
+            ->when($isButton,         fn(Action $a) => $a->button())
+            ->when($icon,             fn(Action $a) => $a->icon($icon))
+            ->when($color,            fn(Action $a) => $a->color($color))
+            ->when($requiresConfirmation, fn(Action $a) => $a->requiresConfirmation())
+            ->when($successTitle,     fn(Action $a) => $a->successNotificationTitle(__($successTitle)));
+
+        if (! is_null($callback)) {
+            $action->action($callback);
+        }
+
+        return $action;
     }
-
-
 
     /*
     |-------------------------
@@ -51,7 +54,7 @@ class ActionButton
 
     public static function sm(
         string $name,
-        Closure $action,
+        ?Closure $callback = null,
         ?string $label = null,
         ?Heroicon $icon = null,
         ?string $successTitle = null,
@@ -60,7 +63,7 @@ class ActionButton
     ): Action {
         return self::make(
             name: $name,
-            action: $action,
+            callback: $callback,
             label: $label,
             icon: $icon,
             size: Size::Small,
@@ -78,7 +81,7 @@ class ActionButton
 
     public static function md(
         string $name,
-        Closure $action,
+        ?Closure $callback = null,
         ?string $label = null,
         ?Heroicon $icon = null,
         ?string $successTitle = null,
@@ -87,7 +90,7 @@ class ActionButton
     ): Action {
         return self::make(
             name: $name,
-            action: $action,
+            callback: $callback,
             label: $label,
             icon: $icon,
             size: Size::Medium,
@@ -105,7 +108,7 @@ class ActionButton
 
     public static function lg(
         string $name,
-        Closure $action,
+        ?Closure $callback = null,
         ?string $label = null,
         ?Heroicon $icon = null,
         ?string $successTitle = null,
@@ -114,7 +117,7 @@ class ActionButton
     ): Action {
         return self::make(
             name: $name,
-            action: $action,
+            callback: $callback,
             label: $label,
             icon: $icon,
             size: Size::Large,
@@ -138,7 +141,7 @@ class ActionButton
 
     public static function danger(
         string $name,
-        Closure $action,
+        ?Closure $callback = null,
         string $label,
         ?Heroicon $icon = null,
         bool $requiresConfirmation = false,
@@ -146,7 +149,7 @@ class ActionButton
     ): Action {
         return self::make(
             name: $name,
-            action: $action,
+            callback: $callback,
             label: $label,
             color: 'danger',
             icon: $icon,
@@ -163,7 +166,7 @@ class ActionButton
 
     public static function success(
         string $name,
-        Closure $action,
+        ?Closure $callback = null,
         string $label,
         ?Heroicon $icon = null,
         bool $requiresConfirmation = false,
@@ -171,7 +174,7 @@ class ActionButton
     ): Action {
         return self::make(
             name: $name,
-            action: $action,
+            callback: $callback,
             label: $label,
             color: 'success',
             icon: $icon,

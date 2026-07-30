@@ -90,7 +90,7 @@ class GeneralSetting extends Page
             ActionButton::make(
                 name: 'save',
                 label: __('Save'),
-                action: $this->save(...),
+                callback: $this->save(...),
                 requiresConfirmation: true,
                 successTitle: "Saved",
             ),

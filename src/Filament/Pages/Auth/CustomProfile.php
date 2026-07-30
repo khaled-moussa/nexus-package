@@ -171,7 +171,7 @@ class CustomProfile extends BaseEditProfile
             name: "link_{$provider->value}",
             label: __('Link'),
             icon: Heroicon::OutlinedLink,
-            action: fn() => $this->handleLink($provider),
+            callback: fn() => $this->handleLink($provider),
             requiresConfirmation: true,
         );
     }
@@ -182,7 +182,7 @@ class CustomProfile extends BaseEditProfile
             name: "unlink_{$provider->value}",
             label: __('Unlink'),
             icon: Heroicon::OutlinedLinkSlash,
-            action: fn() => $this->handleUnlink($provider),
+            callback: fn() => $this->handleUnlink($provider),
             requiresConfirmation: true,
         );
     }

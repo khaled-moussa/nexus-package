@@ -23,6 +23,7 @@ class VehicleEntry
         string $label,
         bool $bold = false,
         bool $badge = false,
+        bool $copyable = false,
         string|Color|array|null $color = null,
         ?string $placeholder = null,
     ): TextEntry {
@@ -32,6 +33,7 @@ class VehicleEntry
             label: $label,
             bold: $bold,
             badge: $badge,
+            copyable: $copyable,
             color: $color,
             placeholder: $placeholder,
         );
@@ -106,6 +108,7 @@ class VehicleEntry
             name: $name,
             label: $label,
             badge: true,
+            copyable: true,
             color: Color::Blue
         );
     }
@@ -125,6 +128,7 @@ class VehicleEntry
             name: $name,
             label: $label,
             badge: true,
+            copyable: true,
             color: Color::Emerald
         );
     }

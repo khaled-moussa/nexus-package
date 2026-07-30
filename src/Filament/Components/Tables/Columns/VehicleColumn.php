@@ -5,8 +5,8 @@ namespace Nexus\Filament\Components\Tables\Columns;
 use Filament\Support\Colors\Color;
 use Filament\Tables\Columns\IconColumn as BaseIconColumn;
 use Filament\Tables\Columns\TextColumn;
-use Closure;
 use Filament\Support\Icons\Heroicon;
+use Closure;
 
 class VehicleColumn
 {
@@ -23,6 +23,7 @@ class VehicleColumn
         string|Color|array|null $color = null,
         ?bool $bold = false,
         bool $badge = false,
+        bool $copyable = false,
     ): TextColumn {
 
         return NameColumn::make(
@@ -31,6 +32,7 @@ class VehicleColumn
             description: $description,
             bold: $bold,
             badge: $badge,
+            copyable: $copyable,
             color: $color,
         );
     }
@@ -104,6 +106,7 @@ class VehicleColumn
             name: $name,
             label: $label,
             badge: true,
+            copyable: true,
         );
     }
 
@@ -122,6 +125,7 @@ class VehicleColumn
             name: $name,
             label: $label,
             badge: true,
+            copyable: true,
             color: Color::Emerald,
         );
     }

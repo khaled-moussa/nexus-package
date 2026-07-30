@@ -8,6 +8,7 @@ use Nexus\Domain\Panel\Enums\PanelTypeEnum;
 use Nexus\Filament\Pages\Dashboard\CustomDashboard;
 use Nexus\Filament\Pages\Settings\GeneralSetting;
 use Nexus\Filament\Pages\Auth\CustomProfile;
+use Nexus\Filament\Widgets\CustomAccountWidget;
 use Filament\Enums\ThemeMode;
 use Filament\Http\Middleware\AuthenticateSession;
 use Filament\Http\Middleware\DisableBladeIconComponents;
@@ -19,7 +20,6 @@ use Illuminate\Foundation\Http\Middleware\VerifyCsrfToken;
 use Illuminate\Routing\Middleware\SubstituteBindings;
 use Illuminate\Session\Middleware\StartSession;
 use Illuminate\View\Middleware\ShareErrorsFromSession;
-use Nexus\Filament\Widgets\CustomAccountWidget;
 
 class PanelPreset
 {
@@ -73,6 +73,18 @@ class PanelPreset
 
             /*
             |--------------------------------------------------------------------------
+            | Global Search
+            |--------------------------------------------------------------------------
+            */
+            
+            ->globalSearch()
+            ->globalSearchKeyBindings(['ctrl+s', 'command+s'])
+            ->globalSearchFieldSuffix('Shift + s')
+            ->globalSearchDebounce('500ms')
+            ->globalSearchFieldKeyBindingSuffix()
+
+            /*
+            |--------------------------------------------------------------------------
             | Appearance
             |--------------------------------------------------------------------------
             */
@@ -88,7 +100,6 @@ class PanelPreset
             ->sidebarCollapsibleOnDesktop()
             ->sidebarWidth('350px')
             ->collapsedSidebarWidth('6rem')
-            ->globalSearch(false)
 
             /*
             |--------------------------------------------------------------------------

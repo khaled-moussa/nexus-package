@@ -68,7 +68,7 @@ class CustomDashboard extends BaseDashboard
                         label: __('Reset Filter'),
                         icon: Heroicon::Funnel,
                         size: Size::Medium,
-                        action: fn() => $this->resetFilters(),
+                        callback: fn() => $this->resetFilters(),
                     )->cancelParentActions(),
                 ]),
         ];

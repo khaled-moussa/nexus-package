@@ -23,6 +23,7 @@ class NameColumn
         bool $bold = true,
         bool $badge = false,
         bool $tooltip = false,
+        bool $copyable = false,
         ?string $limit = null,
         bool $searchable = true,
         string|Color|array|null $color = null,
@@ -37,6 +38,7 @@ class NameColumn
             ->when($badge,       fn(TextColumn $column) => $column->badge())
             ->when($limit,       fn(TextColumn $column) => $column->limit($limit))
             ->when($tooltip,     fn(TextColumn $column) => $column->tooltip(fn($state) => $state))
+            ->when($copyable,     fn(TextColumn $column) => $column->copyable())
             ->when($searchable,  fn(TextColumn $column) => $column->searchable($searchable, $searchableQuery))
             ->when(!is_null($description), fn(TextColumn $column) => $column->description($description));
     }
