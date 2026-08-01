@@ -50,6 +50,7 @@ return array(
     'StijnVanouplines\\BladeCountryFlags\\' => array($vendorDir . '/stijnvanouplines/blade-country-flags/src'),
     'Spatie\\StructureDiscoverer\\' => array($vendorDir . '/spatie/php-structure-discoverer/src'),
     'Spatie\\ShikiPhp\\' => array($vendorDir . '/spatie/shiki-php/src'),
+    'Spatie\\Permission\\' => array($vendorDir . '/spatie/laravel-permission/src'),
     'Spatie\\ModelStates\\' => array($vendorDir . '/spatie/laravel-model-states/src'),
     'Spatie\\LaravelPackageTools\\' => array($vendorDir . '/spatie/laravel-package-tools/src'),
     'Spatie\\Invade\\' => array($vendorDir . '/spatie/invade/src'),
@@ -123,4 +124,7 @@ return array(
     'Brick\\Math\\' => array($vendorDir . '/brick/math/src'),
     'BladeUI\\Icons\\' => array($vendorDir . '/blade-ui-kit/blade-icons/src'),
     'BladeUI\\Heroicons\\' => array($vendorDir . '/blade-ui-kit/blade-heroicons/src'),
+    'BezhanSalleh\\PluginEssentials\\' => array($vendorDir . '/bezhansalleh/filament-plugin-essentials/src'),
+    'BezhanSalleh\\FilamentShield\\Database\\Factories\\' => array($vendorDir . '/bezhansalleh/filament-shield/database/factories'),
+    'BezhanSalleh\\FilamentShield\\' => array($vendorDir . '/bezhansalleh/filament-shield/src'),
 );

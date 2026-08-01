@@ -26,8 +26,8 @@ class ComposerStaticInitec82a84af1ddea7c0dfdbf54b8a86c93
         'b6ec61354e97f32c0ae683041c78392a' => __DIR__ . '/..' . '/scrivo/highlight.php/HighlightUtilities/functions.php',
         '2ad94ea6f6f6013119e9abcf4e302a08' => __DIR__ . '/..' . '/filament/forms/src/helpers.php',
         'a4a119a56e50fbb293281d9a48007e0e' => __DIR__ . '/..' . '/symfony/polyfill-php80/bootstrap.php',
-        'f598d06aa772fa33d905e87be6398fb1' => __DIR__ . '/..' . '/symfony/polyfill-intl-idn/bootstrap.php',
         '6d4419a22bfb72a20b561583f68f48b3' => __DIR__ . '/..' . '/filament/notifications/src/Testing/helpers.php',
+        'f598d06aa772fa33d905e87be6398fb1' => __DIR__ . '/..' . '/symfony/polyfill-intl-idn/bootstrap.php',
         '89e9938b64b06cc502d7ceca69a380fe' => __DIR__ . '/..' . '/filament/filament/src/global_helpers.php',
         'ebb446bb6d02e998480945fbbb73dc64' => __DIR__ . '/..' . '/filament/filament/src/helpers.php',
         '7b11c4dc42b3b3023073cb14e519683c' => __DIR__ . '/..' . '/ralouphie/getallheaders/src/getallheaders.php',
@@ -38,6 +38,7 @@ class ComposerStaticInitec82a84af1ddea7c0dfdbf54b8a86c93
         '35a6ad97d21e794e7e22a17d806652e4' => __DIR__ . '/..' . '/nunomaduro/termwind/src/Functions.php',
         '017b24472353920ed42bb364f7653c43' => __DIR__ . '/..' . '/propaganistas/laravel-phone/src/helpers.php',
         'e39a8b23c42d4e1452234d762b03835a' => __DIR__ . '/..' . '/ramsey/uuid/src/functions.php',
+        '377b22b161c09ed6e5152de788ca020a' => __DIR__ . '/..' . '/spatie/laravel-permission/src/helpers.php',
         '662a729f963d39afe703c9d9b7ab4a8c' => __DIR__ . '/..' . '/symfony/polyfill-php83/bootstrap.php',
         '9d2b9fc6db0f153a0a149fefb182415e' => __DIR__ . '/..' . '/symfony/polyfill-php84/bootstrap.php',
         '476ca15b8d69b04665cd879be9cb4c68' => __DIR__ . '/..' . '/laravel/framework/src/Illuminate/Collections/functions.php',
@@ -116,6 +117,7 @@ class ComposerStaticInitec82a84af1ddea7c0dfdbf54b8a86c93
             'StijnVanouplines\\BladeCountryFlags\\' => 35,
             'Spatie\\StructureDiscoverer\\' => 27,
             'Spatie\\ShikiPhp\\' => 16,
+            'Spatie\\Permission\\' => 18,
             'Spatie\\ModelStates\\' => 19,
             'Spatie\\LaravelPackageTools\\' => 27,
             'Spatie\\Invade\\' => 14,
@@ -234,6 +236,9 @@ class ComposerStaticInitec82a84af1ddea7c0dfdbf54b8a86c93
             'Brick\\Math\\' => 11,
             'BladeUI\\Icons\\' => 14,
             'BladeUI\\Heroicons\\' => 18,
+            'BezhanSalleh\\PluginEssentials\\' => 30,
+            'BezhanSalleh\\FilamentShield\\Database\\Factories\\' => 47,
+            'BezhanSalleh\\FilamentShield\\' => 28,
         ),
     );
 
@@ -413,6 +418,10 @@ class ComposerStaticInitec82a84af1ddea7c0dfdbf54b8a86c93
         'Spatie\\ShikiPhp\\' =>
         array (
             0 => __DIR__ . '/..' . '/spatie/shiki-php/src',
+        ),
+        'Spatie\\Permission\\' =>
+        array (
+            0 => __DIR__ . '/..' . '/spatie/laravel-permission/src',
         ),
         'Spatie\\ModelStates\\' =>
         array (
@@ -713,6 +722,18 @@ class ComposerStaticInitec82a84af1ddea7c0dfdbf54b8a86c93
         'BladeUI\\Heroicons\\' =>
         array (
             0 => __DIR__ . '/..' . '/blade-ui-kit/blade-heroicons/src',
+        ),
+        'BezhanSalleh\\PluginEssentials\\' =>
+        array (
+            0 => __DIR__ . '/..' . '/bezhansalleh/filament-plugin-essentials/src',
+        ),
+        'BezhanSalleh\\FilamentShield\\Database\\Factories\\' =>
+        array (
+            0 => __DIR__ . '/..' . '/bezhansalleh/filament-shield/database/factories',
+        ),
+        'BezhanSalleh\\FilamentShield\\' =>
+        array (
+            0 => __DIR__ . '/..' . '/bezhansalleh/filament-shield/src',
         ),
     );
 
