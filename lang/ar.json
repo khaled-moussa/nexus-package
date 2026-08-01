@@ -217,6 +217,9 @@
   "Diagnostic": "تشخيص",
   "All vehicles have quotations.": "جميع المركبات لديها عروض أسعار.",
   "Not all vehicles have quotations.": "ليست جميع المركبات لديها عروض أسعار.",
+  "Accepted Quotations": "عروض الأسعار المقبولة",
+  "View vehicles and manage quotations for each.": "عرض المركبات وإدارة عروض الأسعار لكل منها",
+  "View Vehicles": "عرض المركبات",
 
   "No users": "لا يوجد مستخدمون",
   "No Data": "لا توجد بيانات",
@@ -228,5 +231,6 @@
   "No additional notes provided.": "لا توجد ملاحظات إضافية.",
   "No quotations": "لا توجد عروض أسعار",
   "No address": "لا يوجد عنوان",
-  "No kilometers": "لا توجد كيلومترات"
+  "No kilometers": "لا توجد كيلومترات",
+  "No comments": "لا توجد ملاحظات"
 }

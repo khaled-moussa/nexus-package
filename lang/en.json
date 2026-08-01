@@ -214,6 +214,9 @@
   "Diagnostic": "Diagnostic",
   "All vehicles have quotations.": "All vehicles have quotations.",
   "Not all vehicles have quotations.": "Not all vehicles have quotations.",
+  "Accepted Quotations": "Accepted Quotations",
+  "View vehicles and manage quotations for each.": "View vehicles and manage quotations for each.",
+  "View Vehicles": "View Vehicles",
 
   "No users": "No users",
   "No Data": "No Data",
@@ -225,5 +228,6 @@
   "No additional notes provided.": "No additional notes provided.",
   "No quotations": "No Quotations",
   "No address": "No address",
-  "No kilometers": "لا توجد كيلومترات"
+  "No kilometers": "No kilometers",
+  "No comments": "No comments"
 }
