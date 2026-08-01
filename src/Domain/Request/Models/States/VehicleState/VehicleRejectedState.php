@@ -6,6 +6,11 @@ use Filament\Support\Colors\Color;
 
 class VehicleRejectedState extends VehicleStates
 {
+    public static function order(): int
+    {
+        return 3;
+    }
+
     public static function value(): string
     {
         return self::class;

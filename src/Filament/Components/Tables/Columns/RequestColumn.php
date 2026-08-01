@@ -43,6 +43,8 @@ class RequestColumn
     public static function vehiclesQuotationState(
         string $name = 'has_quotation',
         ?string $label = 'Quotation Found',
+        bool $toggleable = true,
+        bool $defaultHidden = false,
     ): BaseIconColumn {
         return IconColumn::make($name)
             ->label(__($label))
@@ -50,6 +52,7 @@ class RequestColumn
             ->falseIcon(Heroicon::OutlinedCheckCircle)
             ->trueColor('danger')
             ->falseColor('success')
+            ->toggleable($toggleable, isToggledHiddenByDefault: $defaultHidden)
             ->tooltip(fn(bool $state): string => $state ? __('No quotation found for one or more vehicles.') : __('All vehicles have quotations.'));
     }
 

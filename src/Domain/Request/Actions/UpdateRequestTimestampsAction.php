@@ -21,9 +21,10 @@ class UpdateRequestTimestampsAction
         $state = $request->getRequestState()->value();
 
         match ($state) {
-            RequestReceivedState::value() => $this->updateReceived($request),
+            RequestReceivedState::value()  => $this->updateReceived($request),
             RequestCompletedState::value() => $this->updateCompleted($request),
             RequestDeliveredState::value() => $this->updateDelivered($request),
+            RequestInProgressState::value() => null,
             default => $this->reset($request),
         };
     }

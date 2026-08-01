@@ -45,7 +45,8 @@ abstract class VehicleStates extends State
     public static function options(): array
     {
         return collect(static::all())
-            ->mapWithKeys(fn (string $stateClass) => [
+            ->sortBy(fn(string $stateClass) => $stateClass::order())
+            ->mapWithKeys(fn(string $stateClass) => [
                 $stateClass::value() => $stateClass::label(),
             ])
             ->toArray();
