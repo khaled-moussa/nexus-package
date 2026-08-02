@@ -17,6 +17,7 @@ class NexusServiceProvider extends ServiceProvider
         // $this->loadViewsFrom(__DIR__ . '/../resources/views', 'nexus');
         $this->loadTranslationsFrom(__DIR__ . '/../lang', 'nexus');
         $this->loadJsonTranslationsFrom(__DIR__ . '/../lang');
+        $this->loadMigrationsFrom(__DIR__ . './Filament/Resources');
 
         $this->publishes(
             [
