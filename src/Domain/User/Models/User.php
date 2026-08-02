@@ -21,11 +21,13 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Spatie\Permission\Traits\HasRoles;
 
 class User extends Authenticatable implements FilamentUser, HasName, HasTenants, MustVerifyEmail
 {
     use HasFactory;
     use Notifiable;
+    use HasRoles;
     use HasUuid;
     use HasFormatTimestamp;
     use HasUserAttribute;
