@@ -2,65 +2,59 @@
 
 declare(strict_types=1);
 
-namespace App\Filament\Panels\Admin\Resources\Roles;
+namespace Nexus\Filament\Resources\Roles;
 
-use Nexus\Domain\Role\Models\Role;
-use App\Filament\Panels\Admin\Resources\Roles\Pages\CreateRole;
-use App\Filament\Panels\Admin\Resources\Roles\Pages\EditRole;
-use App\Filament\Panels\Admin\Resources\Roles\Pages\ListRoles;
-use App\Filament\Panels\Admin\Resources\Roles\Pages\ViewRole;
-use App\Filament\Panels\Admin\Resources\Roles\Schemas\RoleForm;
-use App\Filament\Panels\Admin\Resources\Roles\Tables\RolesTable;
+use Nexus\Role\Models\Role;
+use Nexus\Domain\Panel\Enums\PanelTypeEnum;
+use Nexus\Filament\Resources\Roles\Schemas\RoleForm;
+use Nexus\Filament\Resources\Roles\Tables\RolesTable;
+use Nexus\Filament\Resources\Roles\Pages\CreateRole;
+use Nexus\Filament\Resources\Roles\Pages\EditRole;
+use Nexus\Filament\Resources\Roles\Pages\ListRoles;
+use Nexus\Filament\Resources\Roles\Pages\ViewRole;
+use BezhanSalleh\FilamentShield\FilamentShieldPlugin;
 use BezhanSalleh\FilamentShield\Support\Utils;
 use BezhanSalleh\FilamentShield\Traits\HasShieldFormComponents;
 use BezhanSalleh\PluginEssentials\Concerns\Resource as Essentials;
-use Filament\Panel;
 use Filament\Resources\Resource;
 use Filament\Schemas\Schema;
-use Filament\Support\Icons\Heroicon;
 use Filament\Tables\Table;
+use Filament\Support\Icons\Heroicon;
+use Illuminate\Database\Eloquent\Builder;
 use BackedEnum;
 
 class RoleResource extends Resource
 {
     use Essentials\BelongsToParent;
-    use Essentials\BelongsToTenant;
-    use Essentials\HasGlobalSearch;
-    use Essentials\HasLabels;
-    use Essentials\HasNavigation;
     use HasShieldFormComponents;
 
-    /*
-    |--------------------------------------------------------------------------
-    | Core Configuration
-    |--------------------------------------------------------------------------
+    /* 
+    |-------------------------------
+    | Resource Configuration
+    |--------------------------------
     */
+    protected static string $resourceName = 'Role';
 
     protected static ?string $model = Role::class;
 
-    protected static ?string $recordTitleAttribute = 'name';
-
-    protected static ?int $navigationSort = 6;
-
     protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedShieldCheck;
 
-    public static function getSlug(?Panel $panel = null): string
-    {
-        return Utils::getResourceSlug();
-    }
+    protected static ?int $navigationSort = 5;
 
-    public static function getCluster(): ?string
-    {
-        return Utils::getResourceCluster();
-    }
+    protected static ?string $recordTitleAttribute = 'name';
 
-    /*
-    |--------------------------------------------------------------------------
-    | Navigation
-    |--------------------------------------------------------------------------
+    /* 
+    |-------------------------------
+    | Navigation Labels
+    |--------------------------------
     */
 
     public static function getNavigationLabel(): string
+    {
+        return __('Roles');
+    }
+
+    public static function getPluralModelLabel(): string
     {
         return __('Roles');
     }
@@ -70,25 +64,33 @@ class RoleResource extends Resource
         return __('Role');
     }
 
-    public static function getPluralModelLabel(): string
-    {
-        return __('Roles');
-    }
-
     public static function getNavigationGroup(): ?string
     {
         return __('System');
     }
 
-    /*
-    |--------------------------------------------------------------------------
-    | Form & Table
-    |--------------------------------------------------------------------------
+    /* 
+    |-------------------------------
+    | Eloquent Query 
+    |--------------------------------
+    */
+
+    public static function getEloquentQuery(): Builder
+    {
+        return parent::getEloquentQuery()
+            ->whereRolesExcluded(PanelTypeEnum::options())
+            ->whereTenantNull();
+    }
+
+    /* 
+    |-------------------------------
+    | Form & Infolist & Table
+    |--------------------------------
     */
 
     public static function form(Schema $schema): Schema
     {
-        return RoleForm::configure($schema);
+        return RoleForm::configure($schema, static::class);
     }
 
     public static function table(Table $table): Table
@@ -96,21 +98,10 @@ class RoleResource extends Resource
         return RolesTable::configure($table);
     }
 
-    /*
-    |--------------------------------------------------------------------------
-    | Relations
-    |--------------------------------------------------------------------------
-    */
-
-    public static function getRelations(): array
-    {
-        return [];
-    }
-
-    /*
-    |--------------------------------------------------------------------------
+    /* 
+    |-------------------------------
     | Pages
-    |--------------------------------------------------------------------------
+    |--------------------------------
     */
 
     public static function getPages(): array
@@ -121,5 +112,21 @@ class RoleResource extends Resource
             'view'   => ViewRole::route('/{record}'),
             'edit'   => EditRole::route('/{record}/edit'),
         ];
+    }
+
+    /* 
+    |-------------------------------
+    | Methods
+    |--------------------------------
+    */
+
+    public static function getCluster(): ?string
+    {
+        return Utils::getResourceCluster();
+    }
+
+    public static function getEssentialsPlugin(): ?FilamentShieldPlugin
+    {
+        return FilamentShieldPlugin::get();
     }
 }

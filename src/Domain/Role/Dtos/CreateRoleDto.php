@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Nexus\Role\Dtos;
+namespace Nexus\Role\Dtos;
 
 class CreateRoleDto
 {

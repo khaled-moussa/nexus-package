@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Nexus\Role\Models\Builders;
+namespace Nexus\Role\Models\Builders;
 
 use Illuminate\Database\Eloquent\Builder;
 use Nexus\Domain\Panel\Enums\PanelTypeEnum;

@@ -1,13 +1,13 @@
 <?php
 
-namespace App\Filament\Panels\Admin\Resources\Roles\Schemas;
+namespace Nexus\Filament\Resources\Roles\Schemas;
 
-use App\Filament\Panels\Admin\Resources\Roles\RoleResource;
-use Filament\Schemas\Components\Component;
-use Filament\Schemas\Components\Section;
-use Filament\Schemas\Schema;
+use Nexus\Filament\Resources\Roles\RoleResource;
 use Nexus\Filament\Components\Forms\Fields\NameField;
 use Nexus\Filament\Components\Infolists\Sections\CustomSection;
+use Filament\Schemas\Schema;
+use Filament\Schemas\Components\Component;
+use Filament\Schemas\Components\Section;
 
 class RoleForm
 {

@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace App\Filament\Panels\Admin\Resources\Roles\Pages;
+namespace Nexus\Filament\Resources\Roles\Pages;
 
-use App\Filament\Panels\Admin\Resources\Roles\RoleResource;
+use Nexus\Filament\Resources\Roles\RoleResource;
 use BezhanSalleh\FilamentShield\Support\Utils;
 use Filament\Actions\DeleteAction;
 use Filament\Resources\Pages\EditRecord;

@@ -1,8 +1,8 @@
 <?php
 
-namespace App\Nexus\Role\Actions;
+namespace Nexus\Role\Actions;
 
-use App\Nexus\Role\Models\Role;
+use Nexus\Role\Models\Role;
 use App\Support\Enums\UserPanelEnum;
 use Illuminate\Support\Collection;
 

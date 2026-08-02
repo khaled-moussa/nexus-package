@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Nexus\Permission\Models;
+namespace Nexus\Permission\Models;
 
-use App\Nexus\Permission\Models\Builders\PermissionQueryBuilder;
-use App\Nexus\Permission\Models\Observers\PermissionObserver;
-use App\Nexus\Permission\Models\Concerns\HasPermissionRelation;
+use Nexus\Permission\Models\Builders\PermissionQueryBuilder;
+use Nexus\Permission\Models\Observers\PermissionObserver;
+use Nexus\Permission\Models\Concerns\HasPermissionRelation;
 use Illuminate\Database\Eloquent\Attributes\ObservedBy;
 use Spatie\Permission\Models\Permission as BasePermission;
 

@@ -1,16 +1,14 @@
 <?php
 
-namespace App\Filament\Panels\Admin\Resources\Roles\Tables;
+namespace Nexus\Filament\Resources\Roles\Tables;
 
-
-use Filament\Actions\ActionGroup;
-use Filament\Actions\BulkActionGroup;
-use Filament\Actions\DeleteBulkAction;
-use Filament\Tables\Table;
 use Nexus\Filament\Components\Actions\GroupedActionsButton;
 use Nexus\Filament\Components\Tables\Columns\CountColumn;
 use Nexus\Filament\Components\Tables\Columns\DatetimeColumn;
 use Nexus\Filament\Components\Tables\Columns\NameColumn;
+use Filament\Actions\BulkActionGroup;
+use Filament\Actions\DeleteBulkAction;
+use Filament\Tables\Table;
 
 class RolesTable
 {

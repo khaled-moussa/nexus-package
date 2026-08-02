@@ -1,5 +1,5 @@
 <?php
 
-namespace App\Nexus\Permission\Models\Concerns;
+namespace Nexus\Permission\Models\Concerns;
 
 trait HasPermissionRelation {}
