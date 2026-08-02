@@ -2,16 +2,16 @@
 
 namespace App\Nexus\Role\Models\Concerns;
 
-use App\Support\Context\TenantContext;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Attributes\Scope;
+use Nexus\Support\Context\AuthContext;
 
 trait HasRoleScope
 {
     #[Scope]
     public function forCurrentTenant(Builder $query): Builder
     {
-        $tenant = TenantContext::tenant();
+        $tenant = AuthContext::tenant();
 
         if (! $tenant) {
             // No tenant found, return empty query

@@ -6,14 +6,15 @@ use App\Nexus\Role\Models\Builders\RoleQueryBuilder;
 use App\Nexus\Role\Models\Concerns\HasRoleRelation;
 use App\Nexus\Role\Models\Concerns\HasRoleScope;
 use App\Support\Enums\UserPanelEnum;
-use App\Support\Traits\HasTimezoneFormated;
+use Nexus\Domain\Panel\Enums\PanelTypeEnum;
+use Nexus\Support\Concerns\HasFormatTimestamp;
 use Spatie\Permission\Models\Role as BaseRole;
 
 class Role extends BaseRole
 {
     use HasRoleScope;
     use HasRoleRelation;
-    use HasTimezoneFormated;
+    use HasFormatTimestamp;
 
     /*
     |--------------------------------------------------------------------------
@@ -24,7 +25,7 @@ class Role extends BaseRole
     protected $guarded = [];
 
     protected $casts = [
-        'panel' => UserPanelEnum::class,
+        'panel' => PanelTypeEnum::class,
     ];
 
     /*
@@ -59,7 +60,7 @@ class Role extends BaseRole
         return $this->guard_name;
     }
 
-    public function getPanel(): UserPanelEnum
+    public function getPanel(): PanelTypeEnum
     {
         return $this->panel;
     }

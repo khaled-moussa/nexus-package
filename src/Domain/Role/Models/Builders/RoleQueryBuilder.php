@@ -2,8 +2,8 @@
 
 namespace App\Nexus\Role\Models\Builders;
 
-use App\Support\Enums\UserPanelEnum;
 use Illuminate\Database\Eloquent\Builder;
+use Nexus\Domain\Panel\Enums\PanelTypeEnum;
 
 class RoleQueryBuilder extends Builder
 {
@@ -13,7 +13,7 @@ class RoleQueryBuilder extends Builder
     |--------------------------------------------------------------------------
     */
 
-    public function wherePanel(UserPanelEnum $panel): self
+    public function wherePanel(PanelTypeEnum $panel): self
     {
         return $this->where('panel', $panel->value);
     }
@@ -21,17 +21,17 @@ class RoleQueryBuilder extends Builder
     // #Removed All
     public function whereAdminPanel(): self
     {
-        return $this->where('panel', UserPanelEnum::ADMIN->value);
+        return $this->where('panel', PanelTypeEnum::ADMIN->value);
     }
 
     public function whereUserPanel(): self
     {
-        return $this->where('panel', UserPanelEnum::USER->value);
+        return $this->where('panel', PanelTypeEnum::ORGANIZATION->value);
     }
 
     public function whereVendorPanel(): self
     {
-        return $this->where('panel', UserPanelEnum::VENDOR->value);
+        return $this->where('panel', PanelTypeEnum::WORKSHOP->value);
     }
 
     public function whenTenant(?int $tenantId = null): self
@@ -61,16 +61,16 @@ class RoleQueryBuilder extends Builder
     */
     public function adminPanel(): self
     {
-        return $this->wherePanel(UserPanelEnum::ADMIN);
+        return $this->wherePanel(PanelTypeEnum::ADMIN);
     }
 
     public function vendorPanel(): self
     {
-        return $this->wherePanel(UserPanelEnum::VENDOR);
+        return $this->wherePanel(PanelTypeEnum::ORGANIZATION);
     }
 
     public function userPanel(): self
     {
-        return $this->wherePanel(UserPanelEnum::USER);
+        return $this->wherePanel(PanelTypeEnum::WORKSHOP);
     }
 }

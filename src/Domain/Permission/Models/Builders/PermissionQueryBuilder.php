@@ -4,6 +4,7 @@ namespace App\Nexus\Permission\Models\Builders;
 
 use App\Support\Enums\UserPanelEnum;
 use Illuminate\Database\Eloquent\Builder;
+use Nexus\Domain\Panel\Enums\PanelTypeEnum;
 
 class PermissionQueryBuilder extends Builder
 {
@@ -15,17 +16,17 @@ class PermissionQueryBuilder extends Builder
 
     public function whereAdminPanel(): self
     {
-        return $this->where('panel', UserPanelEnum::ADMIN->value);
+        return $this->where('panel', PanelTypeEnum::ADMIN->value);
     }
 
     public function whereUserPanel(): self
     {
-        return $this->where('panel', UserPanelEnum::USER->value);
+        return $this->where('panel', PanelTypeEnum::ORGANIZATION->value);
     }
 
     public function whereVendorPanel(): self
     {
-        return $this->where('panel', UserPanelEnum::VENDOR->value);
+        return $this->where('panel', PanelTypeEnum::WORKSHOP->value);
     }
 
     /*
