@@ -1,6 +1,5 @@
 <?php
 
-use App\Support\Enums\UserPanelEnum;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -14,7 +13,7 @@ return new class extends Migration
     public function up(): void
     {
         Schema::table('roles', function (Blueprint $table) {
-            $table->enum('panel', PanelTypeEnum::cases())
+            $table->enum('panel', PanelTypeEnum::values())
                 ->after('guard_name');
         });
     }

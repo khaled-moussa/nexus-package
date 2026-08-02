@@ -34,16 +34,17 @@ enum PanelTypeEnum: string
     public static function options(): array
     {
         return collect(self::cases())
-            ->except([self::AUTH])
+            ->reject(fn(self $case) => $case === self::AUTH)
             ->mapWithKeys(fn(self $case) => [
                 $case->value => $case->label(),
             ])
-            ->toArray();
+            ->all();
     }
 
     public static function values(): array
     {
         return collect(self::cases())
+            ->reject(fn(self $case) => $case === self::AUTH)
             ->map(fn(self $case) => $case->value)
             ->toArray();
     }

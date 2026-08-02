@@ -14,10 +14,10 @@ class NexusServiceProvider extends ServiceProvider
     public function boot(): void
     {
         $this->loadMigrationsFrom(__DIR__ . '/../database/migrations');
-        // $this->loadViewsFrom(__DIR__ . '/../resources/views', 'nexus');
         $this->loadTranslationsFrom(__DIR__ . '/../lang', 'nexus');
         $this->loadJsonTranslationsFrom(__DIR__ . '/../lang');
         $this->loadMigrationsFrom(__DIR__ . './Filament/Resources');
+        // $this->loadViewsFrom(__DIR__ . '/../resources/views', 'nexus');
 
         $this->publishes(
             [

@@ -12,7 +12,7 @@ class PermissionObserver
      */
     public function creating(Permission $permission): void
     {
-        if (blank($permission->panel)) {
+        if (blank($permission->panel) && $permission->panel !== 'auth') {
             $permission->panel = Filament::getCurrentPanel()?->getId();
         }
     }
