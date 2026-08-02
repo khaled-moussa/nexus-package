@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace Nexus\Role\Policies;
+namespace Nexus\Domain\Role\Policies;
 
+use Nexus\Domain\Role\Models\Role;
 use Illuminate\Foundation\Auth\User as AuthUser;
-use Nexus\Role\Models\Role;
 use Illuminate\Auth\Access\HandlesAuthorization;
 
 class RolePolicy

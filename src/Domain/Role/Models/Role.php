@@ -1,11 +1,11 @@
 <?php
 
-namespace Nexus\Role\Models;
+namespace Nexus\Domain\Role\Models;
 
-use Nexus\Role\Models\Builders\RoleQueryBuilder;
-use Nexus\Role\Models\Concerns\HasRoleRelation;
-use Nexus\Role\Models\Concerns\HasRoleScope;
 use Nexus\Domain\Panel\Enums\PanelTypeEnum;
+use Nexus\Domain\Role\Models\Builders\RoleQueryBuilder;
+use Nexus\Domain\Role\Models\Concerns\HasRoleRelation;
+use Nexus\Domain\Role\Models\Concerns\HasRoleScope;
 use Nexus\Support\Concerns\HasFormatTimestamp;
 use Spatie\Permission\Models\Role as BaseRole;
 

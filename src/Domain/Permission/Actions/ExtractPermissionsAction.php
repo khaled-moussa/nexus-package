@@ -1,7 +1,7 @@
 <?php
 
 
-namespace Nexus\Permission\Actions;
+namespace Nexus\Domain\Permission\Actions;
 
 use Illuminate\Support\Collection;
 

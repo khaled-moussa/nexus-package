@@ -1,28 +1,28 @@
 <?php
 
-namespace Nexus\Role\Actions;
+namespace Nexus\Domain\Role\Actions;
 
-use Nexus\Role\Models\Role;
-use App\Support\Enums\UserPanelEnum;
+use Nexus\Domain\Panel\Enums\PanelTypeEnum;
+use Nexus\Domain\Role\Models\Role;
 use Illuminate\Support\Collection;
 
 class GetRolesAction
 {
-    public function execute(array $with = [], ?UserPanelEnum $panel = null): Collection
+    public function execute(array $with = [], ?PanelTypeEnum $panel = null): Collection
     {
         return $this->query($panel)
             ->with($with)
             ->get();
     }
 
-    public function options(?UserPanelEnum $panel = null): array
+    public function options(?PanelTypeEnum $panel = null): array
     {
         return $this->query($panel)
             ->pluck('display_name', 'id')
             ->toArray();
     }
 
-    private function query(?UserPanelEnum $panel)
+    private function query(?PanelTypeEnum $panel)
     {
         return Role::query()
             ->when($panel, fn ($q) => $q->wherePanel($panel));

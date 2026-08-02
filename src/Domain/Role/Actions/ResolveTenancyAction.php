@@ -1,6 +1,6 @@
 <?php
 
-namespace Nexus\Role\Actions;
+namespace Nexus\Domain\Role\Actions;
 
 use BezhanSalleh\FilamentShield\Support\Utils;
 use Illuminate\Support\Arr;

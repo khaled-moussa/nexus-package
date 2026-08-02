@@ -1,6 +1,6 @@
 <?php
 
-namespace Nexus\Role\Models\Concerns;
+namespace Nexus\Domain\Role\Models\Concerns;
 
 use Illuminate\Database\Eloquent\Relations\MorphTo;
 

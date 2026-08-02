@@ -1,10 +1,10 @@
 <?php
 
-namespace Nexus\Role\Models\Concerns;
+namespace Nexus\Domain\Role\Models\Concerns;
 
+use Nexus\Support\Context\AuthContext;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Attributes\Scope;
-use Nexus\Support\Context\AuthContext;
 
 trait HasRoleScope
 {

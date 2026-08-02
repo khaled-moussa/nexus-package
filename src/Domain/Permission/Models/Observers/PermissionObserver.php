@@ -1,8 +1,8 @@
 <?php
 
-namespace Nexus\Permission\Models\Observers;
+namespace Nexus\Domain\Permission\Models\Observers;
 
-use Nexus\Permission\Models\Permission;
+use Nexus\Domain\Permission\Models\Permission;
 use Filament\Facades\Filament;
 
 class PermissionObserver

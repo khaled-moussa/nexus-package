@@ -1,10 +1,10 @@
 <?php
 
 
-namespace Nexus\Permission\Actions;
+namespace Nexus\Domain\Permission\Actions;
 
-use Nexus\Permission\Models\Permission;
 use Illuminate\Support\Str;
+use Nexus\Domain\Permission\Models\Permission;
 
 class GetPermissionsFilteredByPanelAction
 {

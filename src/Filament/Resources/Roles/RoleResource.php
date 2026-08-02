@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Nexus\Filament\Resources\Roles;
 
-use Nexus\Role\Models\Role;
+use Nexus\Domain\Role\Models\Role;
 use Nexus\Domain\Panel\Enums\PanelTypeEnum;
 use Nexus\Filament\Resources\Roles\Schemas\RoleForm;
 use Nexus\Filament\Resources\Roles\Tables\RolesTable;

@@ -1,8 +1,8 @@
 <?php
 
-namespace Nexus\Role\Actions;
+namespace Nexus\Domain\Role\Actions;
 
-use Nexus\Role\Models\Role;
+use Nexus\Domain\Role\Models\Role;
 use BezhanSalleh\FilamentShield\Support\Utils;
 use Illuminate\Support\Collection;
 
