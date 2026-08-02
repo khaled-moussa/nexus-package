@@ -50,6 +50,11 @@ class PanelPreset
             |--------------------------------------------------------------------------
             */
 
+            ->discoverResources(
+                in: base_path('vendor/internal/nexus/src/Filament/Resources'),
+                for: 'Nexus\\Filament\\Resources'
+            )
+
             ->discoverClusters(
                 in: base_path('vendor/internal/nexus/src/Filament/Clusters'),
                 for: 'Nexus\\Filament\\Clusters'
@@ -76,7 +81,7 @@ class PanelPreset
             | Global Search
             |--------------------------------------------------------------------------
             */
-            
+
             ->globalSearch()
             ->globalSearchKeyBindings(['ctrl+s', 'command+s'])
             ->globalSearchFieldSuffix('Shift + s')
