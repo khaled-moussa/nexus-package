@@ -228,7 +228,9 @@
   "Assign the permissions that belong to this role.": "قم بتعيين الصلاحيات التي تنتمي إلى هذا الدور.",
   "Role Information": "معلومات الدور",
   "Define the role name, authentication guard, and tenancy settings.": "حدد اسم الدور، وحارس المصادقة، وإعدادات تعدد المستأجرين.",
-
+  "Manage roles and their assigned permissions.": "إدارة الأدوار والصلاحيات المعيّنة لها.",
+  "Search by role name": "ابحث باسم الدور",
+  
   "No users": "لا يوجد مستخدمون",
   "No Data": "لا توجد بيانات",
   "No gender": "لا يوجد جنس",

@@ -225,7 +225,9 @@
   "Assign the permissions that belong to this role.": "Assign the permissions that belong to this role.",
   "Role Information": "Role Information",
   "Define the role name, authentication guard, and tenancy settings.": "Define the role name, authentication guard, and tenancy settings.",
-
+  "Manage roles and their assigned permissions.": "Manage roles and their assigned permissions.",
+  "Search by role name": "Search by role name",
+  
   "No users": "No users",
   "No Data": "No Data",
   "No gender": "No gender",
