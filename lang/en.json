@@ -218,7 +218,13 @@
   "View vehicles and manage quotations for each.": "View vehicles and manage quotations for each.",
   "View Vehicles": "View Vehicles",
   "You do not have permission to perform this action.": "You do not have permission to perform this action.",
+  "Role": "Role",
   "Roles": "Roles",
+  "Role Name": "Role Name",
+  "Permissions": "Permissions",
+  "Assign the permissions that belong to this role.": "Assign the permissions that belong to this role.",
+  "Role Information": "Role Information",
+  "Define the role name, authentication guard, and tenancy settings.": "Define the role name, authentication guard, and tenancy settings.",
 
   "No users": "No users",
   "No Data": "No Data",

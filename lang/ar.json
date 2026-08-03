@@ -221,8 +221,14 @@
   "View vehicles and manage quotations for each.": "عرض المركبات وإدارة عروض الأسعار لكل منها",
   "View Vehicles": "عرض المركبات",
   "You do not have permission to perform this action.": "ليس لديك صلاحية لتنفيذ هذا الإجراء.",
+  "Role": "الدور",
   "Roles": "الأدوار",
-  
+  "Role Name": "اسم الدور",
+  "Permissions": "الصلاحيات",
+  "Assign the permissions that belong to this role.": "قم بتعيين الصلاحيات التي تنتمي إلى هذا الدور.",
+  "Role Information": "معلومات الدور",
+  "Define the role name, authentication guard, and tenancy settings.": "حدد اسم الدور، وحارس المصادقة، وإعدادات تعدد المستأجرين.",
+
   "No users": "لا يوجد مستخدمون",
   "No Data": "لا توجد بيانات",
   "No gender": "لا يوجد جنس",
