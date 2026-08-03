@@ -7,8 +7,8 @@ use Nexus\Domain\Setting\UserSetting\Models\Concerns\HasUserSettingRelation;
 use Nexus\Support\Concerns\HasUuid;
 use Nexus\Support\Enums\ThemeEnum;
 use Nexus\Support\Models\BaseModel;
-use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Carbon\Carbon;
 
 class UserSetting extends BaseModel
 {

@@ -2,8 +2,6 @@
 
 namespace Nexus\Domain\Setting\UserSetting\Dtos;
 
-use Nexus\Support\Enums\ThemeEnum;
-
 class UserSettingDto
 {
     public function __construct(
