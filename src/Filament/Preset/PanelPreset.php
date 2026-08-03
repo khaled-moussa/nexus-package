@@ -50,10 +50,10 @@ class PanelPreset
             |--------------------------------------------------------------------------
             */
 
-            ->discoverResources(
-                in: base_path('vendor/internal/nexus/src/Filament/Resources'),
-                for: 'Nexus\\Filament\\Resources'
-            )
+            // ->discoverResources(
+            //     in: base_path('vendor/internal/nexus/src/Filament/Resources'),
+            //     for: 'Nexus\\Filament\\Resources'
+            // )
 
             ->discoverClusters(
                 in: base_path('vendor/internal/nexus/src/Filament/Clusters'),
