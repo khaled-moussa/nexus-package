@@ -59,12 +59,33 @@ class UserField
         ?string $label = 'Gender',
         bool $required = true,
     ): Select {
-        
+
         return SelectField::make(
             name: $name,
             label: $label,
             required: $required,
             options: GenderEnum::options(),
+        );
+    }
+
+    /*
+    |--------------------------------------------------------------------------
+    | Roles
+    |--------------------------------------------------------------------------
+    */
+
+    public static function roles(
+        string $name = 'roles',
+        ?string $label = 'Roles',
+        bool $required = true,
+    ): Select {
+
+        return SelectField::make(
+            name: $name,
+            label: $label,
+            required: $required,
+            relationship: 'roles',
+            titleAttribute: 'display_name'
         );
     }
 }

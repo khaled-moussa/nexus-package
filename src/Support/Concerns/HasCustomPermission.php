@@ -19,7 +19,7 @@ trait HasCustomPermission
         $permission = sprintf(
             '%s:%s:%s',
             $action,
-            static::getModelLabel(),
+            static::getPermissionKey(),
             filament()->getCurrentPanel()->getId(),
         );
 

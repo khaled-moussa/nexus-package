@@ -18,6 +18,8 @@ class SelectField
         ?string $label = null,
         bool $required = true,
         array $options = [],
+        ?string $relationship = null,
+        ?string $titleAttribute = null,
         bool $searchable = false,
         bool $native = false,
         ?string $placeholder = null,
@@ -31,6 +33,7 @@ class SelectField
             ->searchable($searchable)
             ->native($native)
             ->when($label,       fn(Select $field) => $field->label(__($label)))
+            ->when(!is_null($relationship) && !is_null($titleAttribute), fn(Select $field) => $field->relationship($relationship, $titleAttribute))
             ->when($placeholder, fn(Select $field) => $field->placeholder(__($placeholder)))
             ->when($prefixIcon,  fn(Select $field) => $field->prefixIcon($prefixIcon))
             ->when($fullWidth,   fn(Select $field) => $field->columnSpanFull());

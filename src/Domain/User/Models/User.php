@@ -10,7 +10,6 @@ use Nexus\Domain\User\Models\Concerns\HasUserAttribute;
 use Nexus\Domain\User\Models\Concerns\HasUserRelation;
 use Nexus\Support\Concerns\HasFormatTimestamp;
 use Nexus\Support\Concerns\HasUuid;
-use Carbon\Carbon;
 use Filament\Models\Contracts\FilamentUser;
 use Filament\Models\Contracts\HasName;
 use Filament\Models\Contracts\HasTenants;
@@ -22,6 +21,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Spatie\Permission\Traits\HasRoles;
+use Carbon\Carbon;
 
 class User extends Authenticatable implements FilamentUser, HasName, HasTenants, MustVerifyEmail
 {
@@ -49,7 +49,9 @@ class User extends Authenticatable implements FilamentUser, HasName, HasTenants,
     |--------------------------------------------------------------------------
     */
 
-    protected $guarded = [];
+    protected $guarded = [
+        'roles',
+    ];
 
     /*
     |--------------------------------------------------------------------------

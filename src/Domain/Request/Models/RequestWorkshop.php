@@ -9,8 +9,8 @@ use Nexus\Domain\Request\Models\Concerns\HasRequestWorkshopRelation;
 use Nexus\Domain\Request\Models\States\RequestState\RequestStates;
 use Nexus\Support\Concerns\HasUuid;
 use Nexus\Support\Models\BaseModel;
-use Carbon\Carbon;
 use Spatie\ModelStates\HasStates;
+use Carbon\Carbon;
 
 class RequestWorkshop extends BaseModel
 {
