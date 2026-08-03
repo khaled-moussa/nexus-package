@@ -31,8 +31,9 @@ class RoleResource extends Resource
     /* 
     |-------------------------------
     | Resource Configuration
-    |--------------------------------
+    |-------------------------------
     */
+
     protected static string $resourceName = 'Role';
 
     protected static ?string $model = Role::class;
@@ -46,7 +47,7 @@ class RoleResource extends Resource
     /* 
     |-------------------------------
     | Navigation Labels
-    |--------------------------------
+    |-------------------------------
     */
 
     public static function getNavigationLabel(): string
@@ -72,7 +73,7 @@ class RoleResource extends Resource
     /* 
     |-------------------------------
     | Eloquent Query 
-    |--------------------------------
+    |-------------------------------
     */
 
     public static function getEloquentQuery(): Builder
@@ -85,7 +86,7 @@ class RoleResource extends Resource
     /* 
     |-------------------------------
     | Form & Infolist & Table
-    |--------------------------------
+    |-------------------------------
     */
 
     public static function form(Schema $schema): Schema
@@ -101,7 +102,7 @@ class RoleResource extends Resource
     /* 
     |-------------------------------
     | Pages
-    |--------------------------------
+    |-------------------------------
     */
 
     public static function getPages(): array
@@ -117,7 +118,7 @@ class RoleResource extends Resource
     /* 
     |-------------------------------
     | Methods
-    |--------------------------------
+    |-------------------------------
     */
 
     public static function getCluster(): ?string

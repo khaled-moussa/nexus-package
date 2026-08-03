@@ -5,23 +5,11 @@ declare(strict_types=1);
 namespace Nexus\Domain\Role\Policies;
 
 use Nexus\Domain\Role\Models\Role;
+use Nexus\Support\Policies\BasePolicy;
 use Illuminate\Foundation\Auth\User as AuthUser;
-use Illuminate\Auth\Access\HandlesAuthorization;
 
-class RolePolicy
+class RolePolicy extends BasePolicy
 {
-    use HandlesAuthorization;
-
-    protected function permissionPrefix(): string
-    {
-        return filament()->getCurrentPanel()?->getId();
-    }
-
-    protected function can(AuthUser $authUser, string $action): bool
-    {
-        return $authUser->can($action . ':' . $this->permissionPrefix());
-    }
-
     public function viewAny(AuthUser $authUser): bool
     {
         return $this->can($authUser, 'ViewAny:Role');

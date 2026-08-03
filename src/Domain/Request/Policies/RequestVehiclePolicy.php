@@ -4,24 +4,12 @@ declare(strict_types=1);
 
 namespace Nexus\Domain\Request\Policies;
 
+use Nexus\Support\Policies\BasePolicy;
 use Nexus\Domain\Request\Models\RequestVehicle;
 use Illuminate\Foundation\Auth\User as AuthUser;
-use Illuminate\Auth\Access\HandlesAuthorization;
 
-class RequestVehiclePolicy
+class RequestVehiclePolicy extends BasePolicy
 {
-    use HandlesAuthorization;
-
-    protected function permissionPrefix(): string
-    {
-        return filament()->getCurrentPanel()?->getId();
-    }
-
-    protected function can(AuthUser $authUser, string $action): bool
-    {
-        return $authUser->can($action . ':' . $this->permissionPrefix());
-    }
-
     public function viewAny(AuthUser $authUser): bool
     {
         return $this->can($authUser, 'ViewAny:Vehicle');
